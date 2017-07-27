@@ -1,0 +1,142 @@
+<form class="form-horizontal" (ngSubmit)="saveData()" >
+   
+     
+        <div    >
+            <div class="row">
+                <div class="col-md-3">
+                    <select class="form-control" (change)="getProductsContent($event.target.value)" required="required">
+               <option value="" [selected]="true">Select</option>
+               <option *ngFor="let details of products" [ngValue]= "details.product_code" >
+               {{details.product_name}}
+               </option>
+            </select>
+                </div>
+                <div class="col-md-6"></div>
+                <div class="col-md-3">
+                    <a data-toggle="tooltip" data-placement="top" title="Reload the data from the CMS" class="btn bg-submit pull-right" (click)="openConfModal()"><span class=" glyphicon glyphicon-save"></span></a>
+                </div>
+            </div>
+                <div class="panel panel-default">
+         
+      
+            <div [hidden]="addStatus==false">
+            <div class="alert alert-success col-lg-12"> <strong>Success!</strong> File is saved successfully.</div>
+            </div>
+            <div [hidden]="downloadStatus==false">
+            <div class="alert alert-success col-lg-12"> <strong>Success!</strong> File downloaded successfully.</div>
+            </div>
+            <div [hidden]="error==false">
+            <div class="alert alert-danger col-lg-12"> <strong>Error!</strong> Some error occured please try again.</div>
+            </div>
+             </div>
+            <div class="row" [hidden]="noselect">
+                <div class="col-md-12">
+                    <div >
+                        <div >
+                            <!--oao-panel  -->
+                            <div class="oao-panel">
+                                <div id="no-data" class="blockdisplay" *ngIf="notin_alfresco">
+                                    *Description of this product is not present in Alfresco
+                                    </div>
+                                <div class="panel ">
+                                    <!--panel-heading  -->
+                                    <div class="panel-heading">
+                                        <div class="panel-tilte-wraper">
+                                            <span class="panel-icon-circle">
+                                 <img src="/assets/images/{{child_of}}.svg" alt="{{selectedProduct}}">
+                              </span>
+                                            <span class="panel-title font-20px">{{selectedProduct}}</span>
+                                        </div>
+                                        <div class="panel-heading-btn">
+                                            <a href="#" ng-disabled="true" class="btn btn-apply" data-toggle="modal">APPLY NOW</a>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <!--//panel-heading  -->
+                                    <!--panel-body  -->
+                                    <div class="panel-body">
+                                       <!-- <h6 id="text1" contenteditable="true">{{text1}}</h6>
+                                        <h5 id="text2" contenteditable="true" class="interest">
+                                            {{text2}}
+                                        </h5>
+                                        <h5 id="text3" contenteditable="true">{{text3}}</h5>
+                                        <div class="category-description">
+                                            <p id="text4" contenteditable="true">{{text4}}</p>
+                                        </div>-->
+                                        <textarea class="edit_input_content style-h6" name="text1" [(ngModel)]="text1" id="text1" contenteditable="true"></textarea>
+                                        <textarea class="interest edit_input_content style-h5" name="text2"  [(ngModel)]="text2" id="text2" contenteditable="true" >
+                                            </textarea>
+                                        <textarea class="edit_input_content style-h5" name="text3"  [(ngModel)]="text3" id="text3" contenteditable="true">
+                                            </textarea>
+                                        <div class="category-description">
+                                            <textarea class="edit_input_content style-p" name="text4"  [(ngModel)]="text4" id="text4" contenteditable="true">
+                                                </textarea>
+                                        </div>
+                                    </div>
+                                    <!--//panel-body  -->
+                                </div>
+                            </div>
+                            <!--//oao-panel  -->
+                        </div>
+                        <!-- /.container -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row" [hidden]="noselect">
+            <div class="col-md-3" ></div>
+            <div class="col-md-6">
+                <button [disabled]="!(text1_changed ||text2_changed||text3_changed||text4_changed) "type="submit" class="btn bg-submit btn-block">Save</button>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        
+     
+      
+            <!--<p ><b>Please fill in the below details to create new user.</b></p>
+            <br>-->
+        <!--  <div class="form-group has-feedback txtarea">
+      <div class=" material-form">
+          <textarea class="form-control" [(ngModel)]="jsonEdit" formControlName="jsonEdit" rows="40" style="overflow-y: hidden; padding-top: 1.1em;"></textarea>
+      <label for="textarea" class="control-label">Edit Data</label><i class="bar"></i>
+      </div>
+      </div>
+      
+     
+      
+      
+     
+      </div>-->
+
+    
+</form>
+<div class="modal" id="download_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm" style="margin: 150px auto">
+<div class="modal-content">
+    <div class="modal-header modal-title1">
+        <div class="row">
+            <div class="col-md-10 text-center">
+                <h4 class="modal-title" id="largeModalHead">Download from CMS</h4>
+            </div>
+            <div class="col-md-2">
+                <button style='color:white' type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+</div>
+</div>
+<div class="row">
+    &nbsp;
+</div>
+</div>
+<div class="modal-body modal_align_c">
+    <p>The existing data will be replaced from the data downloaded from CMS.<br><b>Are you sure you want to proceed?</b> </p>
+    <br/>
+    <div class="text-center">
+        <div class="pull-left">
+            <button type="button" class="btn bg-submit btn-block" style="width: 86px;height: 44px;margin-right: 10px;margin-left: 80px;" [ladda]="isLoading" data-style="expand-right" data-spinner-color="white" (click)="confirmation()"><span class="ladda-label">Confirm</span></button>
+</div>
+<button type="button" class="btn bg-submit btn-block" style="width: 86px;height: 44px" data-dismiss="modal" data-spinner-color="white"><span class="ladda-label">Close</span></button>
+</div>
+</div>
+</div>
+</div>
+</div>

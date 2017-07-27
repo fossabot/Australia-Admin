@@ -1,0 +1,358 @@
+<aside class="collapse-sidebar" id="sidebar-wrapper">
+				<div class="header-collapse">
+					<div class="close-collapse">
+						<a href="#" class="" id="sidebar-close"><i class="material-icons">keyboard_arrow_left</i></a>
+					</div>
+					<div class="collapse-sidebar-body">
+						<ul>
+							
+								<li><a  [routerLink]="['/dashboard']"><i class="material-icons">trending_up</i> Overview</a></li>
+								<li><a  [routerLink]="['/application']"><i class="material-icons">visibility</i> Applications</a></li>
+								<li><a  [routerLink]="['/dashboard']"><i class="material-icons">schedule</i> Appointments</a></li>
+								<li><a  [routerLink]="['/dashboard']"><i class="material-icons">loyalty</i> Products</a></li>
+							<!-- <li>
+									<h6>PROFILE</h6>
+							</li> -->
+							<li><a  [routerLink]="['/dashboard']"><i class="material-icons">mail</i> Mail</a></li>
+								<li><a  [routerLink]="['/dashboard']"><i class="material-icons">chat_bubble_outline</i> Requests</a></li>
+								<li><a  [routerLink]="['/dashboard']"><i class="material-icons">today</i> Calendar</a></li>
+								<li><a  [routerLink]="['/dashboard']"><i class="material-icons">power_settings_new</i> Logout</a></li>
+							
+						</ul>
+					</div>
+				</div>
+				
+			</aside>
+
+
+
+	<!-- Main navbar -->
+	<div class="navbar navbar-inverse bg-direct navbar-fixed-top">
+	<div class="navbar-collapse collapse" >
+			<ul class="nav navbar-nav">
+				<li><a class="sidebar-control  hidden-xs" id="menu-toggle"><i class="material-icons">menu</i></a></li>
+			</ul>
+		</div> 
+		<div class="navbar-header">
+			<a class="navbar-brand" [routerLink]="['/dashboard']"><img src="/assets/images/logo.png" alt=""></a>
+
+			<ul class="nav navbar-nav visible-xs-block">
+				<li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
+				<li><a class="sidebar-mobile-main-toggle"><i class="icon-paragraph-justify3"></i></a></li>
+			</ul>
+		</div>
+		<div class="navbar-right">
+				<ul class="nav navbar-nav">		
+				<!-- <li><a href="dashboard.html"  class="home"><i class="material-icons">home</i></a></li>				 -->
+					<li class="">
+						<a href="#"  class="avatar">
+							<img src="/assets/images/avatar.png" class="img-circle img-xs" alt="">
+							<i class="material-icons">more_vert</i>
+						</a>
+					</li>					
+				</ul>
+			</div>
+	</div>
+	<!-- /main navbar -->
+
+
+	<!-- Page container -->
+	<div class="page-container">
+<div class="overlay"></div>
+		<!-- Page content -->
+		<div class="page-content">
+
+
+			<!-- Main content -->
+			<div class="content-wrapper">
+				<!-- Content area -->
+				<div class="content">
+				<div class="container">
+					<div class="breadcrumb-line">
+								<ul class="breadcrumb">
+									<li><a [routerLink]="['/dashboard']"><i class="icon-home2 position-left"></i> Home</a></li>
+									<li><a [routerLink]="['/application_complete']">Complete Applications</a></li>
+									<li class="active">Complete Application Details</li>
+								</ul>
+
+								
+							</div>
+
+					<div class="info-msg-wrapper">
+						<div class="info-msg">
+							<i class="material-icons">schedule</i> Appointment Scheduled with <a href="#">Ian Chappel</a> on 12 Sep 2016 11.30 a
+						</div>
+					</div>
+					<div class="inner-content">
+						<div class="row form-group">
+							<div class="col-lg-8">
+								<div class="user-details">
+									<h3>
+										<a href="#" class="btn bg-yellow btn-rounded btn-icon ">
+																<i class="material-icons">person</i>
+										</a>
+										John Smith
+										<span class="sub-text">Assigned owner</span>
+
+									</h3>
+									<p>CRN 00123456</p>
+								</div>
+								<div class="personal-app">
+									<h6>Personal Loan <span class="app-complete">APPLICATION COMPLETED</span></h6>
+									<p>Applied on 12 Aug 2016 using <span>Internet Banking</span></p>
+								</div>
+							</div>
+							<div class="col-lg-4">
+								<div class="option-btns ">
+								<div class="acoounts">
+
+										<div class="btn-group">
+			                    	<!-- <button type="button" class="btn btn-primary btn-icon dropdown-toggle" data-toggle="dropdown">
+				                    	<i class="material-icons">menu</i>
+			                    	</button> -->
+			                    		<button type="button" class="btn btn-account"> Actions</button>
+			                    	<button type="button" class="btn btn-account-toggle dropdown-toggle" data-toggle="dropdown"><b><i class="icon-menu7"></i></b> </button>
+
+			                    	<ul class="dropdown-menu dropdown-menu-right">
+										<li><a href="#"> Schedule appointment</a></li>
+										<li><a href="#"> Schedule call</a></li>
+										<li><a href="#"> Email</a></li>
+										<li><a href="#"> Print summary</a></li>
+										<li><a href="#"> Contact History</a></li>
+										<li><a href="#"> Assign Application</a></li>
+										
+									</ul>
+								</div>
+								</div>
+								</div>
+							</div>
+						</div>
+						<!-- / row-->
+						<div class="custom-tab ">
+						
+									<div class="tabbable">
+										<ul class="nav nav-tabs">
+										<li class="active"><a href="#basic-tab1" data-toggle="tab">PERSONAL DETAILS</a></li>
+											<li><a href="#basic-tab2" data-toggle="tab">LOAN DETAILS</a></li>
+											<li><a href="#basic-tab3" data-toggle="tab">PROPERTY DETAILS</a></li>
+											
+										</ul>
+
+										<div class="tab-content">
+											<div class="tab-pane active" id="basic-tab1">
+												<div class="grid-style">
+													<div class="table-responsive">
+														<table class="table table-hover">
+															
+															<tbody>
+																<tr>
+																	<td class="width-40">First Name</td>
+																	<td class="width-60">John</td>
+																	
+																</tr>
+																<tr>
+																	<td class="width-40">Surname</td>
+																	<td class="width-60">Smith</td>
+																	
+																</tr>
+																<tr>
+																	<td class="width-40">Date of Birth</td>
+																	<td class="width-60">10/10/1991</td>
+																	
+																</tr>
+																<tr>
+																	<td class="width-40">Drivers License<span class="check-icon"><i class="material-icons">done</i></span></td>
+																	<td class="width-60">987652355</td>
+																	
+																</tr>
+																<tr>
+																	<td class="width-40">Mobile Number</td>
+																	<td class="width-60">9854759862</td>
+																	
+																</tr>
+																<tr>
+																	<td class="width-40">Email Address</td>
+																	<td class="width-60">mailname@mail.com</td>
+																	
+																</tr>
+																<tr>
+																	<td class="width-40">Address</td>
+																	<td class="width-60">Postal Address, address street</td>
+																	
+																</tr>
+																<tr>
+																	<td class="width-40">Employement Status</td>
+																	<td class="width-60">Employed</td>
+																	
+																</tr>
+																
+																
+																
+															</tbody>
+														</table>
+													</div>
+												</div>
+
+											</div>
+
+											<div class="tab-pane" id="basic-tab2">
+																						<!-- <div class="grid-style">
+													<div class="table-responsive">
+														<table class="table table-hover">
+															
+															<tbody>
+																<tr>
+																	<td>Loan Amount</td>
+																	<td>$ 360,000</td>
+																	
+																</tr>
+																<tr>
+																	<td>Repayments Amount</td>
+																	<td><label>$ 6000/<span class="small-text">month</span></label></td>
+																	
+																</tr>
+																<tr>
+																	<td>Repay Loan Over</td>
+																	<td>5 Years</td>
+																	
+																</tr>
+																
+																<tr>
+																	<td>Rate</td>
+																	<td>4.07 % p.a</td>
+																	
+																</tr>
+																<tr>
+																	<td>Loan Approval Priority</td>
+																	<td>2 Weeks</td>
+																	
+																</tr>
+																
+															</tbody>
+														</table>
+													</div>
+												</div> -->
+												<div class="grid-style">
+													<div class="table-responsive">
+														<table class="table table-hover">
+															
+															<tbody>
+																<tr>
+																	<td class="width-40">Loan Amount</td>
+																	<td class="width-60">$ 550,000</td>
+																	
+																</tr>
+																<tr>
+																	<td class="width-40">Repayment Amount</td>
+																	<td class="width-60"><label>$  2712/<span class="small-text">month</span></label></td>
+																	
+																</tr>
+																<tr>
+																	<td class="width-40">Repay Loan Over</td>
+																	<td class="width-60">30 Years</td>
+																	
+																</tr>
+																
+																<tr>
+																	<td class="width-40">Rate</td>
+																	<td  class="width-60">4.27 % p.a</td>
+																	
+																</tr>
+																<tr>
+																	<td class="width-40">Loan Approval Priority</td>
+																	<td class="width-60">2 Weeks</td>
+																	
+																</tr>
+																
+															</tbody>
+														</table>
+													</div>
+												</div>
+											</div>
+
+											<div class="tab-pane" id="basic-tab3">
+												<div class="grid-style">
+													<div class="table-responsive">
+														<table class="table table-hover">
+															
+															<tbody>
+																<tr>
+																	<td class="width-40">Loan Type</td>
+																	<td class="width-60">House</td>
+																	
+																</tr>
+																
+																<tr>
+																	<td class="width-40">Property found</td>
+																	<td class="width-60">Yes</td>
+																	
+																</tr>
+																
+																<tr>
+																	<td class="width-40">Purchase Price</td>
+																	<td class="width-60">$ 700,000</td>
+																	
+																</tr>
+																
+																
+															</tbody>
+														</table>
+													</div>
+												</div>
+
+											</div>
+
+											
+										</div>
+										<div class="attachment">
+											<p>Documents Attached</p>
+											<a href="#" class="attach-elmes"><span><i class="material-icons">attach_file</i></span> 1.<span class="doc-name">Document 1.pdf</span></a>
+										</div>
+										<div class="notes">
+											<h6>NOTES</h6>
+											<div class="item">
+												<ol>
+													<li>Appointment requested with a specialist</li>
+													<li>Call scheduled wtieh client on 21 Sep 12 am</li>
+												</ol>
+											</div>
+										</div>
+								</div>
+						</div>
+						
+					</div>
+
+					
+				</div>
+
+					
+
+
+
+
+		       
+
+
+				
+
+
+
+
+
+				</div>
+				<!-- /content area -->
+
+			</div>
+			<!-- /main content -->
+
+		</div>
+		<!-- /page content -->
+
+					<!-- Footer -->
+					<div class="footer text-muted">
+						Copyright 2016. All rights Reserved.
+					</div>
+					<!-- /footer -->
+
+	</div>
+	<!-- /page container -->

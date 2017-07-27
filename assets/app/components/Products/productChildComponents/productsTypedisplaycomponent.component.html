@@ -1,0 +1,308 @@
+<div class="inner-content">
+	<div class="grid-style">
+		<div *ngIf="productTypeLength==0">
+			<div class="text-danger text-center">
+				*No Subscriptions available.
+			</div>
+		</div>
+		<div class="panel panel-flat" *ngIf='productTypeLength!=0'>
+			<div class="panel-heading pad-btm-none">
+
+			</div>
+			<div class="panel-body" style="overflow-x:hidden">
+				<div class="row">
+					<div class="col-md-12">
+						<span class="panel-title col-md-2">&nbsp;&nbsp;Products</span>
+						<a href="http://www.google.com" target="_blank"><span class="panel-title col-md-1" data-toggle="tooltip" data-placement="bottom" title="Click here to subscribe more"><i class="glyphicon glyphicon-plus" ></i></span></a>
+					
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">						<div class="col-md-3" *ngFor='let product_type of productTypes'>
+							<div class="card">
+								<!--<div class="card-header col-md-12">
+									<div class="col-md-4">
+										<img class=" card-image" src="/assets/images/{{product_type.product_type_code}}.svg">
+									</div>
+									<div class="col-md-8">
+										<span class="card-text">{{product_type.product_type_name}}</span>
+									</div>
+								</div>-->
+
+								<img class="card-img-top hover-shadow-imagegallery cursor-imagegallery" style="height:150px;width:100%;" src="/assets/images/{{product_type.product_type_code}}.jpg" alt="{{product_type.product_type_name}}">
+								<div class="card-block">
+									<div>&nbsp;</div>
+									<span class="card-text">{{product_type.product_type_name}}</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<br>
+				<div>&nbsp;</div>
+				<!--<div class="row">
+					<div class="col-md-12">
+						<span *ngFor="let item of ThemeArray">
+<span *ngIf="item!='donotdelete.txt'">
+<div class="card col-md-4">
+<img id="myImg" class="card-img-top" src="/assets/images/template_two.png" alt="template" style="height:196px;width:200px;">
+ 
+<div class="card-block">
+<a disabled href="#" (click)="switchTheme(item[0])" class="btn btn-primary">Apply now</a>
+</div>
+ 
+</div>
+</span>
+						</span>
+						<div id="myModal1" class="modal1">
+							<span class="close2">&times;</span>
+							<img class="modal2-content" id="img01">
+						</div>
+					</div>
+				</div>-->
+
+				<div class="row">
+					<div class="col-md-12">
+						<span class="panel-title col-md-3">&nbsp;&nbsp;User Experience</span>
+						<a href="http://www.google.com" target="_blank"><span class="panel-title col-md-1" data-toggle="tooltip" data-placement="bottom" title="Click here to subscribe more"><i class="glyphicon glyphicon-plus" ></i></span></a>
+					
+					</div>
+				</div>
+
+				<div class="row-imagegallery">
+					<div class="column-imagegallery" *ngFor='let product_type of uxThemes'>
+						<div class="card" [ngClass]="{'fadeCard':(currentTheme==product_type.product_type_name)}">
+							<img class="card-img-top" src="/assets/images/{{product_type.product_type_name}}.jpg" style="width:100%;height:150px" (click)="selectedProductType=product_type;openmodal();currentSlide(1)"
+								class="hover-shadow-imagegallery cursor-imagegallery">
+							<div class="card-block">
+								<span class="card-text">{{product_type.product_type_name}}</span>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div id="mymodal-imagegallery" class="modal-imagegallery">
+					<span class="close-imagegallery cursor-imagegallery" (click)="closeimagegallery()">&times;</span>
+					<div class="modal-imagegallery-content">
+
+						<div class="mySlides-imagegallery">
+							<div class="numbertext">1 / 7</div>
+							<img src="/assets/images/{{selectedProductType.product_type_name}}.jpg" style="width:100%">
+						</div>
+
+						<div class="mySlides-imagegallery">
+							<div class="numbertext">2 / 7</div>
+							<img src="/assets/images/{{selectedProductType.product_type_name}}2.jpg" style="width:100%">
+						</div>
+
+						<div class="mySlides-imagegallery">
+							<div class="numbertext">3 / 7</div>
+							<img src="/assets/images/{{selectedProductType.product_type_name}}3.jpg" style="width:100%">
+						</div>
+
+						<div class="mySlides-imagegallery">
+							<div class="numbertext">4 / 7</div>
+							<img src="/assets/images/{{selectedProductType.product_type_name}}4.jpg" style="width:100%">
+						</div>
+
+						<div class="mySlides-imagegallery">
+							<div class="numbertext">5 / 7</div>
+							<img src="/assets/images/{{selectedProductType.product_type_name}}5.jpg" style="width:100%">
+						</div>
+
+						<div class="mySlides-imagegallery">
+							<div class="numbertext">6 / 7</div>
+							<img src="/assets/images/{{selectedProductType.product_type_name}}6.jpg" style="width:100%">
+						</div>
+
+						<div class="mySlides-imagegallery">
+							<div class="numbertext">7 / 7</div>
+							<img src="/assets/images/{{selectedProductType.product_type_name}}7.jpg" style="width:100%">
+						</div>
+						<a class="prev-imagegallery" (click)="plusSlides(-1)">&#10094;</a>
+						<a class="next-imagegallery" (click)="plusSlides(1)">&#10095;</a>
+
+						<div class="caption-container-imagegallery">
+							<p id="caption"></p>
+						</div>
+
+					</div>
+				</div>
+
+
+
+				<div>&nbsp;</div>
+				<div class="row">
+					<div class="col-md-12">
+						<span class="panel-title col-md-2">&nbsp;&nbsp;Features</span>
+						<a href="http://www.google.com" target="_blank"><span class="panel-title col-md-1" data-toggle="tooltip" data-placement="bottom" title="Click here to subscribe more"><i class="glyphicon glyphicon-plus" ></i></span></a>
+					
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						
+
+						<div class="col-md-3" *ngFor='let product_type of addOns'>
+							<div class="card">
+								<!--<div class="card-header col-md-12 ">
+									<div class="col-md-4">
+										<img class=" card-image" src="/assets/images/HML.svg">
+									</div>
+									<div class="col-md-8">
+										<span class="card-text">{{product_type.product_type_name}}</span>
+									</div>
+								</div>-->
+								<img class="card-img-top" src="/assets/images/{{product_type.product_type_code}}.jpg" alt="{{product_type.product_type_name}}" style="height:150px;width:100%;">
+								<div class="card-block">
+									<div>&nbsp;</div>
+									<span class="card-text">{{product_type.product_type_name}}</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div>&nbsp;</div>
+
+				<!--<div class="oao-panel col-md-4 col-xs-4" *ngFor="let product_type of productTypes">
+					<div class="panel">
+						
+						<div class="panel-heading">
+							<div class="panel-tilte-wraper">
+								<span class="panel-icon-circle">
+                           <img src="/assets/images/HML.svg" >
+                           </span>
+								<span class="panel-title">{{product_type.product_type_name}}</span>
+							</div>
+							<div class="panel-heading-btn">
+									<a (click)="setModalType(details.product_code)" class="btn btn-apply" data-toggle="modal">APPLY NOW</a>
+								</div>
+							<div class="clearfix"></div>
+						</div>
+						<div class="panel-body">
+
+						</div>
+					</div>
+
+				</div>-->
+				<br>
+				<!--<div class="row">
+					<div class="col-md-5 col-xs-5" *ngFor="let product_type of productTypes">
+						<div class="oao-panel">
+							<div class="panel ">
+					
+								<div class="panel-heading">
+									<div class="panel-tilte-wraper">
+										<span class="panel-icon-circle">
+                           <img src="/assets/images/HML.svg" >
+                          
+                           </span>
+										<span class="panel-title1">{{product_type.product_type_name}}</span>
+										<span class="panel-title2">Subscribed on</span>
+										<span class="panel-title3">6/10/2017</span>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<h5 class="panel-title">Add ons</h5>
+
+					<div class="col-md-5" *ngFor="let product_type of addOns">
+						<div class="oao-panel">
+							<div class="panel ">
+					
+								<div class="panel-heading">
+									<div class="panel-tilte-wraper">
+										<span class="panel-icon-circle">
+                           <img src="/assets/images/HML.svg" >
+                          
+                           </span>
+										<span class="panel-title1">{{product_type.product_type_name}}</span>
+										<span class="panel-title2">Subscribed on</span>
+										<span class="panel-title3">6/10/2017</span>
+
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>-->
+			</div>
+			<!-- <div class="table-responsive table-min">
+                        <table class="table table-hover " id="applicant">
+                            <thead>
+                                <tr>
+                                    <th><span ></span>Product
+                                        Name</th>
+                                    <th><span ></span>Product
+                                        ID</th>
+                                        <th>&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="active" *ngFor="let details of products_v | paginate: { itemsPerPage: 10, currentPage: p } ">
+
+                                    <td class="loan-type" style="width: auto;">{{ details?.product_type_name }}</td>
+                                    <td class="loan-type" style="width: auto;">{{ details?.product_type_code }}</td>
+                                     <td>
+                                        <span class="attach-item">
+                                        <a (click)="fetchAppn(details.product_type_code)">
+                                            <i class="glyphicon glyphicon-pencil"></i>
+                                        </a>
+                                </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>-->
+			<!--<div class="modal" id="editProd_modal" tabindex="-1" role="dialog" aria-hidden="true">
+					<div class="modal-dialog modal-sm">
+						<div class="modal-content modal_align_c">
+							<div class="modal-header ">
+								<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+								<h4 class="modal-title" id="largeModalHead">Edit Product</h4>
+							</div>
+							<div class="modal-body ">
+
+
+								<form (ngSubmit)="addProd(basicDetails.value)" #basicDetails="ngForm">
+									<div class="row">
+										<input type="text" class="form-control" placeholder="Product ID" [(ngModel)]="editprod.product_type_code" id="product_type_name"
+											name="product_type_code" #product_type_code="ngModel" readonly>
+
+									</div>
+									<div class="row">
+										<input type="text" class="form-control" placeholder="Product Name" [(ngModel)]="editprod.product_type_name" id="product_type_name"
+											name="product_type_name" #product_type_name="ngModel">
+
+									</div>
+									<br/>
+									<div class="row">
+										<button type="submit" class="btn btn-primary ladda-button" style="width:auto;" [ladda]="isLoading" data-style="expand-right"
+											data-spinner-color="white"><span class="ladda-label">Save Changes</span></button>
+
+									</div>
+								</form>
+
+
+							</div>
+						</div>
+
+					</div>
+				</div>-->
+
+			<!--<div class="panel-footer">
+				<div class="basic-pagination">
+					<pagination-controls (pageChange)="p = $event"></pagination-controls>
+				</div>
+			</div>-->
+		</div>
+	</div>
+</div>

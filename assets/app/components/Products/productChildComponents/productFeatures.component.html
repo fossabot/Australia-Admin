@@ -1,0 +1,139 @@
+
+   
+     
+        <div >
+            <div class="row">
+                <div class="col-md-3">
+                    <select class="form-control" (change)="getProductsContent($event.target.value)" required="required" #product_type>
+               <option value="" [selected]="true">Select</option>
+               <option *ngFor="let details of productTypes" [ngValue]="details.product_type_code" >
+               {{details.product_type_name}}
+               </option>
+            </select>
+                </div>
+                <div class="col-md-6"></div>
+               <!-- <div class="col-md-3">
+                    <a data-toggle="tooltip" data-placement="top" title="Reload the data from the CMS" class="btn bg-submit pull-right" (click)="openConfModal()"><span class=" glyphicon glyphicon-save"></span></a>
+                </div>-->
+            </div>
+                <div class="panel panel-default">
+         <!--
+      
+            <div [hidden]="addStatus==false">
+            <div class="alert alert-success col-lg-12"> <strong>Success!</strong> File is saved successfully.</div>
+            </div>
+            <div [hidden]="downloadStatus==false">
+            <div class="alert alert-success col-lg-12"> <strong>Success!</strong> File downloaded successfully.</div>
+            </div>
+            <div [hidden]="error==false">
+            <div class="alert alert-danger col-lg-12"> <strong>Error!</strong> Some error occured please try again.</div>
+            </div>-->
+             </div>
+            <div class="row" [hidden]="noselect">
+                <div class="col-md-12">
+                    <div >
+                     <div >
+                         <div class="no-row blockdisplay" *ngIf="no_prods">*No Products found.Please configure a product in Product menu.</div>
+                         <div *ngIf=!no_prods >          
+                        <table class="table ">
+                           <thead class="thead_pos">
+                            <tr class="altcolumn set-width">
+                                <th class="altrow set-height">{{product_type.value}}</th>
+                                <th  class="altrow set-height" *ngFor="let det of features">{{det}}</th>
+                             </tr>
+                             </thead>
+                               <tbody class="flex_display">
+                             <tr class="altcolumn" *ngFor="let prod of allProducts;let i =index">
+                                 <td class="altrow set-height" >{{prod.product_name}}</td>
+                                 <td class="altrow set-height" ><input [attr.id]="'min_age-'+i" [(ngModel)]="prod.min_age" [disabled]=!editflag[i]  [class.edit-input-feature]="!editflag[i]" ></td>
+                                 <td class="altrow set-height" ><input [attr.id]="'max_age-'+i" [(ngModel)]="prod.max_age" [disabled]=!editflag[i] [class.edit-input-feature]="!editflag[i]" ></td>
+                                 <td class="altrow set-height" *ngIf="prod.child_of==const.ACTIVE" ><input [attr.id]="'interest_rate-'+i" [(ngModel)]="prod.interest_rate" [disabled]=!editflag[i]  [class.edit-input-feature]="!editflag[i]" ></td>
+                                 <td class="altrow set-height"  *ngIf="prod.child_of==const.ACTIVE"><input [attr.id]="'bonus_interest-'+i" [(ngModel)]="prod.bonus_interest_rate" [disabled]=!editflag[i] [class.edit-input-feature]="!editflag[i]" ></td>
+                                 <td class="altrow set-height" *ngIf="prod.child_of==const.ACTIVE" ><input [attr.id]="'min_deposit-'+i" [(ngModel)]="prod.min_deposit" [disabled]=!editflag[i] [class.edit-input-feature]="!editflag[i]" ></td>
+                                 <td class="altrow set-height" *ngIf="prod.child_of==const.ACTIVE" ><input [attr.id]="'keeping_fees-'+i" [(ngModel)]="prod.keeping_fees" [disabled]=!editflag[i] [class.edit-input-feature]="!editflag[i]" ></td>
+                                 <td class="altrow set-height" *ngIf="prod.child_of==const.ACTIVE" ><input [attr.id]="'transaction_fees-'+i" [(ngModel)]="prod.transaction_fees" [disabled]=!editflag[i] [class.edit-input-feature]="!editflag[i]" ></td>
+                                 <td class="altrow set-height" *ngIf="prod.child_of!=const.ACTIVE" ><input [attr.id]="'fixed_interest_rate-'+i" [(ngModel)]="prod.fixed_interest_rate" [disabled]=!editflag[i]  [class.edit-input-feature]="!editflag[i]" ></td>
+                                  <td class="altrow set-height" *ngIf="prod.child_of!=const.ACTIVE" ><input [attr.id]="'variable_interest_rate-'+i" [(ngModel)]="prod.variable_interest_rate" [disabled]=!editflag[i]  [class.edit-input-feature]="!editflag[i]" ></td>
+                                 <td class="altrow set-height" *ngIf="prod.child_of!=const.ACTIVE"><input [attr.id]="'comparison_rate-'+i" [(ngModel)]="prod.comparison_rate" [disabled]=!editflag[i] [class.edit-input-feature]="!editflag[i]" ></td>
+                                 <td class="altrow set-height" *ngIf="prod.child_of!=const.ACTIVE"><input [attr.id]="'establishment_fees-'+i" [(ngModel)]="prod.establishment_fees" [disabled]=!editflag[i] [class.edit-input-feature]="!editflag[i]" ></td>
+                                 <td class="altrow set-height" *ngIf="prod.child_of!=const.ACTIVE"><input [attr.id]="'loan_service_fees-'+i" [(ngModel)]="prod.loan_service_fees" [disabled]=!editflag[i] [class.edit-input-feature]="!editflag[i]" ></td>
+                                 <td class="altrow set-height" *ngIf="prod.child_of!=const.ACTIVE"><input [attr.id]="'split_loan-'+i" [(ngModel)]="prod.split_loan" [disabled]=!editflag[i] [class.edit-input-feature]="!editflag[i]" ></td>
+                                 <td class="altrow set-height" *ngIf="prod.child_of!=const.ACTIVE"><input [attr.id]="'min_loan_amount-'+i" [(ngModel)]="prod.min_loan_amount" [disabled]=!editflag[i] [class.edit-input-feature]="!editflag[i]" ></td>
+                                 <td class="altrow set-height" *ngIf="prod.child_of!=const.ACTIVE" ><input [attr.id]="'max_loan_amount-'+i" [(ngModel)]="prod.max_loan_amount" [disabled]=!editflag[i] [class.edit-input-feature]="!editflag[i]" ></td>
+                                 <td class="altrow set-height" *ngIf="prod.child_of!=const.ACTIVE"><input  [attr.id]="'min_loan_term-'+i" [(ngModel)]="prod.min_loan_term" [disabled]=!editflag[i] [class.edit-input-feature]="!editflag[i]" ></td>
+                                 <td class="altrow set-height" *ngIf="prod.child_of!=const.ACTIVE"><input [attr.id]="'max_loan_term-'+i" [(ngModel)]="prod.max_loan_term" [disabled]=!editflag[i] [class.edit-input-feature]="!editflag[i]" ></td>
+                                  <td class="altrow set-height" *ngIf="prod.child_of!=const.ACTIVE"><input [attr.id]="'fees_url-'+i" [(ngModel)]="prod.fees_url" [disabled]=!editflag[i] [class.edit-input-feature]="!editflag[i]" ></td>
+                                 <td class="altrow align-text" >
+                                    <button  *ngIf="!editflag[i]" [disabled]="disableflag[i]" type="submit" class="btn bg-submit btn-block " (click)="EditFeature(i,prod.product_code)" ><i class="fa fa-lg fa-pencil" aria-hidden="true"></i></button>
+                                    <button *ngIf="editflag[i]" type="submit" class="btn bg-submit inline-display " (click)="saveFeatures(i,prod.product_code)" ><i class="fa fa-lg fa-floppy-o" aria-hidden="true"></i></button>
+                                    <button *ngIf="editflag[i]" (click)="cancel()" type="submit inline-display" class="btn bg-submit " ><i class="fa fa-lg fa-times" aria-hidden="true"></i></button>
+                                <!-- <span *ngIf="!editflag[i]" [disabled]="disableflag[i]" type="submit" class="btn bg-submit btn-block" (click)="EditFeature(i,prod.product_code)"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                                 <span *ngIf="editflag[i]" type="submit" class="btn bg-submit btn-block" (click)="saveFeatures(i,prod.product_code)" ><i class="fa fa-floppy-o" aria-hidden="true"></i></span>
+                                 <span *ngIf="editflag[i]" (click)="cancel()" type="submit" class="btn bg-submit btn-block"><i class="fa fa-times" aria-hidden="true"></i></span>-->
+                                 </td>
+                            </tr>  
+                           </tbody>  
+                        </table>
+                        </div>
+                      </div>  
+                </div>
+                </div>
+            </div>
+
+        </div>
+      <!--  <div class="row" [hidden]="noselect">
+            <div class="col-md-3" ></div>
+            <div class="col-md-6">
+                <button [disabled]="!(text1_changed ||text2_changed||text3_changed||text4_changed) "type="submit" class="btn bg-submit btn-block">Save</button>
+            </div>
+            <div class="col-md-3"></div>
+        </div>-->
+        
+     
+      
+            <!--<p ><b>Please fill in the below details to create new user.</b></p>
+            <br>-->
+        <!--  <div class="form-group has-feedback txtarea">
+      <div class=" material-form">
+          <textarea class="form-control" [(ngModel)]="jsonEdit" formControlName="jsonEdit" rows="40" style="overflow-y: hidden; padding-top: 1.1em;"></textarea>
+      <label for="textarea" class="control-label">Edit Data</label><i class="bar"></i>
+      </div>
+      </div>
+      
+     
+      
+      
+     
+      </div>-->
+
+    
+
+<div class="modal" id="download_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm" style="margin: 150px auto">
+<div class="modal-content">
+    <div class="modal-header modal-title1">
+        <div class="row">
+            <div class="col-md-10 text-center">
+                <h4 class="modal-title" id="largeModalHead">Download from CMS</h4>
+            </div>
+            <div class="col-md-2">
+                <button style='color:white' type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+</div>
+</div>
+<div class="row">
+    &nbsp;
+</div>
+</div>
+<div class="modal-body modal_align_c">
+    <p>The existing data will be replaced from the data downloaded from CMS.<br><b>Are you sure you want to proceed?</b> </p>
+    <br/>
+    <div class="text-center">
+        <div class="pull-left">
+            <button type="button" class="btn bg-submit btn-block" style="width: 86px;height: 44px;margin-right: 10px;margin-left: 80px;" [ladda]="isLoading" data-style="expand-right" data-spinner-color="white" (click)="confirmation()"><span class="ladda-label">Confirm</span></button>
+</div>
+<button type="button" class="btn bg-submit btn-block" style="width: 86px;height: 44px" data-dismiss="modal" data-spinner-color="white"><span class="ladda-label">Close</span></button>
+</div>
+</div>
+</div>
+</div>
+</div>

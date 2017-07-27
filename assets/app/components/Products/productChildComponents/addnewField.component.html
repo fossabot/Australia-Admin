@@ -1,0 +1,114 @@
+<div class="row">
+    <div class="col-md-3">
+        <select class="form-control" (change)="getProductsContent(productType)" id="productType" #a [(ngModel)]="productType" name="productType">
+               <option value="0" [selected]="true">Select the product</option>
+               <option *ngFor="let details of products" [ngValue]= "details.product_type_code" >
+               {{details.product_type_name}}
+               </option>    
+            </select>
+    </div>
+    <div class="col-md-3">
+        <select [hidden]="productType==0" (change)="getProductsection(section)" class="form-control" [(ngModel)]="section" name="section">
+               <option value="0" [selected]="true">Select the section</option>
+               <option *ngFor="let details of sectionfilter" [ngValue]= "details.value" >
+               {{details.name}}
+               </option>
+            </select>
+    </div>
+
+
+</div>
+<div class="row" [hidden]="section==0 || productType==0 || noData==0">
+    <div class="col-md-12">
+        <div>
+            <div>
+                <!--<div class="no-row blockdisplay" *ngIf="no_prods">*No Products found.Please configure a product in Product menu.</div>-->
+                <div>
+                    <table class="table fieldtable">
+                        <tr>
+                            <td class="fieldtitle set-height-width">Page</td>
+                            <td class="fieldtitle set-height-width">label</td>
+                            <td class="fieldtitle set-height-width">Placeholder</td>
+                            <td class="fieldtitle set-height-width">Enable</td>
+                        </tr>
+                        <tbody class="fieldbody" *ngFor="let det of pageList;let i =index ">
+                            <tr>
+                                <td class="set-height-width">{{det.key}}</td>
+                                <td class="set-height-width"><input [(ngModel)]="det.freetext1[0].label" [disabled]=!editflag1[i] [class.edit-input-feature]="!editflag1[i]">                                    </td>
+                                <td class="set-height-width"><input [(ngModel)]="det.freetext1[0].placeholder" [disabled]=!editflag1[i] [class.edit-input-feature]="!editflag1[i]">                                    </td>
+                                <td class="set-height-width">
+                                    <select class="drop_style" [(ngModel)]="det.freetext1[0].status" [disabled]=!editflag1[i] [class.edit-input-feature]="!editflag1[i]">
+                                     <option value="true">True</option>
+                                     <option value="false">False</option>
+                                     </select>
+                                </td>
+                                <td class="altrow align-text set-height-width edit">
+                                    <button *ngIf="!editflag1[i]" [disabled]="disableflag1[i]" type="submit" class="btn bg-submit btn-block " (click)="EditFeature(i,'editflag1')"><i class="fa fa-lg fa-pencil" aria-hidden="true"></i></button>
+                                    <button *ngIf="editflag1[i]" type="submit" class="btn bg-submit inline-display " (click)="saveFeatures(i,'editflag1',det.freetext1[0].label,det.freetext1[0].placeholder,det.freetext1[0].status,'freetext1',det.key)"><i class="fa fa-lg fa-floppy-o" aria-hidden="true"></i></button>
+                                    <button *ngIf="editflag1[i]" (click)="cancel(i)" type="submit inline-display" class="btn bg-submit "><i class="fa fa-lg fa-times" aria-hidden="true"></i></button>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="set-height-width"> {{det.key}}</td>
+                                <td class="set-height-width"><input [(ngModel)]="det.freetext2[0].label" [disabled]=!editflag2[i] [class.edit-input-feature]="!editflag2[i]">                                    </td>
+                                <td class="set-height-width"><input [(ngModel)]="det.freetext2[0].placeholder" [disabled]=!editflag2[i] [class.edit-input-feature]="!editflag2[i]">                                    </td>
+                                <td class="set-height-width">
+                                    <select class="drop_style" [(ngModel)]="det.freetext2[0].status" [disabled]=!editflag2[i] [class.edit-input-feature]="!editflag2[i]">
+                                     <option value="true">True</option>
+                                     <option value="false">False</option>
+                                     </select>
+                                    <td class="altrow align-text set-height-width edit">
+                                        <button *ngIf="!editflag2[i]" [disabled]="disableflag2[i]" type="submit" class="btn bg-submit btn-block " (click)="EditFeature(i,'editflag2')"><i class="fa fa-lg fa-pencil" aria-hidden="true"></i></button>
+                                        <button *ngIf="editflag2[i]" type="submit" class="btn bg-submit inline-display " (click)="saveFeatures(i,'editflag2',det.freetext2[0].label,det.freetext2[0].placeholder,det.freetext2[0].status,'freetext2',det.key)"><i class="fa fa-lg fa-floppy-o" aria-hidden="true"></i></button>
+                                        <button *ngIf="editflag2[i]" (click)="cancel(i)" type="submit inline-display" class="btn bg-submit "><i class="fa fa-lg fa-times" aria-hidden="true"></i></button>
+
+                                    </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--
+                        <thead class="thead_pos">
+                            <tr class="altcolumn set-width">
+                                <th class="altrow set-height">{{productType}}</th>
+                                <th class="altrow set-height" *ngFor="let det of pageList">{{det}}</th>
+                            </tr>
+                        </thead>
+                        <tbody class="flex_display">
+                            <tr class="altcolumn" *ngFor="let prod of allProducts;let i =index">
+                                <td class="altrow set-height">{{prod.product_name}}</td>
+                                <td class="altrow set-height"><select class="drop_style" [attr.id]="'interest_type-'+i" [(ngModel)]="prod.interest_type"
+                                        [disabled]=!editflag[i] [class.edit-input-feature]="!editflag[i]">
+                                     <option value="FIXED">Fixed</option>
+                                     <option value="VARIABLE">Variable</option>
+                                     </select>
+                                </td>
+                                <td class="altrow set-height"><input [attr.id]="'min_age-'+i" [(ngModel)]="prod.min_age" [disabled]=!editflag[i] [class.edit-input-feature]="!editflag[i]"></td>
+                                <td class="altrow set-height"><input [attr.id]="'max_age-'+i" [(ngModel)]="prod.max_age" [disabled]=!editflag[i] [class.edit-input-feature]="!editflag[i]"></td>
+                                <td class="altrow set-height"><input [attr.id]="'interest_rate-'+i" [(ngModel)]="prod.interest_rate" [disabled]=!editflag[i]
+                                        [class.edit-input-feature]="!editflag[i]"></td>
+                                <td class="altrow set-height" *ngIf="prod.child_of==const.ACTIVE"><input [attr.id]="'bonus_interest-'+i" [(ngModel)]="prod.bonus_interest_rate" [disabled]=!editflag[i]
+                                        [class.edit-input-feature]="!editflag[i]"></td>
+                                <td class="altrow set-height" *ngIf="prod.child_of==const.ACTIVE"><input [attr.id]="'min_deposit-'+i" [(ngModel)]="prod.min_deposit" [disabled]=!editflag[i]
+                                        [class.edit-input-feature]="!editflag[i]"></td>
+                                <td class="altrow align-text">
+                                    <button *ngIf="!editflag[i]" [disabled]="disableflag[i]" type="submit" class="btn bg-submit btn-block " (click)="EditFeature(i,prod.product_code)"><i class="fa fa-lg fa-pencil" aria-hidden="true"></i></button>
+                                    <button *ngIf="editflag[i]" type="submit" class="btn bg-submit inline-display " (click)="saveFeatures(i,prod.product_code)"><i class="fa fa-lg fa-floppy-o" aria-hidden="true"></i></button>
+                                    <button *ngIf="editflag[i]" (click)="cancel()" type="submit inline-display" class="btn bg-submit "><i class="fa fa-lg fa-times" aria-hidden="true"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->

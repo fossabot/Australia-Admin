@@ -1,0 +1,556 @@
+<div class="inner-content" *ngIf="flag">
+<div class="row">
+   <div id='delete-alert' *ngIf='deletedSuccessfully==true' class="alert alert-success col-lg-8"> <strong>Success!</strong> {{del_prod.product_name}} deleted successfully.</div>
+</div>
+<div class="grid-style">
+   <div class="panel panel-flat">
+      <div class="panel-heading pad-btm-none">
+         <div class="row">
+            <h5 class="panel-title">Products</h5>
+            <div class="pull-right">
+               <a href="#" data-toggle="modal" data-target="#createProd_modal">
+               <i class="glyphicon glyphicon-plus" (click)='clearData()'></i>
+               </a>
+            </div>
+         </div>
+      </div>
+      <div class="panel-body">
+         <div class="table-responsive table-min">
+            <table class="table table-hover " id="applicant">
+               <thead>
+                  <tr>
+                     <th><span></span>Product Name
+                     </th>
+                     <!--<th><span></span>Product ID
+                        </th>-->
+                     <th><span></span>Product Type</th>
+                     <th><span></span>Linked Cross Selling Products</th>
+                     <th><span></span>Linked Up Sell Products</th>
+                     <th><span></span>Verification Mode</th>
+                     <th>&nbsp;</th>
+                  </tr>
+               </thead>
+               <tbody *ngIf="!no_prods">
+                  <tr class="active" *ngFor="let details of products | paginate: { id:'tab1',itemsPerPage: 5, currentPage: p } ">
+                     <td class="loan-type" style="width: auto;">{{ details.product_name }}</td>
+                     <!--<td class="loan-type" style="width: auto;">{{ details?.product_code }}</td>-->
+                     <td class="loan-type" style="width: auto;">{{ details.product_type_name }}</td>
+                     <td class="loan-type" style="width: auto;">{{ details.linked_crossselling_product_name }}</td>
+                     <td class="loan-type" style="width: auto;">{{ details.linked_upselling_product_name }}</td>
+                     <td class="loan-type" style="width: auto;">{{(details.verification_mode==true)?'Auto':'Manual'}}</td>
+                     <td>
+                        <span class="attach-item" (click)="fetchAppn(details.product_code)">
+                        <a>
+                        <i class="glyphicon glyphicon-pencil"></i>
+                        </a>
+                        </span>
+                     </td>
+                     <td>
+                        <span class="attach-item" (click)="delProd(details.product_code,details.product_name)">
+                        <a>
+                        <i    class="glyphicon glyphicon-trash"></i>
+                        </a>
+                        </span>
+                     </td>
+                     <td>
+                        <span class="attach-item" data-toggle="modal" data-target="#url_modal" (click)="showCampaignModal(details.product_code)">
+                        <a>
+                        <i class="glyphicon glyphicon-link"></i>
+                        </a>
+                        </span>
+                     </td>
+                  </tr>
+               </tbody>
+               <tbody *ngIf="no_prods">
+                  <tr class="no-row block">
+                     <td colspan="8"> *No Products Available for display.Configure by clicking on add icon.</td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+         <div class="modal" id="url_modal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-sm" style="margin: 150px auto">
+               <div class="modal-content">
+                  <div class="modal-header modal-title1">
+                     <div class="row">
+                        <div class="col-md-10 text-center">
+                           <h4 class="modal-title " id="largeModalHead">Configure Camapign URL</h4>
+                        </div>
+                        <div class="col-md-2">
+                           <button class="pull-right" style='color:white' type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        </div>
+                     </div>
+                     <div class="row">
+                        &nbsp;
+                     </div>
+                  </div>
+                  <div class="modal-body">
+                     <div *ngIf="add_campaign">
+                        <div class="form-group has-feedback">
+                           <div class=" material-form">
+                              <input type="text" [(ngModel)]="campaign_source">
+                              <label for="input" class="control-label">Enter Campaign Medium </label><i class="bar"></i>
+                           </div>
+                        </div>
+                        <div class="form-group has-feedback">
+                           <div class=" material-form">
+                              <input type="text" [(ngModel)]="campaign_code">
+                              <label for="input" class="control-label"> Enter Campaign ID </label><i class="bar"></i>
+                           </div>
+                        </div>
+                        <div class="form-group">
+                           <input type="submit" class="btn bg-submit btn-block" value="Get Url" (click)="getCampaignURL()">
+                        </div>
+                     </div>
+                     <div *ngIf="!add_campaign">
+                        <div class="form-group has-feedback">
+                           <div class=" material-form">
+                              <input type="text" class="inline" [(ngModel)]="campaign_url" #copyinput>
+                              <button type="button" title="Copy" [ngxClipboard]="copyinput" (cbOnSuccess)="cal_success()" [class.btn-success]="isCopied"
+                              class="btn btn-default btn-sm">
+                              <span class="glyphicon glyphicon-copy"></span>
+                              </button>
+                              <label for="input" class="control-label">Campaign URL
+                              </label>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="modal" id="createProd_modal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-sm" style="margin: 150px auto">
+               <div class="modal-content">
+                  <div class="modal-header modal-title1">
+                     <div class="row">
+                        <div class="col-md-10 text-center">
+                           <h4 class="modal-title " id="largeModalHead" *ngIf='isAddMode'>Configure Product</h4>
+                           <h4 class="modal-title " id="largeModalHead" *ngIf='!isAddMode'>Edit Product</h4>
+                        </div>
+                        <div class="col-md-2">
+                           <button class="pull-right" style='color:white' type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        </div>
+                     </div>
+                     <div class="row">
+                        &nbsp;
+                     </div>
+                  </div>
+                  <div class="modal-body">
+                     <form [formGroup]="myForm" (ngSubmit)="addProd(myForm.value)">
+                     <!--<div class="form-group has-feedback">
+                        <div class=" material-form">
+                        	<input style="color:black" type="text" formControlName="product_code" [(ngModel)]="add_prod.product_code" maxlength="3" pattern="^[a-zA-Z0-9]{3}$"
+                        		(keyup)='$event.target.value=$event.target.value.toUpperCase()' required="required" />
+                        	<!--<input type="text" formControlName="product_code" [(ngModel)]="add_prod.product_code" maxlength="3" pattern="^[a-zA-Z0-9]{3}$" (keyup)='$event.target.value=$event.target.value.toUpperCase()' >-->
+                     <!--	<label for="input" class="control-label" class='product_code_label'>Product id</label><i class="bar"></i>
+                        <small class="text-danger" [hidden]="isAddMode==false || validateProductCode() || add_prod.product_code==''">
+                        	Please enter valid product id.
+                        </small>
+                        </div>
+                        </div>-->
+                     <div class="form-group has-feedback">
+                        <div class=" material-form">
+                           <input type="text" class="form-control" [(ngModel)]="add_prod.product_name" formControlName="product_name" required="required">
+                           <label for="input" class="control-label">Product name </label><i class="bar"></i>
+                        </div>
+                     </div>
+                     <div class="form-group has-feedback">
+                        <div class=" material-form">
+                           <input type="text" class="form-control" [(ngModel)]="add_prod.core_identifier" formControlName="core_identifier" required="required">
+                           <label for="input" class="control-label">Core Identifier</label><i class="bar"></i>
+                        </div>
+                     </div>
+                     <div class="form-group has-feedback">
+                        <div class=" material-form">
+                           <select class="form-control" [(ngModel)]="add_prod.child_of" formControlName="child_of" required="required">
+                           <option value="" [selected]="true">Select</option>
+                           <option *ngFor="let details of productTypes" [ngValue]= "details.product_type_code"  >
+                           {{details.product_type_name}}
+                           </option>
+                           </select>
+                           <label for="input" class="control-label" class='product_code_label'>Product type</label><i class="bar"></i>
+                        </div>
+                     </div>
+                     <div *ngIf="checked_cross_sell">
+                        <div class="form-group has-feedback">
+                           <div class=" material-form">
+                              <!--<input list="assign_drop" contenteditable="true" [(ngModel)]="details.assigned_to" id="assign_val" name="assign_val" #assign_val="ngModel"
+                                 class="edit_input" (focus)="getinitialAssign(i,details.assigned_to,details.application_id,$event)" (blur)="changeAssign('#id-',i,assign_val.value,false)"
+                                 assignValidate>
+                                 <datalist id="assign_drop">
+                                 <option value="Unassigned">
+                                 <option *ngFor="let details of admins" [attr.value]="details.username">
+                                 </datalist>-->
+                              <input id="cross_sell_id" style="display:none" type="text" autocomplete="off" list="crossell_drop" [(ngModel)]="add_prod.linked_crossselling_product_name" formControlName="linked_crossselling_product"
+                              class="edit_input" required="required" >
+                              <input id="cross_sell_id_dummy" type="text" autocomplete="off" list="crossell_drop" [(ngModel)]="add_prod.dummy_crosssell_name"
+                              class="edit_input" [ngModelOptions]="{standalone: true}" (keyup)='$event.target.value=$event.target.value.toUpperCase()'
+                              required="required">
+                              <!--<select class="form-control" [(ngModel)]="add_prod.linked_crossselling_product" formControlName="linked_crossselling_product"
+                                 required="false">
+                                  //////[ngModelOptions]="{standalone: true}"
+                                 <option value="" >Select</option>
+                                 <option *ngFor="let crossSellProduct of crossSellingProducts" [ngValue]= "crossSellProduct.product_code"  >
+                                 {{crossSellProduct.product_name}} 
+                                 </option>
+                                 </select>-->
+                              <label for="input" class="control-label">{{cross_sell_labelname}}</label><i class="bar"></i>
+                           </div>
+                        </div>
+                     </div>
+                     <div *ngIf="checked_cross_sell">
+                        <div class="form-group has-feedback">
+                           <div class=" material-form">
+                              <textarea class="form-control" [(ngModel)]="add_prod.display_text" formControlName="display_text"></textarea>
+                              <label for="input" id="disable_display_text_label" class="control-label">Description</label><i class="bar"></i>
+                           </div>
+                        </div>
+                     </div>
+                     <div *ngIf="checked_up_sell">
+                        <div class="form-group has-feedback">
+                           <div class=" material-form">
+                              <input id="upsell_id" type="text" style="display:none" autocomplete="off" list="upsell_drop" [(ngModel)]="add_prod.linked_upselling_product_name" formControlName="linked_upsell_product"
+                              class="edit_input" (keyup)='$event.target.value=$event.target.value.toUpperCase()' >
+                              <input id="upsell_id_dummy" type="text" autocomplete="off" list="upsell_drop" [(ngModel)]="add_prod.dummy_upsell_name" class="edit_input"
+                              (keyup)='$event.target.value=$event.target.value.toUpperCase()' [ngModelOptions]="{standalone: true}" required="required">
+                              <!--<select class="form-control" [(ngModel)]="add_prod.linked_upsell_product" formControlName="linked_upsell_product" required="false">
+                                 <option value="" >Select</option>
+                                 <option *ngFor="let linked_upsell_product of upSellingProducts" [ngValue]= "linked_upsell_product.product_code"  >
+                                 {{linked_upsell_product.product_name}} 
+                                 </option>
+                                 </select>-->
+                              <label for="input" class="control-label">{{up_sell_labelname}}</label><i class="bar"></i>
+                           </div>
+                        </div>
+                     </div>
+                     <div *ngIf="checked_up_sell">
+                        <div class="form-group has-feedback">
+                           <div class=" material-form">
+                              <textarea class="form-control" [(ngModel)]="add_prod.display_text_upsell" formControlName="display_text_upsell"></textarea>
+                              <label for="input" id="disable_display_upselltext_label" class="control-label">Description</label><i class="bar"></i>
+                           </div>
+                        </div>
+                     </div>
+                     <div>
+                        <div class="form-group has-feedback">
+                           <div class=" material-form">
+                              <select class="form-control" [(ngModel)]="add_prod.verification_mode" formControlName="verification_mode">
+                              <option value="false" [selected]="true">Manual</option>
+                              <option value="true">Auto</option>
+                              </select>
+                              <label for="input" class="control-label" class='product_code_label'>Verification Mode</label><i class="bar"></i>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="form-group has-feedback">
+                        <div>
+                           <div class="checkbox" *ngIf="noCRS">
+                              <input id="check_cross_sell" class="styled term" name="check" (change)="removeCross_sell()" type="checkbox">
+                              <label class="fonts">Add Cross Selling Product</label> <br/>
+                           </div>
+                           <div class="checkbox" *ngIf="noUPS">
+                              <input id="check_up_sell" class="styled term" name="check1" (change)="removeUp_sell()" type="checkbox">
+                              <label class="fonts">Add UpSell Product</label> <br/>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <input *ngIf='isAddMode' type="submit" class="btn bg-submit btn-block" value="Add">
+                        <input *ngIf='!isAddMode' type="submit" class="btn bg-submit btn-block" value="Save changes">
+                     </div>
+                     </form>
+                     <!--
+                        <form (ngSubmit)="addProd(basicDetails.value)" #basicDetails="ngForm">
+                        	<div class="row">
+                        		<div class="form-group input-group col-md-12">
+                        			<label class="has-float-label">
+                        		<input type="text" class="form-control" placeholder="Product ID" [(ngModel)]="add_prod.product_code" id="product_code" name="product_code"
+                        			maxlength="3" pattern="^[a-zA-Z0-9]{3}$" (keyup)='$event.target.value=$event.target.value.toUpperCase()' #product_code="ngModel"
+                        			[disabled]='disableProductCode(add_prod.product_code)'>
+                        		
+                        			 <span>Product id</span>
+                        						 </label>
+                        			<small class="text-danger" [hidden]='isAddMode==false || product_code.valid || product_code.pristine'>
+                        				Please enter valid product id.
+                        			</small>
+                        		</div>
+                        	</div>
+                        	<div class="row">
+                        		<div class="form-group input-group col-md-12">
+                        			<label class="has-float-label">
+                        		<input type="text" class="form-control" placeholder="Product Name" [(ngModel)]="add_prod.product_name" id="product_name"
+                        			name="product_name" #product_name="ngModel">
+                        			 <span>Product name</span>
+                        						 </label>
+                        		</div>
+                        	</div>
+                        
+                        	<div class="row">
+                        		<div class="form-group input-group col-md-12">
+                        			<label class="has-float-label">
+                        		<select [disabled]="disableProductType(add_prod.child_of)" class="form-control" id="title" [(ngModel)]="add_prod.child_of"
+                        			name="child_of" #child_of="ngModel">
+                                                <option value='0' >Select</option>
+                                                          <option *ngFor="let details of productTypes" [ngValue]= "details.product_type_code"  >
+                        				 {{details.product_type_name}}
+                                                       </option>
+                                                    </select>
+                        	 <span>Product type</span>
+                        						 </label>
+                        		</div>
+                        	</div>
+                        
+                        	<div class="row" *ngIf="add_prod.child_of=='SAV' || add_prod.child_of=='HML' || add_prod.child_of=='PRL'">
+                        		<div class="form-group input-group col-md-12">
+                        			<label class="has-float-label">
+                        		<select class="form-control" id="title" [(ngModel)]="add_prod.linked_crossselling_product" name="linked_crossselling_product"
+                        			#linked_crossselling_product="ngModel">
+                                                <option value='0'>Select</option>
+                                                          <option *ngFor="let crossSellProduct of crossSellingProducts" [ngValue]= "crossSellProduct.product_code"  >
+                                                                  {{crossSellProduct.product_name}} 
+                                                       </option>
+                                                    </select>
+                        	 <span>Cross selling product</span>
+                        						 </label>
+                        		</div>
+                        	</div>
+                        	<br/>
+                        
+                        	<div class="row" *ngIf="edit_prod.child_of=='SAV' || edit_prod.child_of=='HML' || edit_prod.child_of=='PRL'">
+                        		<select class="form-control" id="title" [(ngModel)]="edit_prod.linked_crossselling_product" name="linked_crossselling_product"
+                        			#linked_crossselling_product="ngModel">
+                                                <option value='0'>Select</option>
+                                                          <option *ngFor="let crossSellProduct of crossSellingProducts" [ngValue]= "crossSellProduct.product_code"  >
+                                                                  {{crossSellProduct.product_name}} 
+                                                       </option>
+                                                    </select>
+                        	</div>
+                        	<div class="row" *ngIf="edit_prod.child_of=='CRS'">
+                        		<textarea class="form-control" [(ngModel)]="edit_prod.display_text" name="display_text" #display_text="ngModel" required placeholder="Add Display Text"></textarea>
+                        	</div>
+                        
+                        	<br/>
+                        	<div class="row">
+                        
+                        		<button type="submit" class="btn btn-primary ladda-button" style="width:auto;" [ladda]="isLoading" data-style="expand-right"
+                        			data-spinner-color="white"><span class="ladda-label">Save Changes</span></button>
+                        
+                                                    </div>
+                                                </form>
+                        -->
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="modal" id="del_modal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-sm" style="margin: 150px auto">
+               <div class="modal-content">
+                  <div class="modal-header modal-title1">
+                     <div class="row">
+                        <div class="col-md-10 text-center">
+                           <h4 class="modal-title" id="largeModalHead">Delete Product</h4>
+                        </div>
+                        <div class="col-md-2">
+                           <button style='color:white' type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        </div>
+                     </div>
+                     <div class="row">
+                        &nbsp;
+                     </div>
+                  </div>
+                  <div class="modal-body modal_align_c">
+                     <p>Are you sure you want to delete <b>{{del_prod.product_name}}</b></p>
+                     <br/>
+                     <div class="text-center">
+                        <div class="pull-left">
+                           <button type="button" class="btn bg-submit btn-block" style="width: 86px;height: 44px;margin-right: 10px;margin-left: 80px;" [ladda]="isLoading" data-style="expand-right" data-spinner-color="white" (click)="delConf()"><span class="ladda-label">Confirm</span></button>
+                        </div>
+                        <button type="button" class="btn bg-submit btn-block" style="width: 86px;height: 44px" data-dismiss="modal" data-spinner-color="white"><span class="ladda-label">Close</span></button>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="modal" id="cannot_del_modal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-sm" style="margin: 150px auto">
+               <div class="modal-content">
+                  <div class="modal-header modal-title1 modal_align_c">
+                     <div class="row">
+                        <div class="col-md-10 text-center">
+                           <h4 class="modal-title" id="largeModalHead">Delete Product</h4>
+                        </div>
+                        <div class="col-md-2">
+                           <button style='color:white' class="pull-right" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        </div>
+                     </div>
+                     <div class="row">
+                        &nbsp;
+                     </div>
+                  </div>
+                  <div class="modal-body modal_align_c">
+                     <p><b>{{del_prod.product_name}}</b> is linked with another product,delete that linkage and try again later.</p>
+                     <br/>
+                     <button type="button" class="btn bg-submit btn-block" data-dismiss="modal" data-spinner-color="white"><span class="ladda-label">Ok</span></button>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="panel-footer">
+            <div class="basic-pagination">
+               <pagination-controls id='tab1' (pageChange)="p = $event"></pagination-controls>
+            </div>
+         </div>
+         <datalist id="crossell_drop">
+            <option *ngFor="let crossSellProduct of crossSellingProducts">
+               {{crossSellProduct.product_name}}
+            </option>
+         </datalist>
+         <datalist id="upsell_drop">
+            <option *ngFor="let linked_upsell_product of upSellingProducts">
+               {{linked_upsell_product.product_name}}
+            </option>
+         </datalist>
+      </div>
+   </div>
+   <!-- ADD-ONS -->
+   <div class="panel panel-flat" *ngIf="((noCRS || noUPS)&&(noCRS_length || noUPS_length))">
+      <div class="panel-heading pad-btm-none">
+         <div class="row">
+            <h5 class="panel-title">Add-Ons</h5>
+            <div class="pull-right">
+               <a href="#" data-toggle="modal" data-target="#createAddon_modal">
+               <i class="glyphicon glyphicon-plus" (click)='clearData()'></i>
+               </a>
+            </div>
+         </div>
+      </div>
+      <div class="panel-body">
+         <div class="table-responsive table-min">
+            <table class="table table-hover " id="applicant">
+               <thead>
+                  <tr>
+                     <th>Product Name</th>
+                     <th>Product Type</th>
+                     <th>Display Text</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr class="active" *ngFor="let details of allAddons | paginate: { id: 'tab2',itemsPerPage: 5, currentPage: newp } ">
+                     <td class="loan-type" style="width: auto;">{{ details?.product_name }} </td>
+                     <td class="loan-type" style="width: auto;" *ngIf="details.child_of == const.CROSSSELL">Cross Sell</td>
+                     <td class="loan-type" style="width: auto;" *ngIf="details.child_of == const.UPSELL">Up Sell</td>
+                     <td class="loan-type" style="width: auto;" *ngIf="details.child_of == const.CROSSSELL">{{ details?.display_text }}</td>
+                     <td class="loan-type" style="width: auto;" *ngIf="details.child_of == const.UPSELL">{{ details?.display_text_upsell }}</td>
+                     <td>
+                        <span class="attach-item">
+                        <a  (click)="fetchAddOn(details.product_code)">
+                        <i class="glyphicon glyphicon-pencil"></i>
+                        </a>
+                        </span>
+                     </td>
+                     <td>
+                        <span class="attach-item">
+                        <a  (click)="delAddOn(details.product_code,details.product_name)">
+                        <i class="glyphicon glyphicon-trash"></i>
+                        </a>
+                        </span>
+                     </td>
+                  </tr>
+                  <!--
+                     <tr class="active" *ngFor="let details of upSellingProducts ">
+                        <td class="loan-type" style="width: auto;">{{ details?.product_name }}</td>
+                     <td class="loan-type" style="width: auto;">Up Sell </td>
+                        <td class="loan-type" style="width: auto;">{{ details?.display_text_upsell }}</td>
+                        <td>
+                           <span class="attach-item">
+                           <a  (click)="fetchAddOn(details.product_code)">
+                           <i class="glyphicon glyphicon-pencil"></i>
+                           </a>
+                           </span>
+                        </td>
+                        <td>
+                           <span class="attach-item">
+                           <a  (click)="delAddOn(details.product_code)">
+                           <i class="glyphicon glyphicon-trash"></i>
+                           </a>
+                           </span>
+                        </td>
+                     </tr>-->
+               </tbody>
+            </table>
+         </div>
+         <div class="modal" id="createAddon_modal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-sm" style="margin: 150px auto">
+               <div class="modal-content">
+                  <div class="modal-header modal-title1">
+                     <div class="row">
+                        <div class="col-md-10 text-center">
+                           <h4 class="modal-title " id="largeModalHead" *ngIf='isAddMode'>Configure Add-on</h4>
+                           <h4 class="modal-title " id="largeModalHead" *ngIf='!isAddMode'>Edit Add-on</h4>
+                        </div>
+                        <div class="col-md-2">
+                           <button class="pull-right" style='color:white' type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        </div>
+                     </div>
+                     <div class="row">
+                        &nbsp;
+                     </div>
+                  </div>
+                  <div class="modal-body">
+                     <form [formGroup]="myAddOnFrom" (ngSubmit)="addAddOn(myAddOnFrom.value)">
+                     <div class="form-group has-feedback">
+                        <div class=" material-form">
+                           <input type="text" style="display:none" [(ngModel)]="add_addon.product_code" formControlName="product_code" >
+                           <input type="text" style="display:none" list="addon_drop" class="form-control" [(ngModel)]="add_addon.product_name" formControlName="product_name" (keyup)='$event.target.value=$event.target.value.toUpperCase()'
+                           required="required">
+                           <input id="addcrossorup" type="text" autocomplete="off" list="addon_drop" [(ngModel)]="add_addon.dummy_addon_name" class="edit_input"
+                           [ngModelOptions]="{standalone: true}" (keyup)='$event.target.value=$event.target.value.toUpperCase()' required="required">
+                           <label for="input" class="control-label">Product name </label><i class="bar"></i>
+                        </div>
+                     </div>
+                     <div class="form-group has-feedback">
+                        <div class=" material-form">
+                           <select class="form-control" [(ngModel)]="add_addon.child_of" formControlName="child_of" required="required">
+                           <option value="" [selected]="true">Select</option>
+                           <!--<option *ngFor="let details of productTypes" [ngValue]= "details.product_type_code"  >
+                              {{details.product_type_name}}
+                              </option>-->
+                           <option value="{{const.CROSSSELL}}" *ngIf="noCRS">Cross Sell</option>
+                           <option value="{{const.UPSELL}}" *ngIf="noUPS">UpSell</option>
+                           </select>
+                           <label for="input" class="control-label" class='product_code_label'>Product type</label><i class="bar"></i>
+                        </div>
+                     </div>
+                     <div>
+                        <div class="form-group has-feedback">
+                           <div class=" material-form">
+                              <textarea class="form-control" [(ngModel)]="add_addon.display_text" formControlName="display_text"></textarea>
+                              <label for="input" id="disable_display_text_label" class="control-label">Display text</label><i class="bar"></i>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <input *ngIf='isAddMode' type="submit" class="btn bg-submit btn-block" value="Add">
+                        <input *ngIf='!isAddMode' type="submit" class="btn bg-submit btn-block" value="Save changes">
+                     </div>
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+         
+         <datalist id="addon_drop">
+            <option *ngFor="let addons of allAddons">
+               {{addons.product_name}}
+            </option>
+         </datalist>
+         <div class="panel-footer">
+            <div class="basic-pagination">
+               <pagination-controls id='tab2' (pageChange)="newp = $event"></pagination-controls>
+            </div>
+         </div>
+      </div>
+   </div>
+   <!-- ADD-ONS END -->
+</div>

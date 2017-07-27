@@ -1,0 +1,186 @@
+<form class="form-horizontal" (ngSubmit)="addUser(myForm.value)" [formGroup]="myForm">
+	<div class="modal-body">
+		<div class="col-md-3"></div>
+        <div class="col-md-6">
+        <div class="panel panel-default">
+            
+			
+            <div class="panel-heading" style='background:#003479;color:white;font-weight: 100;font-size: 22px;text-align:center'>Create user</div>
+			<div class="panel-body" >
+				<div *ngIf="addStatus=='success'" class="row">
+					<div class="alert alert-success"> <strong>Success!</strong> User successfully created.</div>
+				</div>
+
+				<!--<p ><b>Please fill in the below details to create new user.</b></p>
+				<br>-->
+				<div class="form-group has-feedback">
+					<div class=" material-form">
+						<input type="text" class="form-control" [(ngModel)]="user.username" formControlName="username" required="required">
+						<label for="input" class="control-label">First name</label><i class="bar"></i>
+					</div>
+				</div>
+
+				<div class="form-group has-feedback">
+					<div class=" material-form">
+						<input type="text" class="form-control" [(ngModel)]="user.lname" formControlName="lname" required="required">
+						<label for="input" class="control-label">Last name</label><i class="bar"></i>
+					</div>
+				</div>
+
+				<div class="form-group has-feedback">
+					<div class="material-form">
+						<input type="text" class="form-control" [(ngModel)]="user.email" formControlName="email" required="required">
+						<label for="input" class="control-label">Email</label><i class="bar"></i>
+						<div [hidden]="user.email=='' || validateEmail()" class="text-danger">
+                                                    Invalid email address.
+                                                </div>
+                                            </div>
+                                        </div>
+
+				<div class="form-group has-feedback">
+					<div class=" material-form">
+						<input type="text" class="form-control" [(ngModel)]="user.contactNumber" formControlName="contactNumber" required="required">
+						<label for="input" class="control-label">Mobile</label><i class="bar"></i>
+					</div>
+				</div>
+				<div class="form-group has-feedback">
+					<div class=" material-form">
+						<select class="form-control select" [(ngModel)]="user.role" formControlName="role">
+                                                    <option value="null" [selected]="true">Select</option>
+                                                    <option value="Admin">Admin</option>
+                                                    <option value="Bank User">Bank User</option>
+                                                   
+                                                </select>
+
+						<label for="input" class="control-label">Role selection</label><i class="bar"></i>
+						<span class="help-block">Set user level role</span>
+					</div>
+				</div>
+
+				<div class="form-group has-feedback">
+					<div class=" material-form">
+						<input type="password" class="form-control" [(ngModel)]="user.password" formControlName="password" required="required">
+						<label for="input" class="control-label">Password</label><i class="bar"></i>
+					</div>
+				</div>
+
+				<div class="form-group has-feedback">
+					<div class=" material-form">
+						<input type="password" class="form-control" [(ngModel)]="user.cp" formControlName="cp" required="required">
+						<label for="input" class="control-label">Confirm password</label><i class="bar"></i>
+						<div *ngIf="user.cp!='' && user.cp!=undefined  && user.password  !=user.cp" class="text-danger">
+							Password Doesn't Match!
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<button type="button" class=" btn bg-submit btn-block" id="modalClose" data-dismiss="modal">Close</button>
+				</div>
+				<div class="col-md-6">
+					<button type="submit" class="  btn bg-submit btn-block">Create</button>
+				</div>
+
+
+			</div>
+			</div>
+
+		</div>
+
+
+	</div>
+
+
+
+</form>
+
+<!--
+<form class="form-horizontal" (ngSubmit)="addUser(myForm.value)" [formGroup]="myForm" >
+                            <div class="modal-body">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <div *ngIf="addStatus=='success'" class="row">
+                                                   <div class="alert alert-success col-md-4"> <strong>Success!</strong> User successfully created.</div>
+                                                </div>
+                                        <p>Please fill in the below details to create new user.</p>
+                                    </div>
+                                    <div class="panel-body">
+
+                                        <div class="form-group">
+                                            <label class="col-md-2 col-xs-12 control-label">First Name</label>
+                                            <div class="col-md-4 col-xs-12">
+                                                <input type="text" class="form-control" [(ngModel)]="user.username" name="username" required/>
+                                                
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-2 col-xs-12 control-label">Last Name</label>
+                                            <div class="col-md-4 col-xs-12">
+                                                <input type="text" class="form-control" [(ngModel)]="user.lname" name="lname" required/>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-2 col-xs-12 control-label">E-mail</label>
+                                            <div class="col-md-4 col-xs-12">
+                                                <input type="text" class="form-control" [(ngModel)]="user.email" name="email" #email="ngModel"
+                                                       pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+                                                />
+                                                <div *ngIf="email.value!='' && !email.valid">
+                                                    Invalid Email
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-2 col-xs-12 control-label">Contact Number</label>
+                                            <div class="col-md-4 col-xs-12">
+                                                <input type="number" class="form-control" [(ngModel)]="user.mobile" name="mobile"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-2 col-xs-12 control-label">Role Selection</label>
+                                            <div class="col-md-4 col-xs-12">
+                                                <select class="form-control select" [(ngModel)]="user.role" name="role">
+                                                    <option value="Admin">Admin</option>
+                                                    <option value="Bank User">Bank User</option>
+                                                   
+                                                </select>
+                                                <span class="help-block">Set user level role</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-2 col-xs-12 control-label">Password</label>
+                                            <div class="col-md-4 col-xs-12">
+                                                <input type="password" class="form-control" [(ngModel)]="user.password"
+                                                       name="password"
+                                                       #pass="ngModel"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-2 col-xs-12 control-label">Confirm Password</label>
+                                            <div class="col-md-4 col-xs-12">
+                                                <input type="password" class="form-control" ngModel
+                                                       name="cp"
+                                                       [(ngModel)]="user.cp"
+                                                       #cp="ngModel">
+                                                <div *ngIf="cp.value!='' && cp.value!=undefined  && pass.value  !=cp.value">
+                                                    Password Doesn't Match!
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" id="modalClose" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Create</button>
+                            </div>
+                        </form>-->

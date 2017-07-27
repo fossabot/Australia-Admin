@@ -1,0 +1,462 @@
+<aside class="collapse-sidebar" id="sidebar-wrapper">
+				<div class="header-collapse">
+					<div class="close-collapse">
+						<a href="#" class="" id="sidebar-close"><i class="material-icons">keyboard_arrow_left</i></a>
+					</div>
+					<div class="collapse-sidebar-body">
+						<ul>
+							
+								<li><a  [routerLink]="['/dashboard']"><i class="material-icons">trending_up</i> Overview</a></li>
+								<li><a  [routerLink]="['/application']"><i class="material-icons">visibility</i> Applications</a></li>
+								<li><a  [routerLink]="['/dashboard']"><i class="material-icons">schedule</i> Appointments</a></li>
+								<li><a  [routerLink]="['/dashboard']"><i class="material-icons">loyalty</i> Products</a></li>
+							<!-- <li>
+									<h6>PROFILE</h6>
+							</li> -->
+							<li><a  [routerLink]="['/dashboard']"><i class="material-icons">mail</i> Mail</a></li>
+								<li><a  [routerLink]="['/dashboard']"><i class="material-icons">chat_bubble_outline</i> Requests</a></li>
+								<li><a  [routerLink]="['/dashboard']"><i class="material-icons">today</i> Calendar</a></li>
+								<li><a  [routerLink]="['/dashboard']"><i class="material-icons">power_settings_new</i> Logout</a></li>
+							
+						</ul>
+					</div>
+				</div>
+				
+			</aside>
+
+
+
+	<!-- Main navbar -->
+	<div class="navbar navbar-inverse bg-direct navbar-fixed-top">
+	<div class="navbar-collapse collapse" >
+			<ul class="nav navbar-nav">
+				<li><a class="sidebar-control  hidden-xs" id="menu-toggle"><i class="material-icons">menu</i></a></li>
+			</ul>
+		</div> 
+		<div class="navbar-header">
+		<a class="navbar-brand" [routerLink]="['/dashboard']"><img src="/assets/images/logo.png" alt=""></a>
+
+			<ul class="nav navbar-nav visible-xs-block">
+				<li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
+				<li><a class="sidebar-mobile-main-toggle"><i class="icon-paragraph-justify3"></i></a></li>
+			</ul>
+		</div>
+		<div class="navbar-right">
+				<ul class="nav navbar-nav">		
+				<!-- <li><a href="dashboard.html"  class="home"><i class="material-icons">home</i></a></li>		 -->
+					<li class="">
+						<a href="#"  class="avatar">
+							<img src="/assets/images/avatar.png" class="img-circle img-xs" alt="">
+							<i class="material-icons">more_vert</i>
+						</a>
+					</li>					
+				</ul>
+			</div>
+	</div>
+	<!-- /main navbar -->
+
+
+	<!-- Page container -->
+	<div class="page-container">
+<div class="overlay"></div>
+		<!-- Page content -->
+		<div class="page-content">
+
+
+			<!-- Main content -->
+			<div class="content-wrapper">
+				<!-- Content area -->
+				<div class="content">
+				<div class="container">
+				<div class="breadcrumb-line">
+								<ul class="breadcrumb">
+									<li><a [routerLink]="['/dashboard']"><i class="icon-home2 position-left"></i> Home</a></li>
+									<li class="active">Incomplete Applications</li>
+								</ul>
+
+								
+							</div>
+					<div class="inner-content">
+						<div class="grid-style">
+													<div class="panel panel-flat">
+													<div class="panel-heading pad-btm-none">
+														<h5 class="panel-title">Incomplete Application List</h5>
+														<div class="heading-elements">
+															<ul class="icons-list">
+										                		
+										                		<li><a href="javascript:void(0)" id="filter-List"><i class="material-icons">filter_list</i></a></li>
+										                		<li><a  href="#"><i class="material-icons">more_vert</i></a></li>
+										                	
+										                	</ul>
+										                	<div class="filter-wrap" id="filter-List-elms">
+										                		<div class="form-group ">
+											                     	<div class=" material-form">
+																      <input type="text" required="required"/>
+																      <label for="input" class="control-label">Search </label><i class="bar"></i>
+																    </div>
+															  </div>
+															  <div class="form-group has-feedback">
+										                     	<div class=" material-form">
+															      <select>
+															       <option> Select</option>
+															        <option> Customer</option>
+															        <option>Prospect</option>
+															      </select>
+							      								  <label for="select" class="control-label">Applicant type:</label><i class="bar"></i>
+															    </div>
+															  </div>
+															  <div class="form-group has-feedback">
+										                     	<div class=" material-form">
+															      <select>
+															       <option> Select</option>
+															        <option> Complete</option>
+															        <option>Incomplete</option>
+															      </select>
+							      								  <label for="select" class="control-label">Application status:</label><i class="bar"></i>
+															    </div>
+															  </div>
+															  <div class="form-group has-feedback">
+										                     	<div class=" material-form">
+															      <select>
+															       <option> Select</option>
+															        <option> Jim</option>
+															        <option>Alex</option>
+															          <option>Sara</option>
+															      </select>
+							      								  <label for="select" class="control-label">Assigned to</label><i class="bar"></i>
+															    </div>
+															  </div>
+															    <div class="form-group has-feedback">
+															     <div class="input-group">
+													                  <button type="button" class="btn btn-default pull-right" id="daterange-btn">
+													                    <span>
+													                      <i class="icon-calendar"></i> Date Range
+													                    </span>
+													                    <i class="fa fa-caret-down"></i>
+													                  </button>
+													                </div>
+																  
+															    </div>
+															    <div class="form-group has-feedback">
+										                     	<div class=" material-form">
+															      <select>
+															       <option> Select</option>
+															        <option> Personal Loan</option>
+															        <option>Home Loan</option>
+															          <option>Credit Card</option>
+															           <option>Savings Account</option>
+															      </select>
+							      								  <label for="select" class="control-label">Filter by Product</label><i class="bar"></i>
+															    </div>
+															  </div>
+															  <div class="form-group has-feedback">
+										                     	<div class=" material-form">
+															      <select>
+															       <option> Select</option>
+															        <option> Today</option>
+															        <option>Next 4days</option>
+															      </select>
+							      								  <label for="select" class="control-label">Appointments</label><i class="bar"></i>
+															    </div>
+															  </div>
+															  <div class="text-center">
+										                     	<a href="income_Expense.html" class="btn btn-primary legitRipple">FILTER</a>
+															  </div>
+										                	</div>
+									                	</div>
+													</div>
+
+													<div class="panel-body">
+													<div class="table-responsive table-min">
+														<table class="table table-hover ">
+															<thead>
+																<tr>
+																	
+																	<th>Application #</th>
+																	<th><span class="sort"><a href="#"><i class="material-icons">arrow_downward</i></a></span>Date</th>
+																	<th><span class="sort"><a href="#"><i class="material-icons">arrow_downward</i></a></span>DETAILS</th>
+																	<th><span class="sort"><a href="#"><i class="material-icons">arrow_downward</i></a></span>PRODUCT TYPE</th>
+																	<th>$ AMOUNT</th>
+																	<th>&nbsp;</th>
+																</tr>
+															</thead>
+															<tbody>
+																
+																<tr class="active">
+																	<td class="date">002344<span class="label label-default">IB</span></td>
+																	<td class="date">27/07/2016</td>
+																	<td><span class="star-item" data-toggle="tooltip" data-placement="top" title="In Complete"><i class="material-icons star-filled-orange" >star</i></span>
+
+																	<a [routerLink]="['/application_incomplete_details']" class="name"><strong>John Smith</strong></a>
+																		<span class="attach-item">
+																			<i class="material-icons">person</i>
+																		 </span>
+																	</td>
+																	<td class="loan-type">PL</td>
+																	<td class="amount-loan">25000.00
+																	<span class="attach-item">
+																			<a href="#"><i class="material-icons">attach_file</i></a>
+																		 </span>
+
+																	</td>
+																	<td class="grid-btn">
+																		<ul class="icons-list">
+																		<li class="dropup">
+																			<a href="#" class="dropdown-toggle btn border-slate  btn-flat" data-toggle="dropdown">
+													                    	MORE <span class="caret"></span></a>
+																			<ul class="dropdown-menu dropdown-menu-right">
+																				<li><a href="#">Schedule appointment</a></li>
+																				<li><a href="#">Schedule call</a></li>
+																				<li><a href="#">Activity Log</a></li>
+																				<li><a href="#">Assigned to</a></li>
+																			</ul>
+																		</li>
+																	</ul>
+
+																	</td>
+																</tr>
+
+																
+																<tr class="active">
+																	<td class="date">002348<span class="label label-default">Mobi</span></td>
+																	<td class="date">2/08/2016</td>
+																	<td><span class="star-item" data-toggle="tooltip" data-placement="top" title="In Complete"><i class="material-icons star-filled-orange" >star</i></span>
+
+																	<a [routerLink]="['/application_incomplete_details']" class="name"><strong>Sandra Miles</strong></a>
+																		<span class="attach-item">
+																			<i class="material-icons">person</i>
+																		 </span>
+																	</td>
+																	<td class="loan-type">Mortgage</td>
+																	<td class="amount-loan">115000.00
+																	<span class="attach-item">
+																			<a href="#"><i class="material-icons">attach_file</i></a>
+																		 </span>
+
+																	</td>
+																	<td class="grid-btn">
+																		<ul class="icons-list">
+																		<li class="dropup">
+																			<a href="#" class="dropdown-toggle btn border-slate  btn-flat" data-toggle="dropdown">
+													                    	MORE <span class="caret"></span></a>
+																			<ul class="dropdown-menu dropdown-menu-right">
+																				<li><a href="#">Schedule appointment</a></li>
+																				<li><a href="#">Schedule call</a></li>
+																				<li><a href="#">Activity Log</a></li>
+																				<li><a href="#">Assigned to</a></li>
+																			</ul>
+																		</li>
+																	</ul>
+
+																	</td>
+																</tr>
+																
+																<tr>
+																	<td class="date">002559<span class="label label-default">Mobi</span></td>
+																	<td class="date">27/08/2016</td>
+																	<td><span class="star-item" data-toggle="tooltip" data-placement="top" title="In Complete"><i class="material-icons star-filled-orange" >star</i></span>
+
+																	<a [routerLink]="['incomplete_application-details']" class="name"><strong>Allen Parker</strong></a>
+																		<span class="attach-item">
+																			<i class="material-icons">person</i>
+																		 </span>
+																	</td>
+																	<td class="loan-type">Credit Card</td>
+																	<td class="amount-loan">&nbsp;
+																	<span class="attach-item">
+																			<a href="#"><i class="material-icons">attach_file</i></a>
+																		 </span>
+
+																	</td>
+																	<td class="grid-btn">
+																		<ul class="icons-list">
+																		<li class="dropup">
+																			<a href="#" class="dropdown-toggle btn border-slate  btn-flat" data-toggle="dropdown">
+													                    	MORE <span class="caret"></span></a>
+																			<ul class="dropdown-menu dropdown-menu-right">
+																				<li><a href="#">Schedule appointment</a></li>
+																				<li><a href="#">Schedule call</a></li>
+																				<li><a href="#">Activity Log</a></li>
+																				<li><a href="#">Assigned to</a></li>
+																			</ul>
+																		</li>
+																	</ul>
+
+																	</td>
+																</tr>
+																<tr>
+																	<td class="date">002559<span class="label label-default">Mobi</span></td>
+																	<td class="date">27/08/2016</td>
+																	<td><span class="star-item" data-toggle="tooltip" data-placement="top" title="In Complete"><i class="material-icons star-filled-orange" >star</i></span>
+
+																	<a [routerLink]="['incomplete_application-details']" class="name"><strong>Daniel</strong></a>
+																		<span class="attach-item">
+																			<i class="material-icons">person</i>
+																		 </span>
+																	</td>
+																	<td class="loan-type">Credit Card</td>
+																	<td class="amount-loan">&nbsp;
+																	<span class="attach-item">
+																			<a href="#"><i class="material-icons">attach_file</i></a>
+																		 </span>
+
+																	</td>
+																	<td class="grid-btn">
+																		<ul class="icons-list">
+																		<li class="dropup">
+																			<a href="#" class="dropdown-toggle btn border-slate  btn-flat" data-toggle="dropdown">
+													                    	MORE <span class="caret"></span></a>
+																			<ul class="dropdown-menu dropdown-menu-right">
+																				<li><a href="#">Schedule appointment</a></li>
+																				<li><a href="#">Schedule call</a></li>
+																				<li><a href="#">Activity Log</a></li>
+																				<li><a href="#">Assigned to</a></li>
+																			</ul>
+																		</li>
+																	</ul>
+
+																	</td>
+																</tr>
+																<tr>
+																	<td class="date">002559<span class="label label-default">Mobi</span></td>
+																	<td class="date">27/08/2016</td>
+																	<td><span class="star-item" data-toggle="tooltip" data-placement="top" title="In Complete"><i class="material-icons star-filled-orange" >star</i></span>
+
+																	<a [routerLink]="['incomplete_application-details']" class="name"><strong>Oscar</strong></a>
+																		<span class="attach-item">
+																			<i class="material-icons">person</i>
+																		 </span>
+																	</td>
+																	<td class="loan-type">Credit Card</td>
+																	<td class="amount-loan">&nbsp;
+																	<span class="attach-item">
+																			<a href="#"><i class="material-icons">attach_file</i></a>
+																		 </span>
+
+																	</td>
+																	<td class="grid-btn">
+																		<ul class="icons-list">
+																		<li class="dropup">
+																			<a href="#" class="dropdown-toggle btn border-slate  btn-flat" data-toggle="dropdown">
+													                    	MORE <span class="caret"></span></a>
+																			<ul class="dropdown-menu dropdown-menu-right">
+																				<li><a href="#">Schedule appointment</a></li>
+																				<li><a href="#">Schedule call</a></li>
+																				<li><a href="#">Activity Log</a></li>
+																				<li><a href="#">Assigned to</a></li>
+																			</ul>
+																		</li>
+																	</ul>
+
+																	</td>
+																</tr>
+																<tr>
+																	<td class="date">002559<span class="label label-default">Mobi</span></td>
+																	<td class="date">27/08/2016</td>
+																	<td><span class="star-item" data-toggle="tooltip" data-placement="top" title="In Complete"><i class="material-icons star-filled-orange" >star</i></span>
+
+																	<a [routerLink]="['incomplete_application-details']" class="name"><strong>Harry</strong></a>
+																		<span class="attach-item">
+																			<i class="material-icons">person</i>
+																		 </span>
+																	</td>
+																	<td class="loan-type">Credit Card</td>
+																	<td class="amount-loan">&nbsp;
+																	<span class="attach-item">
+																			<a href="#"><i class="material-icons">attach_file</i></a>
+																		 </span>
+
+																	</td>
+																	<td class="grid-btn">
+																		<ul class="icons-list">
+																		<li class="dropup">
+																			<a href="#" class="dropdown-toggle btn border-slate  btn-flat" data-toggle="dropdown">
+													                    	MORE <span class="caret"></span></a>
+																			<ul class="dropdown-menu dropdown-menu-right">
+																				<li><a href="#">Schedule appointment</a></li>
+																				<li><a href="#">Schedule call</a></li>
+																				<li><a href="#">Activity Log</a></li>
+																				<li><a href="#">Assigned to</a></li>
+																			</ul>
+																		</li>
+																	</ul>
+
+																	</td>
+																</tr>
+																
+																
+																
+
+																
+																
+																
+															</tbody>
+														</table>
+													</div>
+														
+													</div>
+													 <div class="panel-footer">
+													 <div class="basic-pagination">
+													 <ul class="">
+														   
+														    <li class="">Rows per page :</li>
+														      <li class="">
+															      <div class="btn-group">
+												                    	<button type="button" class="btn btn-icon " >
+												                    		  10
+												                    	</button>
+												                    	<button type="button" class="btn btn-icon dropdown-toggle" data-toggle="dropdown">
+												                    		<i class="material-icons">arrow_drop_down</i>
+												                    	</button>
+												                    	
+												                    	
+												                    	<ul class="dropdown-menu dropdown-menu-right">
+																			<li><a href="#">20</a></li>
+																			<li><a href="#">30</a></li>
+																			<li><a href="#">40</a></li>
+																		</ul>
+																	</div>
+
+																</li>
+																<li class="">1-10 of 100</li>
+														   
+														     <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+														    <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+														  </ul>
+													 	
+													 </div>
+
+														 
+
+													 </div>
+
+													
+												</div>
+												</div>
+						<!-- / row-->
+						
+						
+					</div>
+
+					
+				</div>
+
+
+
+				</div>
+				<!-- /content area -->
+
+			</div>
+			<!-- /main content -->
+
+		</div>
+		<!-- /page content -->
+
+					<!-- Footer -->
+					<div class="footer text-muted">
+						Copyright 2016. All rights Reserved.
+					</div>
+					<!-- /footer -->
+
+	</div>
+	<!-- /page container -->

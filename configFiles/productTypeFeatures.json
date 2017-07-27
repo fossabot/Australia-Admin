@@ -1,0 +1,5 @@
+{
+    "SAV": ["Min Age","Max Age","Interest Rate","Bonus Interest Rate","Minimum Deposit per Month","Account Keeping Fees","Transaction Fees"],
+	"HML": ["Min Age","Max Age","Fixed Interest Rate","Variable Interest Rate","Comparison rate","Establishment Fees","Loan Service Fees","Split Loan","Minimum Loan","Maximum Loan","Minimum Loan Term","Maximum Loan Term","Fees Url"],
+    "PRL": ["Min Age","Max Age","Fixed Interest Rate","Variable Interest Rate","Comparison rate","Establishment Fees","Loan Service Fees","Split Loan","Minimum Loan","Maximum Loan","Minimum Loan Term","Maximum Loan Term","Fees Url"]
+}

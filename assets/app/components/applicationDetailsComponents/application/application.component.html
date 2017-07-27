@@ -1,0 +1,876 @@
+<aside class="collapse-sidebar" id="sidebar-wrapper">
+   <div class="header-collapse">
+      <div class="close-collapse">
+         <a class="" id="sidebar-close"><i class="material-icons">keyboard_arrow_left</i></a>
+      </div>
+      <div class="collapse-sidebar-body">
+         <ul>
+            <li *ngIf="menu==1 || menu==3"><a id="closeOnclick" [routerLink]="['/dashboard']"><i class="material-icons">trending_up</i> Overview</a></li>
+            <li *ngIf="menu==1 || menu==2"><a id="closeOnclick" [routerLink]="['/application']"><i class="material-icons">visibility</i> Applications</a></li>
+            <!--<li><a  [routerLink]="['/dashboard']"><i class="material-icons">schedule</i> Appointments</a></li> -->
+            <li *ngIf="menu==1 || menu==3"><a id="closeOnclick" [routerLink]="['/Products']"><i class="material-icons">loyalty</i> Products</a></li>
+            <li *ngIf="menu==1 || menu==4"><a id="closeOnclick" [routerLink]="['/users']"><i class="material-icons">person</i> Users</a></li>
+            <!-- <li>
+               <h6>PROFILE</h6>
+               </li> -->
+            <!--<li><a  [routerLink]="['/dashboard']"><i class="material-icons">mail</i> Mail</a></li>
+               <li><a  [routerLink]="['/dashboard']"><i class="material-icons">chat_bubble_outline</i> Requests</a></li>
+               <li><a  [routerLink]="['/dashboard']"><i class="material-icons">today</i> Calendar</a></li>
+               <li><a  [routerLink]="['/dashboard']"><i class="material-icons">power_settings_new</i> Logout</a></li>-->
+         </ul>
+      </div>
+   </div>
+</aside>
+<!-- Main navbar -->
+<div class="navbar navbar-inverse bg-direct navbar-fixed-top">
+   <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+         <li><a class="sidebar-control  hidden-xs" (click)='clearData()' id="menu-toggle"><i class="material-icons">menu</i></a></li>
+      </ul>
+   </div>
+   <div class="navbar-header">
+      <a class="navbar-brand" [routerLink]="['/dashboard']"><img src="/assets/images/logo.png" alt=""></a>
+      <ul class="nav navbar-nav visible-xs-block">
+         <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
+         <li><a class="sidebar-mobile-main-toggle"><i class="icon-paragraph-justify3"></i></a></li>
+      </ul>
+   </div>
+   <div class="navbar-right">
+      <ul class="nav navbar-nav">
+         <!-- <li><a href="dashboard.html"  class="home"><i class="material-icons">home</i></a></li>		 -->
+         <li class="">
+            <a class="avatar">
+            <img src="/assets/images/avatar.png" class="img-circle img-xs" alt="">
+            <i class="material-icons">more_vert</i>
+            </a>
+         </li>
+      </ul>
+   </div>
+</div>
+<!-- /main navbar -->
+<div id="load" class="loading">
+   <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+   <span class="sr-only">Loading...</span>
+</div>
+<!-- Page container -->
+<div class="page-container">
+<div class="overlay"></div>
+<!-- Page content -->
+<div class="page-content">
+<!-- Main content -->
+<div class="content-wrapper">
+<!-- Content area -->
+<div class="content">
+   <div class="container custom-container">
+      <div class="breadcrumb-line">
+         <ul class="breadcrumb">
+            <!--<li><a [routerLink]="['/dashboard']"><i class="icon-home2 position-left"></i> Home</a></li>-->
+            <li class="active">Applications</li>
+         </ul>
+         <div class="pull-right">
+            <a (click)="refresh()" class="glyphicon glyphicon-refresh"></a>
+         </div>
+         <!--<input type="text" name="filter" #filterkey (keyup)="filter($event,'applicant',0)" />-->
+      </div>
+      <div class="inner-content">
+         <div class="grid-style">
+            <div class="panel panel-flat">
+               <div class="panel-heading pad-btm-none">
+                  <h5 class="panel-title">All Applications</h5>
+                  <div class="heading-elements">
+                     <ul class="icons-list">
+                        <li><a href="javascript:void(0)" id="filter-List"><i class="material-icons">filter_list</i></a></li>
+                        <li><a><i class="material-icons">more_vert</i></a></li>
+                     </ul>
+                     <div class="filter-wrap" id="filter-List-elms">
+                        <div class="panel-heading" style='background:#003479;color:white;font-weight: 100;font-size: 22px;text-align:center;margin: -15px -10px 0px -10px;'>Application search</div>
+                        <br>
+                        <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+                        <div class="form-group ">
+                           <div class=" material-form">
+                              <input type="text" class="form-control" formControlName="search" required="false" />
+                              <label for="input" class="control-label">Search </label><i class="bar"></i>
+                           </div>
+                        </div>
+                        <div class="form-group ">
+                           <div class=" material-form">
+                              <input type="text" class="form-control" formControlName="campaign_id" required="false" />
+                              <label for="input" class="control-label">Campaign Id </label><i class="bar"></i>
+                           </div>
+                        </div>
+                        <!--<div class="form-group has-feedback">
+                           <div class=" material-form">
+                           <select formControlName="applicant_type">
+                           <option> Select</option>
+                           <option value="Customer"> Customer</option>
+                           <option value="Prospect">Prospect</option>
+                           </select>
+                           <label for="select" class="control-label">Applicant type:</label><i class="bar"></i>
+                           </div>
+                           </div>-->
+                        <div class="form-group has-feedback">
+                           <div class=" material-form">
+                              <select formControlName="application_status">
+                                 <option value="null"> Select</option>
+                                 <option value="all"> All</option>
+                                 <option *ngFor='let applicationStatus of allApplicationStatus' [ngValue]="applicationStatus.property_value">{{applicationStatus.property_desc}}</option>
+                               <!--  <option value="CMP"> Complete</option>
+                                 <option value="INCMP">Incomplete</option>
+                                 <option value="VER">Verified</option>
+                                 <option value="CAN">Cancelled</option>
+                                 <option value="REJ">Rejected</option>
+                                 <option value="ONBOARD">Onboarded</option>-->
+                              </select>
+                              <label for="select" class="control-label">Application status:</label><i class="bar"></i>
+                           </div>
+                        </div>
+                        <!--<div class="form-group has-feedback">
+                           <div class=" material-form">
+                           <select formControlName="Assigned_to">
+                           <option> Select</option>
+                           <option value="Jim"> Jim</option>
+                           <option value="Alex">Alex</option>
+                           <option value="Sara">Sara</option>
+                           </select>
+                           <label for="select" class="control-label">Assigned to</label><i class="bar"></i>
+                           </div>
+                           </div>-->
+                        <!--<div class="form-group has-feedback">
+                           <div class="input-group">
+                                      <button type="button" class="btn btn-default pull-right" id="daterange-btn">
+                                        <span>
+                                          <i class="icon-calendar"></i> Date Range
+                                        </span>
+                                        <i class="fa fa-caret-down"></i>
+                                      </button>
+                                    </div>
+                           
+                           </div>-->
+                        <div class="form-group has-feedback">
+                           <div class=" material-form">
+                              <select #userval formControlName="Assigned_to" >
+                              <option value="null" selected> Select</option>
+                              <option value="Unassigned">Unassigned</option>
+                              <option value="all"> All </option>
+							  <ng-container *ngFor="let details of admins">
+                              <option   [attr.value]="details.username" *ngIf="details.username != name">{{details.username}}</option>
+                              </ng-container>
+							  </select>
+                              <label for="select" class="control-label">Assigned to</label><i class="bar"></i>
+                           </div>
+                        </div>
+                        <!--<div class="form-group has-feedback">
+                           <div class="input-group">
+                                      <button type="button" class="btn btn-default pull-right" id="daterange-btn">
+                                        <span>
+                                          <i class="icon-calendar"></i> Date Range
+                                        </span>
+                                        <i class="fa fa-caret-down"></i>
+                                      </button>
+                                    </div>
+                           
+                           </div>-->
+                        <div class="form-group has-feedback">
+                           <div class=" material-form">
+                              <select formControlName="product_type">
+                                 <option value='null' >Select</option>
+                                 <option *ngFor="let details of productTypes" [ngValue]= "details.product_type_code"  >
+                                 {{details.product_type_name}}
+                                 </option>
+                              </select>
+                              <!--<select formControlName="product_type">
+                                 <option value="null"> Select</option>
+                                 <option value="all"> All</option>
+                                 <option value="SAV">Everyday Account</option>
+                                  <option value="PRL">Personal Loan</option>
+                                  <option value="HML">Home Loan</option>
+                                 <option value="CRS">Cross Sell</option>
+                                 </select>-->
+                              <label for="select" class="control-label">Product Type</label><i class="bar"></i>
+                           </div>
+                        </div>
+                        <div class="form-group has-feedback">
+                           <div class=" material-form">
+                              <select formControlName="currentSection">
+                                 <option value="null"> Select</option>
+                                 <option *ngFor="let details of products" [ngValue]= "details.product_code"  >
+                                 {{details.product_name}}
+                                 </option>
+                                 <!--<option value="EVR">Everyday Account</option>
+                                    <option value="EV1">Everyday Account1</option>
+                                    <option value="PR1">Personal Details</option>
+                                        <option value="HM1">Home Loan</option>
+                                    <option value="HM2">Home Loan 1</option>
+                                        <option value="INS">Insurance</option>
+                                    <option value="CR1">Cross Selling Product 1</option>
+                                    <option value="CR2">Cross Selling Product 2</option>-->
+                              </select>
+                              <label for="select" class="control-label">Product</label><i class="bar"></i>
+                           </div>
+                        </div>
+                        <!--<div class="form-group has-feedback">
+                           <div class=" material-form">
+                           <select formControlName="Appointments">
+                           <option> Select</option>
+                           <option value="Today"> Today</option>
+                           <option value="Next 4days">Next 4days</option>
+                           </select>
+                           <label for="select" class="control-label">Appointments</label><i class="bar"></i>
+                           </div>
+                           </div>-->
+                        <div class="pull-left">
+                           <!--<a href="income_Expense.html" class="btn btn-primary legitRipple">FILTERwewew</a>-->
+                           <button type="submit " style="width: 86px;height: 44px;margin-right: 10px;" class="btn bg-submit btn-block" >FILTER</button>
+                           <!--</div>
+                              <div class="pull-right">-->
+                           <!--<a href="income_Expense.html" class="btn btn-primary legitRipple">FILTERwewew</a>-->
+                        </div>
+                        </form>
+                        <button type="submit" style="width: 86px;height: 44px;" class="btn bg-submit btn-block" (click)="clearFilter()">CLEAR</button>
+                        <!--<div class="text-center">
+                           <a href="income_Expense.html" class="btn btn-primary legitRipple">FILTERwewew</a>
+                           <button class="btn btn-primary legitRipple" (click)="clearFilter()">CLEAR</button>
+                           </div>-->
+                     </div>
+                  </div>
+               </div>
+               <div class="panel-body">
+                  <div class="table-responsive table-min">
+                     <table class="table table-hover " id="applicant">
+                        <thead>
+                           <tr>
+                              <!--{{term}}-->
+                              <!--<th> <a ><i class="material-icons">arrow_downward</i></a></th>-->
+                              <th><span class="sort"><a ><i class="material-icons">arrow_downward</i></a></span>Application</th>
+                              <th><span class="sort"><a ><i class="material-icons">arrow_downward</i></a></span>Date</th>
+                              <th><span class="sort"><a ><i class="material-icons">arrow_downward</i></a></span>Details</th>
+                              <th><span class="sort"><a ><i class="material-icons">arrow_downward</i></a></span>Product Type</th>
+                              <th><span class="sort"><a><i class="material-icons">arrow_downward</i></a></span>Status</th>
+                              <th>$Amount</th>
+                               <th>Campaign Id</th>
+                              <th>Assigned To</th>
+                              
+                              
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <!--{{customers |json}}-->
+                           <tr class="no-row">
+                              <td colspan="10"><p id="no-row">*No Data Available </p></td>
+                           </tr>
+                           <tr class="active" *ngFor="let details of customers | paginate: { id: 'tab1',itemsPerPage: 5, currentPage: p }; let i = index">
+                              <td [attr.id]="'id-'+i" class="date" [attr.value]="details.application_id" style="width: 180px;" #row>{{details.application_id}}</td>
+                              <td class="date">
+                                 {{details.cre_time | date}}
+                                 <!--{{(whatTime | async| date)==(details.cre_time | date)}}-->
+                              </td>
+                              <td>
+                                 <!--<span class="star-item" data-toggle="tooltip" data-placement="top" title="Active" *ngIf="(whatTime | async| date)==(details.cre_time | date)">
+                                    <i class="material-icons star-filled-red" >star</i>
+                                    </span>
+                                    <span class="star-item" data-toggle="tooltip" data-placement="top" title="In Complete" *ngIf="details.application_status=='SAV' && (whatTime | async| date)!=(details.cre_time | date)">
+                                    <i class="material-icons star-filled-orange" >star</i>
+                                    </span>
+                                    
+                                    <span class="star-item"  data-toggle="tooltip" data-placement="top" title="Complete" *ngIf="details.application_status!='SAV' && (whatTime | async| date)!=(details.cre_time | date)">
+                                    <i class="material-icons star-filled-green" >star</i>
+                                    </span>-->
+                                 <span class="star-item" data-toggle="tooltip" data-placement="top" title="{{applicationStatusCodeNamePair.get(details.application_status)}}" *ngIf="details.application_status==const.ACTIVE">
+                                     <i class="material-icons" >star</i>
+                                 </span>
+                                 <span class="star-item" data-toggle="tooltip" data-placement="top" title="{{applicationStatusCodeNamePair.get(details.application_status)}}" *ngIf="details.application_status==const.INCOMPLETE">
+                                 <i class="material-icons star-filled-orange" >star</i>
+                                 </span>
+                                 <span class="star-item" data-toggle="tooltip" data-placement="top"title="{{applicationStatusCodeNamePair.get(details.application_status)}}" *ngIf="details.application_status==const.COMPLETED">
+                                 <i class="material-icons star-filled-green" >star</i>
+                                 </span>
+                                 <span class="star-item" data-toggle="tooltip" data-placement="top" title="{{applicationStatusCodeNamePair.get(details.application_status)}}" *ngIf="details.application_status==const.VERIFIED">
+                                 <i class="material-icons star-filled-green" >star</i>
+                                 </span>
+                                 <span class="star-item" data-toggle="tooltip" data-placement="top" title="{{applicationStatusCodeNamePair.get(details.application_status)}}" *ngIf="details.application_status==const.CANCELLED">
+                                 <i class="material-icons star-filled-red del"  >star</i>
+                                 </span>
+                                 <span class="star-item" data-toggle="tooltip" data-placement="top" title="{{applicationStatusCodeNamePair.get(details.application_status)}}" *ngIf="details.application_status==const.REJECTED">
+                                 <i class="material-icons star-filled-red del" >star</i>
+                                 </span>
+                                 <span class="star-item" data-toggle="tooltip" data-placement="top" title="{{applicationStatusCodeNamePair.get(details.application_status)}}" *ngIf="details.application_status==const.ONBOARDED">
+                                 <i class="material-icons star-filled-green" >star</i>
+                                 </span>
+                                 <a *ngIf="details.assigned_to=='Unassigned'||details.assigned_to == ''||details.assigned_to == null ||validflag[i] != 1  "
+                                    class="name disable"><strong>{{ details.fname | titleCase }}</strong></a>
+                                 <a *ngIf="!(details.assigned_to=='Unassigned'||details.assigned_to == ''||details.assigned_to == null || validflag[i]!= 1 )"
+                                 [attr.id]="'valid1-'+i" [routerLink]="['/application_details',details.application_id]" class="name"><strong>{{ details.fname | titleCase }}</strong></a>
+                                 <!--{{flagset}}
+                                    <a routerLinkActive="active" [class.disabled]="true"  [routerLink]="['/application_details',details.application_id]"><strong>{{ details.fname | titleCase }}</strong></a>-->
+                                     
+                                 <span class="attach-item" *ngIf="details.singleORjoint=='single'">
+                                 <i class="material-icons">person</i>
+                                 </span>
+                                 <span class="attach-item" *ngIf="details.singleORjoint=='joint'">
+                                 <i class="material-icons">people</i>
+                                 </span>
+                              </td>
+                              <td class="loan-type" style="width: 160px;">{{ details.product_code_name }}</td>
+                              <td class="status" [attr.id]="'stat-'+i"> 
+                                 <span>{{applicationStatusCodeNamePair.get(details.application_status)}}</span>
+                                  <!--
+                                 <span *ngIf="details.application_status==const.COMPLETED">Complete</span>
+                                 <span *ngIf="details.application_status==const.ACTIVE">Active</span>
+                                 <span *ngIf="details.application_status==const.INCOMPLETE">Incomplete</span>
+                                 <span *ngIf="details.application_status==const.VERIFIED">Verified</span>
+                                 <span *ngIf="details.application_status==const.CANCELLED">Cancelled</span>
+                                 <span *ngIf="details.application_status==const.REJECTED">Rejected</span>
+                                 <span *ngIf="details.application_status==const.ONBOARDED">Onboarded</span>-->
+                              </td>
+                               
+                              <td class="amount-loan " style="width: 120px;">
+                                 <span *ngIf="details.product_type_code=='SAV'"> </span>
+                                 <span class="pull-right" *ngIf="details.product_type_code=='HML'"> {{ details.amtborrow | currency:'USD':true:'4.2-2'  }}</span>
+                                 <span class="pull-right" *ngIf="details.product_type_code=='PRL'"> {{ details.amtborrow  | currency:'USD':true:'4.2-2' }}</span>
+                              </td>
+                              <td >
+                                 <span> {{ details.campaign_id }}</span>
+                              </td>
+                              
+                              <td [attr.id]="'assign-'+i" class="amount-loan ">
+                                 <input list="assign_drop" contenteditable="true" [(ngModel)]="details.assigned_to" [attr.id]="'assign_val-'+i" name="assign_val" #assign_val="ngModel"
+                                 class="edit_input" (focus)="getinitialAssign(i,details.assigned_to,details.application_id,$event)" (blur)="changeAssign('#id-',i,assign_val.value,false)"
+                                 assignValidate>
+                                 <small  [attr.id]="'err-'+i" style="font-size:10px;" class="text-danger myhide">
+                                    *Not an admin
+                                    <!--This is a required field and Can contain letters and apostrophe-->
+                                 </small>
+                                 <!--<input list="assign_drop"  contenteditable="true"  [attr.value]="details.assigned_to"class="edit_input" (focus)="getinitialAssign(i)" (blur)="changeAssign(i)" [attr.id]="'assign_input-'+i">-->
+                                 <label id="err" style="display:none">Please select the value from </label>
+                              </td>
+                              
+                              <td>
+                                  <i class="fa fa-cart-arrow-down circle-icon" (click)="changeAssign('#id-',i,assign_val.value,true)"area-hidden="true" title="Assign to Youself"></i>
+                                 <i class="fa fa-pencil-square-o circle-icon" (click)="showLogs('#id-',i)" id="work-logs" title="Worklogs"></i>
+                              </td>
+                              <!--<td class="grid-btn">
+                                 <ul class="icons-list">
+                                 <li class="dropup">
+                                 	<a href="#" class="dropdown-toggle btn border-slate  btn-flat" data-toggle="dropdown">
+                                                	MORE <span class="caret"></span></a>
+                                 	<ul class="dropdown-menu dropdown-menu-right">
+                                 		<li><a href="#">XYZ</a></li>
+                                 		<li [attr.id]="'logid-'+i"><a href="javascript:void(0)" (click)="showLogs(i)" id="work-logs">Activity Log</a></li>
+                                 		<li [attr.id]="'liid-'+i"><a href="javascript:void(0)" id="assign-Form">Assign to</a></li>
+                                 	</ul>
+                                 </li>
+                                 </ul>
+                                 
+                                 </td>-->
+                              <!--<td>
+                                 <span class="attach-item">
+                                 		<a href="#" data-toggle="modal" data-target="#modal_large1">
+                                 			<i class="glyphicon glyphicon-plus"></i>
+                                 		</a>
+                                 </span>
+                                 </td>
+                                 <td class="grid-btn" *ngIf="details.comments==null">
+                                 	<span class="attach-item">
+                                 		<a href="#" data-toggle="modal" data-target="#modal_large"><i class="material-icons" (click)="getAppID(details.application_id)">note_add</i></a>
+                                 	 </span>
+                                 </td>
+                                 <td class="grid-btn" *ngIf="details.comments!=null">
+                                 	<span class="attach-item">
+                                 		<a href="#" data-toggle="modal" data-target="#modal_large"><i class="material-icons" (click)="getAppID(details.application_id)">description</i></a>
+                                 	 </span>
+                                 </td>
+                                 <!--<td class="grid-btn">
+                                 	<ul class="icons-list">
+                                 	<li class="dropup">
+                                 		<a href="#" class="dropdown-toggle btn border-slate  btn-flat" data-toggle="dropdown">
+                                                 	MORE <span class="caret"></span></a>
+                                 		<ul class="dropdown-menu dropdown-menu-right">
+                                 			<li><a href="#">Schedule appointment</a></li>
+                                 			<li><a href="#">Schedule call</a></li>
+                                 			<li><a href="#">Activity Log</a></li>
+                                 			<li><a href="#">Assigned to</a></li>
+                                 		</ul>
+                                 	</li>
+                                 </ul>
+                                 
+                                 </td>-->
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <datalist id="assign_drop">
+                     <option value="Unassigned">
+                        <option *ngFor="let details of admins" [attr.value]="details.username">
+                  </datalist>
+                  <!--Assignn modal-->
+                  <!--<div class="filter-wrap" id="Assigned-List">
+                     <span class="close">&times;</span>	
+                      	<div class="overlay-content">
+                      	<form  (ngSubmit)="onLogsSubmit($event)">
+                         <div class="form-group has-feedback assign-form">
+                     <div class=" material-form">
+                     <input type="text" [(ngModel)]="model1.app_id" name="app_id" #app_id="ngModel" id="id_app" style="color:#b3b3b3;padding-top:15px;"disabled/>		
+                     <label for="input" class="control-label" style="font-size:10px;color:gray">Application Id:
+                     </label><i class="bar"></i> 
+                     </div>
+                     </div>  	
+                     <div class="form-group has-feedback assign-form">
+                           	<div class=" material-form">
+                     <select  id="dropdown" name="status" #status="ngModel" [(ngModel)]="model1.status">
+                     <option value="null" > Select</option>
+                     <option value="Complete"> Complete</option>
+                     <option value="Incomplete">Incomplete</option>
+                     <option value="Active">Active</option>
+                     </select>
+                     <label for="select" class="control-label">Application status:</label><i class="bar"></i>
+                     </div>
+                     </div> 
+                     <div class="form-group has-feedback assign-form">
+                           	<div class=" material-form">
+                     <select  id="assign_drop"  >
+                     <option value="System">System</option>
+                     <option *ngFor="let details of admins" [ngValue]= "details.username"  >
+                     {{details.username}}
+                     </option>
+                     </select>
+                     
+                     <label for="select" class="control-label" >Assigned to</label><i class="bar"></i>
+                     </div>
+                     </div>
+                     <div class="form-group has-feedback assign-form">
+                           	<div class=" material-form">
+                     <textarea  class="form-control"  [(ngModel)]="model1.comments" name="comments"  #comments="ngModel"required ></textarea>
+                     <label for="input" class="control-label">Comments</label><i class="bar"></i>
+                     </div>
+                     </div>
+                     <div class="form-group has-feedback">
+                            	<div class=" material-form">           
+                     <button type="submit" class="btn btn-account" style="margin-left:120px;"> Submit</button>
+                     </div>
+                     </div>
+                     </form>
+                     
+                     </div>  
+                     
+                     </div>    -->
+                  <!--Worklogs-->
+                  <div id="logs-modal">
+                  <div class="overlay-content-logs">
+                  <div class="col-md-9" style="padding-left:300px;">
+                  <div class="panel panel-info logs">
+                  <span class="close1" style="margin-right:4px;">&times;</span>
+                  <div class="panel-heading">
+                  WORK LOG HISTORY
+                  </div>
+                  <div class="panel-body" style="max-height:300px;" >
+                  <ul class="media-list">
+                  <li class="media">
+                  <div class="media-body">
+                  <div class="media">
+                  <a class="pull-left" href="#">
+                  </a>
+                  <div class="media-body">
+                  <b>Applicant</b> initiated the Application.
+                  <br />
+                  <small class="text-muted">at {{created_time | date:'medium'}}</small>
+                  <hr />
+                  </div>
+                  </div>
+                  </div>
+                  </li>
+                  <!--<div *ngFor="let resumes of resume_time">
+                     <li class="media" >
+                     
+                         <div class="media-body">
+                     
+                             <div class="media">
+                                 <a class="pull-left" href="#">
+                                    </a>
+                       									 	<div class="media-body" >
+                                     <b>{{resumes.who}}</b> resumed the Application. 
+                                    <br />
+                           									<small class="text-muted">at {{resumes.time | date:'medium' }}</small>
+                            								<hr />
+                       									 	</div>	
+                     							 </div>
+                     
+                     				</div>
+                     </li>
+                     </div>
+                     <li class="media" >
+                     
+                         <div class="media-body">
+                     
+                             <div class="media">
+                                 <a class="pull-left" href="#">
+                                    </a>
+                       									 	<div class="media-body" *ngIf="completed_by!= null && completed_by != '' ">
+                                     <b>{{completed_by}}</b> completed the Application. 
+                                    <br />
+                           									<small class="text-muted">at {{completed_time | date:'medium' }}</small>
+                            								<hr />
+                       									 	</div>	
+                     							 </div>
+                     
+                     				</div>
+                     </li>
+                     -->
+                  <li class="media" *ngFor="let details of work_logs">
+                  <div class="media-body">
+                  <div class="media">
+                  <a class="pull-left" href="#">
+                  </a>
+                  <div class="media-body" *ngIf="details.change_type == 1 ">
+                  <span class="words">{{details.who}}</span> has changed the status from
+                    <span  class="words">{{applicationStatusCodeNamePair.get(details.from)}}</span>
+                  <!--<span *ngIf="details.from ==const.COMPLETED" class="words">Complete</span>
+                  <span *ngIf="details.from ==const.INCOMPLETE" class="words">InComplete</span>
+                  <span *ngIf="details.from ==const.ACTIVE" class="words">Active</span>
+                  <span *ngIf="details.from ==const.VERIFIED" class="words">Verified</span>
+                  <span *ngIf="details.from ==const.CANCELLED" class="words">Cancelled</span>
+                  <span *ngIf="details.from ==const.REJECTED" class="words">Rejected</span>
+                  <span *ngIf="details.from==const.ONBOARDED" class="words">Onboarded</span> -->
+                  to
+                    <span  class="words">{{applicationStatusCodeNamePair.get(details.to)}}</span>
+                    <!--
+                   <span *ngIf="details.to==const.COMPLETED" class="words">Complete</span>
+                  <span *ngIf="details.to==const.INCOMPLETE" class="words">InComplete</span>
+                  <span *ngIf="details.to==const.ACTIVE" class="words">Active</span>
+                  <span *ngIf="details.to==const.VERIFIED" class="words">Verified</span>
+                  <span *ngIf="details.to==const.CANCELLED" class="words">Cancelled</span>
+                  <span *ngIf="details.to==const.REJECTED" class="words">Rejected</span>
+                  <span *ngIf="details.to==const.ONBOARDED" class="words">Onboarded</span>-->
+                  <br />
+                  <small class="text-muted">at {{details.updated_time  | date:'medium' }}</small>
+                  <hr />
+                  </div>
+                  <div class="media-body" *ngIf="details.change_type == 2">
+                  <span class="words"> {{details.who}} </span> has changed the owner of the ticket from <span class="words">{{details.from}} </span>					to <span class="words"> {{details.to}}</span>
+                  <br />
+                  <small class="text-muted">at {{details.updated_time  | date:'medium' }}</small>
+                  <hr />
+                  </div>
+                  <div class="media-body" *ngIf="details.change_type == 5">
+                  <span class="words"> {{details.who}} </span> has resumed the Application
+                  <br />
+                  <small class="text-muted">at {{details.updated_time  | date:'medium' }}</small>
+                  <hr />
+                  </div>
+                  <div class="media-body" *ngIf="details.change_type == 6">
+                  <span class="words"> {{details.who}} </span> has completed the Application
+                  <br />
+                  <small class="text-muted">at {{details.updated_time  | date:'medium' }}</small>
+                  <hr />
+                  </div>
+                  <div class="media-body" *ngIf="details.comment != null">
+                  <span class="words"> {{details.who}} </span> has added a comment : <span style="font-size:15px;">{{details.comment}}</span>
+                  <br />
+                  <small class="text-muted">at {{details.updated_time  | date:'medium' }}</small>
+                  <hr />
+                  </div>
+                  <!--<div class="media-body" *ngIf="details.comment != null">
+                     <span class="words"> {{details.who}} </span> has added a comment :  <span class="words">{{details.comment}}</span>
+                     <br />
+                     <small class="text-muted">at {{details.updated_time  | date:'medium' }}</small>
+                     <hr />
+                     </div>	-->
+                  </div>
+                  </div>
+                  </li>
+                  <!--<li class="media" >
+                     <div class="media-body">
+                     
+                         <div class="media">
+                             <a class="pull-left" href="#">
+                                </a>
+                     							 	
+                     			 </div>
+                     
+                     </div>
+                     </li>
+                     </div>-->
+                  <!--
+                     <li class="media">
+                     
+                         <div class="media-body">
+                     
+                             <div class="media">
+                                 <a class="pull-left" href="#">
+                                    </a>
+                        									<div class="media-body" >
+                                    lolia bkjhkjdkasjh condimentum massa.Donec
+                                    <br />
+                           									<small class="text-muted">Alex Deo | 23rd June at 5:00pm</small>
+                            								<hr />
+                       									 </div>
+                     							 </div>
+                     
+                     				</div>
+                     </li>-->
+                  </ul>
+                  </div>
+                  <div class="panel-footer  ">
+                  <form (ngSubmit)="addComments()">
+                  <div class="input-group">
+                  <input type="text" class="form-control" autocomplete="off" [(ngModel)]="str_comment" placeholder="Type your comment here"
+                  style="background-color:#fff;" name="comments" #comments="ngModel" required/>
+                  <span class="input-group-btn">
+                  <button type="submit" class="btn btn-info"  >SEND</button>
+                  </span>
+                  </div>
+                  </form>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+                  <!--Worklogs-->
+                  <!--
+                     <div class="modal" id="modal_large" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true">
+                     		<div class="modal-dialog modal-sm">
+                     			<div class="modal-content">
+                     				<div class="modal-header">
+                     					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                     					<h4 class="modal-title" id="largeModalHead">Comments</h4>
+                     				</div>
+                     				<div class="modal-body">
+                     					<div class="row">
+                     						<div class="col-md-12">
+                     							<form (ngSubmit)="SaveUpdateComments(basicDetails.value)" #basicDetails="ngForm">
+                     								<input type="hidden" [(ngModel)]="model.application_id" id="application_id" name="application_id" #application_id="ngModel">
+                     								<textarea class="form-control" rows="5" [(ngModel)]="model.comment" id="comment" name="comment" #comment="ngModel"></textarea>
+                     									<div class="pull-left">
+                     									<p style="color:green;">{{ Status }}</p>
+                     									</div><br>
+                     								<button type="submit" class="btn btn-primary pull-right" >Add</button>
+                     							</form>
+                     						</div>
+                     					</div>
+                     				</div>
+                     
+                     			</div>
+                     		</div>
+                     	</div>
+                     	
+                     	
+                     	
+                     	<div class="modal" id="modal_large1" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true">
+                     		<div class="modal-dialog modal-sm">
+                     			<div class="modal-content">
+                     				<div class="modal-header">
+                     					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                     					<h4 class="modal-title" id="largeModalHead">Assign To</h4>
+                     				</div>
+                     				<div class="modal-body">
+                     					<div class="row">
+                     						
+                     							<form (ngSubmit)="SaveUpdateComments(basicDetails.value)" #basicDetails="ngForm">
+                     							<div class="col-md-9">
+                     								<input type="hidden" [(ngModel)]="model.application_id" id="application_id" name="application_id" #application_id="ngModel">
+                     								<select class="form-control">
+                     									<option value="null"> Select</option>
+                     									<option value="Jim"> Jim</option>
+                     									<option value="Alex">Alex</option>
+                     									<option value="Sara">Sara</option>
+                     									<option value="bot">Bot Agent</option>
+                     								</select>
+                     							</div>
+                     							<div class="col-md-2">
+                     							<button type="submit" class="btn btn-primary" style="width:84px;" data-dismiss="modal" >Add</button>
+                     							</div>
+                     							</form>
+                     						
+                     					</div>
+                     				</div>
+                     
+                     			</div>
+                     		</div>
+                     	</div>
+                     	
+                     </div>-->
+
+				
+				  <div class="panel-footer">
+                  <div class="basic-pagination">
+                  <!--<ul class="">
+                     <li class="">Rows per page :</li>
+                       <li class="">
+                        <div class="btn-group">
+                                   	<button type="button" class="btn btn-icon " >
+                                   		  10
+                                   	</button>
+                                   	<button type="button" class="btn btn-icon dropdown-toggle" data-toggle="dropdown">
+                                   		<i class="material-icons">arrow_drop_down</i>
+                                   	</button>
+                                   	
+                                   	
+                                   	<ul class="dropdown-menu dropdown-menu-right">
+                     	<li><a href="#">20</a></li>
+                     	<li><a href="#">30</a></li>
+                     	<li><a href="#">40</a></li>
+                     </ul>
+                     </div>
+                     
+                     </li>
+                     <li class="">1-10 of 100</li>
+                     
+                      <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+                     <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+                     </ul>-->
+                  <pagination-controls 
+				  id='tab1'
+				  (pageChange)="p = $event"></pagination-controls>
+                  </div>
+                  </div>
+               </div>
+
+			    
+	
+            </div>
+
+			<!--Assigned Application List--> 
+            <div class="panel panel-flat">
+               <div class="panel-heading pad-btm-none">
+                  <h5 class="panel-title">My Applications </h5>
+                </div>
+               <div class="panel-body">
+                  <div class="table-responsive table-min">
+                     <table class="table table-hover " id="applicant">
+                        <thead>
+                           <tr>
+                              <!--{{term}}-->
+                              <!--<th> <a ><i class="material-icons">arrow_downward</i></a></th>-->
+                              <th><span class="sort"><a ><i class="material-icons">arrow_downward</i></a></span>Application</th>
+                              <th><span class="sort"><a ><i class="material-icons">arrow_downward</i></a></span>Date</th>
+                              <th><span class="sort"><a ><i class="material-icons">arrow_downward</i></a></span>Details</th>
+                              <th><span class="sort"><a ><i class="material-icons">arrow_downward</i></a></span>Product Type</th>
+                              <th><span class="sort"><a><i class="material-icons">arrow_downward</i></a></span>Status</th>
+                              <th>$Amount</th>
+                              <th>Campaign Id</th>
+                              <th>Assigned To</th>
+                              
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <!--{{customers |json}}-->
+                           <tr class="no-assigned">
+                              <td colspan="10"><p id="no-assigned">*No Applications Assigned to me</p></td>
+                           </tr>
+                           <tr class="active" *ngFor="let details_assigned of assigned_customers | paginate: { id: 'tab2',itemsPerPage: 5, currentPage: newp }; let i = index">
+                              <td [attr.id]="'id_two-'+i" class="date" [attr.value]="details_assigned.application_id" style="width: 180px;" #row>{{details_assigned.application_id}}</td>
+                              <td class="date">
+                                 {{details_assigned.cre_time | date}}
+                                 <!--{{(whatTime | async| date)==(details_assigned.cre_time | date)}}-->
+                              </td>
+                              <td>
+                                
+                                 <span class="star-item" data-toggle="tooltip" data-placement="top" title="{{applicationStatusCodeNamePair.get(details_assigned.application_status)}}" *ngIf="details_assigned.application_status==const.ACTIVE">
+                                 <i class="material-icons" >star</i>
+                                 </span>
+                                 <span class="star-item" data-toggle="tooltip" data-placement="top" title="{{applicationStatusCodeNamePair.get(details_assigned.application_status)}}" *ngIf="details_assigned.application_status==const.INCOMPLETE">
+                                 <i class="material-icons star-filled-orange" >star</i>
+                                 </span>
+                                 <span class="star-item" data-toggle="tooltip" data-placement="top" title="{{applicationStatusCodeNamePair.get(details_assigned.application_status)}}" *ngIf="details_assigned.application_status==const.COMPLETED">
+                                 <i class="material-icons star-filled-green" >star</i>
+                                 </span>
+                                 <span class="star-item" data-toggle="tooltip" data-placement="top" title="{{applicationStatusCodeNamePair.get(details_assigned.application_status)}}" *ngIf="details_assigned.application_status==const.VERIFIED">
+                                 <i class="material-icons star-filled-green" >star</i>
+                                 </span>
+                                 <span class="star-item" data-toggle="tooltip" data-placement="top" title="{{applicationStatusCodeNamePair.get(details_assigned.application_status)}}" *ngIf="details_assigned.application_status==const.CANCELLED">
+                                 <i class="material-icons star-filled-red del"  >star</i>
+                                 </span>
+                                 <span class="star-item" data-toggle="tooltip" data-placement="top" title="{{applicationStatusCodeNamePair.get(details_assigned.application_status)}}" *ngIf="details_assigned.application_status==const.REJECTED">
+                                 <i class="material-icons star-filled-red del" >star</i>
+                                 </span>
+                                 <span class="star-item" data-toggle="tooltip" data-placement="top" title="{{applicationStatusCodeNamePair.get(details_assigned.application_status)}}" *ngIf="details_assigned.application_status==const.ONBOARDED">
+                                 <i class="material-icons star-filled-green" >star</i>
+                                 </span>
+                                 <a *ngIf="details_assigned.assigned_to=='Unassigned'||details_assigned.assigned_to == ''||details_assigned.assigned_to == null ||validflag[i] != 1  "
+                                    class="name disable"><strong>{{ details_assigned.fname | titleCase }}</strong></a>
+                                 <a *ngIf="!(details_assigned.assigned_to=='Unassigned'||details_assigned.assigned_to == ''||details_assigned.assigned_to == null || validflag[i]!= 1 )"
+                                 [attr.id]="'valid-'+i" [routerLink]="['/application_details',details_assigned.application_id]" class="name"><strong>{{ details_assigned.fname | titleCase }}</strong></a>
+                                 <!--{{flagset}}
+                                    <a routerLinkActive="active" [class.disabled]="true"  [routerLink]="['/application_details',details_assigned.application_id]"><strong>{{ details_assigned.fname | titleCase }}</strong></a>-->
+                                    
+                                 <span class="attach-item" *ngIf="details_assigned.singleORjoint=='single'">
+                                 <i class="material-icons">person</i>
+                                 </span>
+                                 <span class="attach-item" *ngIf="details_assigned.singleORjoint=='joint'">
+                                 <i class="material-icons">people</i>
+                                 </span>
+                              </td>
+                              <td class="loan-type" style="width: 160px;">{{ details_assigned.product_code_name }}</td>
+                              <td class="status" [attr.id]="'stat-'+i"> 
+                                    <span  >{{applicationStatusCodeNamePair.get(details_assigned.application_status)}}</span>
+                                 <!--<span *ngIf="details_assigned.application_status==const.COMPLETED">Complete</span>
+                                 <span *ngIf="details_assigned.application_status==const.ACTIVE">Active</span>
+                                 <span *ngIf="details_assigned.application_status==const.INCOMPLETE">Incomplete</span>
+                                 <span *ngIf="details_assigned.application_status==const.VERIFIED">Verified</span>
+                                 <span *ngIf="details_assigned.application_status==const.CANCELLED">Cancelled</span>
+                                 <span *ngIf="details_assigned.application_status==const.REJECTED">Rejected</span>
+                                 <span *ngIf="details_assigned.application_status==const.ONBOARDED">Onboarded</span>-->
+                              </td>
+                             
+                              <td class="amount-loan " style="width: 120px;">
+                                 <span *ngIf="details_assigned.product_type_code=='SAV'"> </span>
+                                 <span class="pull-right" *ngIf="details_assigned.product_type_code=='HML'"> {{ details_assigned.amtborrow | currency:'USD':true:'4.2-2'  }}</span>
+                                 <span class="pull-right" *ngIf="details_assigned.product_type_code=='PRL'"> {{ details_assigned.amtborrow  | currency:'USD':true:'4.2-2' }}</span>
+                              </td>
+                              <td>
+                                  <span>{{details_assigned.campaign_id}} </span>
+                                </td>
+                              <td [attr.id]="'assign-'+i" class="amount-loan ">
+                                 <input list="assign_drop" contenteditable="true" [(ngModel)]="details_assigned.assigned_to" [attr.id]="'assigned_val-'+i"  name="assign_val" #assign_val="ngModel"
+                                 class="edit_input" (focus)="getinitialAssign(i,details_assigned.assigned_to,details_assigned.application_id,$event)" (blur)="changeAssign('#id_two-',i,assign_val.value,false)"
+                                 assignValidate>
+                                 <small [attr.id]="'err_assigned-'+i" style="font-size:10px;" class="text-danger myhide">
+                                    *Not an admin
+                                    <!--This is a required field and Can contain letters and apostrophe-->
+                                 </small>
+                                 <!--<input list="assign_drop"  contenteditable="true"  [attr.value]="details_assigned.assigned_to"class="edit_input" (focus)="getinitialAssign(i)" (blur)="changeAssign(i)" [attr.id]="'assign_input-'+i">-->
+                                 <label id="err" style="display:none">Please select the value from </label>
+                              </td>
+                               
+                              <td>
+                                 <i class="fa fa-pencil-square-o circle-icon" (click)="showLogs('#id_two-',i)" id="work-logs"></i>
+                              </td>
+                              
+
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+				  <div class="panel-footer">
+                  <div class="basic-pagination">
+                  <pagination-controls 
+				  id='tab2'
+				  (pageChange)="newp = $event"></pagination-controls>
+                  </div>
+                  </div>
+				  </div>
+				  </div>
+				  </div>
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  <!--Assigned Application List Ends-->
+         </div>
+         <!-- /content area -->
+      </div>
+      <!-- /main content -->
+   </div>
+   <!-- /page content -->
+   <!--<input list="assign_dropp"  contenteditable="true" >-->
+   <!-- Footer -->
+   <div class="footer text-muted">
+   Copyright 2016. All rights Reserved.
+   </div>
+   <!-- /footer -->
+</div>
+<!-- /page container -->

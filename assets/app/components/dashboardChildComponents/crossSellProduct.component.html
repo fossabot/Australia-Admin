@@ -1,0 +1,70 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="centered-pill1">
+        <div class="dash-elems-wrapper">
+            <div class="row ">
+                <div class="col-lg-8">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+    </div>
+    <div class="row">
+        <div class="clearfix"></div>
+        <div class="col-lg-6">
+            <div class="member-asset-wrap">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Applications by Cross Sell<span></span></div>
+                    <div class="panel-body">
+                        <div class="img-block">
+
+                            <!--<div class="col-lg-6">-->
+                            <div style="display: block" *ngIf="chart1Flag==true">
+                                <canvas baseChart [datasets]="barChartData" [colors]="chartColors" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend" [chartType]="barChartType"></canvas>
+                            </div>
+                            <!--</div>-->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!---->
+        <div class="col-lg-6">
+            <div class="member-asset-wrap">
+                <div class="panel panel-default">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="panel-heading">Applications by Product<span></span></div>
+                        </div>
+                        <div class="col-lg-6">
+                            <select (change)="onChange($event)" class="form-control" [(ngModel)]="product_drop" name="product_drop">
+                    <option *ngFor="let details of DropDownData;" [value]="details.product_code">
+                    {{details.product_name}} 
+                    </option>
+					</select>
+                        </div>
+                    </div>
+
+
+
+                    <div class="panel-body">
+                        <div class="img-block">
+
+                            <div style="display: block" *ngIf="chart2Flag==true">
+                                <canvas baseChart [datasets]="barChart2Data" [colors]="chart2Colors" [labels]="barChart2Labels" [options]="barChartOptions" [legend]="barChartLegend" [chartType]="barChartType"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>

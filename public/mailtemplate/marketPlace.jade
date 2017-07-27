@@ -1,0 +1,93 @@
+doctype html
+html
+  head
+    title
+    style(type='text/css').
+      table{
+      border-collapse: collapse !important;
+      border:none;
+      }
+      td {
+      border-collapse: collapse;
+      border-spacing: 0;
+      margin: 0;
+      padding: 0;
+      border:none;
+      }
+      img{
+      display: block;
+      }
+      .divImg{
+      height:371px;
+      width:128px;
+      background-color:#054a8b;
+      }
+      .header-width > img {
+      height:372px;
+      }
+      .ptag{
+      height:371px;
+      font-size:20px;
+      width:862px;
+      padding-left:10px;
+      background-color: #eeeeee !important;
+      }
+  body
+    table
+      tr
+        td
+          table
+            tr
+              td.header-width.img-responsive
+                img(src='https://empoweronboardaus.herokuapp.com/assets/images/header.jpg')
+      tr
+        td
+          table
+            tr
+              td.ptag
+                p
+                  | Hello  ,
+                  br
+                  br
+                  | Greetings from Mpower store. Hope you had a hassle free purchase experience. Kindly review the Product details you have purchased.
+                  br
+                  br
+                  if(data.product!='')
+                   p Products
+                   ul
+                    each ui in data.desc_prod
+                     li= ui
+                  if(data.theme!='')
+                   p Theme
+                   ul
+                    each UX in data.desc_theme
+                     li= UX
+                  if(data.add_ons!='')
+                   p Add-on's
+                   ul
+                    each addOns in data.desc_add_ons
+                     li=addOns 
+                  br
+      tr
+        td
+          table
+            tr
+              td.ptag
+                p
+                  | Please logon to the Product manager login and start configuring the products you wish to. Once configured, you may access the onboarding application using the below URL.
+                br
+                br
+                p https://sntempoweronboard.herokuapp.com
+                br
+                br
+                p Reach out to us for any Support
+                br
+                p Regards,
+                p Latitude fintech
+      tr
+      tr
+        table
+          tr
+            td.header-width.img-responsive
+              img(src='https://empoweronboardaus.herokuapp.com/assets/images/stamp.jpg')
+      tr

@@ -1,0 +1,14 @@
+{
+    "url": {
+        "cmis_alfresco_url": "http://106.51.72.98:8180/alfresco/cmisbrowser",
+        "cmis_alfresco_attachments_url":"http://106.51.72.98:8180/alfresco/api/-default-/public/cmis/versions/1.0/atom/content?",
+        "contents_file_id":"289d5dfc-f3b0-4427-afc5-26a58ebe61bf",
+        "alfresco_username": "empOnbrdAus",
+        "alfresco_password": "admin",
+        "alfresco_folder_id": "87e592fc-c134-4b05-bf8e-ee1cc5f47ad9", 
+		"clientUrl":"https://australiaadmin.herokuapp.com",
+        "adminUrl":"https://australiaadmin.herokuapp.com"
+    },
+    "office365LoginEnabled": "N",
+    "country": "AUS"
+}

@@ -1,0 +1,156 @@
+<div class="inner-content">
+    <div class="grid-style">
+        <div class="panel panel-flat">
+            <div class="panel-heading pad-btm-none">
+                <div class="row">
+                    <h5 class="panel-title">Cross Selling Products</h5>
+                    <div class="pull-right">
+
+                        <a href="#" data-toggle="modal" data-target="#createCSProd_modal">
+                            <i class="glyphicon glyphicon-plus"></i>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive table-min">
+                    <table class="table table-hover " id="applicant">
+                        <thead>
+                            <tr>
+                                <th><span ></span>Cross Selling
+                                    Product Name</th>
+                                <th><span ></span>Cross Selling
+                                    Product ID</th>
+                                <th>&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="active" *ngFor="let details of csproducts_v | paginate: { itemsPerPage: 10, currentPage: p } ">
+
+                                <td class="loan-type" style="width: auto;">{{ details?.cross_selling_name }}</td>
+                                <td class="loan-type" style="width: auto;">{{ details?.cross_selling_product_code }}</td>
+                                
+                                <td>
+                                    <span class="attach-item">
+                                        <a (click)="fetchAppn(details.cross_selling_product_code)">
+                                            <i class="glyphicon glyphicon-pencil"></i>
+                                        </a>
+                                </span>
+                                </td>
+                                <!--<td>
+                                    <span class="attach-item">
+                                        <a (click)="getLinkProds(details.cross_selling_product_id)">
+                                            <i class="glyphicon glyphicon-link"></i>
+                                        </a>
+                                </span>
+                                </td>-->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal" id="createCSProd_modal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content modal_align_c">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title" id="largeModalHead">Add Cross Selling Product</h4>
+                            </div>
+                            <div class="modal-body ">
+                                <form (ngSubmit)="addCrossellingProd(basicDetails.value)" #basicDetails="ngForm">
+                                    <div class="row">
+                                            <input type="text" class="form-control" placeholder="Product ID" [(ngModel)]="csaddprod.cross_selling_product_code" id="cross_selling_product_code"
+                                                name="cross_selling_product_code" #cross_selling_product_code="ngModel">
+                                        
+                                    </div>
+                                    <div class="row">
+                                            <input type="text" class="form-control" placeholder="Product Name" [(ngModel)]="csaddprod.cross_selling_name" id="cross_selling_name"
+                                                name="cross_selling_name" #cross_selling_name="ngModel">
+                                        
+                                    </div>
+                                    
+                                    <div class="row">
+                                            <textarea class="form-control" [(ngModel)]="csaddprod.display_text" name="display_text" #display_text="ngModel" required
+                                                placeholder="Add Display Text"></textarea>
+                                      
+                                    </div><br/>
+                                    <div class="row">
+                                            <!--<button type="submit" class="btn btn-primary" style="width:84px;">Add</button>-->
+                                            <button type="submit" class="btn btn-primary ladda-button" style="width:auto;" [ladda]="isLoading" data-style="expand-right"
+                                                data-spinner-color="white"><span class="ladda-label">Add</span></button>
+                                     
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal" id="editCSProd_modal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content modal_align_c">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title" id="largeModalHead">Edit Cross Selling Product</h4>
+                            </div>
+                            <div class="modal-body ">
+
+
+                                <form (ngSubmit)="addCrossellingProd(basicDetails1.value)" #basicDetails1="ngForm">
+                                    <div class="row">
+                                            <input type="text" class="form-control" placeholder="Product ID" [(ngModel)]="cseditprod.cross_selling_product_id" id="cross_selling_product_id"
+                                                name="cross_selling_product_id" #cross_selling_product_code="ngModel" readonly>
+                                       
+                                    </div>
+                                    <div class="row">
+                                            <input type="text" class="form-control" placeholder="Product Name" [(ngModel)]="cseditprod.cross_selling_name" id="cross_selling_name"
+                                                name="cross_selling_name" #cross_selling_name="ngModel">
+                                     
+                                    </div>
+                                   
+                                    <div class="row">
+                                            <textarea class="form-control" [(ngModel)]="cseditprod.display_text" name="display_text" #display_text="ngModel" required
+                                                placeholder="Add Display Text"></textarea>
+                                     
+                                    </div><br/>
+                                    <div class="row">
+                                            <!--<button type="submit" class="btn btn-primary" style="width:auto;">Save Changes</button>-->
+                                            <button type="submit" class="btn btn-primary ladda-button" style="width:auto;" [ladda]="isLoading" data-style="expand-right"
+                                                data-spinner-color="white"><span class="ladda-label">Save Changes</span></button>
+                                      
+                                    </div>
+                                </form>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!--<div class="modal" id="linkage_modal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title" id="largeModalHead">Edit Cross Selling Product</h4>
+                            </div>
+                            <div class="modal-body modal_align_c">
+                                <dual-list [sort]="keepSorted" [source]="source" [key]="key" [display]="display" [(destination)]="confirmed"  ></dual-list><br/>
+                                    <dual-list [source]="source_arr" [key]="key" [display]="subproduct_name" [(destination)]="destination"></dual-list>
+                                    <button type="button" class="btn btn-primary ladda-button" style="width:auto;" [ladda]="isLoading" data-style="expand-right"
+                                                data-spinner-color="white" (click)="setLinks()"><span class="ladda-label">Link</span></button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>-->
+            </div>
+            <div class="panel-footer">
+                <div class="basic-pagination">
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,2077 @@
+<aside class="collapse-sidebar" id="sidebar-wrapper">
+   <div class="header-collapse">
+      <div class="close-collapse">
+         <a  class="" id="sidebar-close"><i class="material-icons">keyboard_arrow_left</i></a>
+      </div>
+      <div class="collapse-sidebar-body">
+         <ul>
+          <li *ngIf="menu==1 || menu==3"><a id="closeOnclick" [routerLink]="['/dashboard']"><i class="material-icons">trending_up</i> Overview</a></li>
+          <li *ngIf="menu==1 || menu==2"><a id="closeOnclick" [routerLink]="['/application']"><i class="material-icons">visibility</i> Applications</a></li>
+          <!--<li><a  [routerLink]="['/dashboard']"><i class="material-icons">schedule</i> Appointments</a></li> -->
+          <li *ngIf="menu==1 || menu==3"><a id="closeOnclick" [routerLink]="['/Products']"><i class="material-icons">loyalty</i> Products</a></li>
+          <li *ngIf="menu==1 || menu==4"><a id="closeOnclick" [routerLink]="['/users']"><i class="material-icons">person</i> Users</a></li>
+         </ul>
+      </div>
+   </div>
+</aside>
+<!-- Main navbar -->
+<div class="navbar navbar-inverse bg-direct navbar-fixed-top">
+   <div class="navbar-collapse collapse" >
+      <ul class="nav navbar-nav">
+         <li><a class="sidebar-control  hidden-xs" id="menu-toggle"><i class="material-icons">menu</i></a></li>
+      </ul>
+   </div>
+   <div class="navbar-header">
+      <a class="navbar-brand" [routerLink]="['/dashboard']"><img src="/assets/images/logo.png" alt=""></a>
+      <ul class="nav navbar-nav visible-xs-block">
+         <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
+         <li><a class="sidebar-mobile-main-toggle"><i class="icon-paragraph-justify3"></i></a></li>
+      </ul>
+   </div>
+   <div class="navbar-right">
+      <ul class="nav navbar-nav">
+         <!-- <li><a href="dashboard.html"  class="home"><i class="material-icons">home</i></a></li>				 -->
+         <li class="">
+            <a   class="avatar">
+            <img src="/assets/images/avatar.png" class="img-circle img-xs" alt="">
+            <i class="material-icons">more_vert</i>
+            </a>
+         </li>
+      </ul>
+   </div>
+</div>
+<!-- /main navbar -->
+<!-- Page container -->
+<div class="page-container">
+   <div class="overlay"></div>
+   <!-- Page content -->
+   <div class="page-content">
+      <!-- Main content -->
+      <div class="content-wrapper">
+         <!-- Content area -->
+         <div class="content">
+            <div class="container">
+               <div class="breadcrumb-line">
+                  <ul class="breadcrumb">
+                     <li><a [routerLink]="['/dashboard']"><i class="icon-home2 position-left"></i> Home</a></li>
+                     <li><a [routerLink]="['/application']">Applications</a></li>
+                     <li class="active">Application Details</li>
+                  </ul>
+                  <div class="pull-right"><a (click)="refresh()" class="glyphicon glyphicon-refresh"></a></div>
+               </div>
+              
+               <div class="inner-content" *ngFor="let details of customers">
+                  <div class="row form-group">
+                     <div class="col-lg-2 col-md-3">
+                        <div class="user-details">
+                           <h3 >
+                              <a  class="btn bg-yellow btn-rounded btn-icon ">
+                              <i class="material-icons">person</i>
+                              </a>
+                              {{details.fname}}
+                              <!--<span class="sub-text">{{details.assigned_to}}</span>-->
+                           </h3>
+                           <div class="personal-app">
+                              <p>{{details.application_id}}<span>
+                                    <!--<span  >{{applicationStatusCodeNamePair.get(details.application_status)}}</span>-->
+                              <span *ngIf="details.application_status==const.ACTIVE" class="app-incomplete" >ACTIVE</span>
+                                 <span *ngIf="details.application_status==const.INCOMPLETE" class="app-complete" >INCOMPLETE</span>
+                                 <span *ngIf="details.application_status==const.COMPLETED" class="app-complete" >COMPLETED</span>
+                                 <span *ngIf="details.application_status==const.VERIFIED" class="app-complete" >VERIFIED</span>
+                                 <span *ngIf="details.application_status==const.CANCELLED" class="app-complete del"  >CANCELLED</span>
+                                 <span *ngIf="details.application_status==const.REJECTED" class="app-complete del"  >REJECTED</span>
+                                 <span *ngIf="details.application_status==const.ONBOARDED" class="app-complete">ONBOARDED</span>
+                                 </span>
+                              </p>
+                              <p class="top_margin">Applied on {{details.cre_time | date}}</p>
+                           </div>
+                        </div>
+                        <div class="personal-app">
+                           <h6>{{details.product_code_name}}</h6>
+                        </div>
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                     </div>
+                     <!--<div class="col-lg-2 col-md-3">
+                        <input type="button" [disabled]="!(details.application_status=='VER')" class="btn btn-success " value="Talk with legacy">
+                        </div>
+                        <div class="col-lg-2 col-md-3">
+                        <button  class="btn btn-success "  [disabled]="details.application_status=='CMP'||details.application_status=='VER'||details.application_status=='CAN'||details.application_status=='REJ'||details.application_status=='ONBOARD'">
+                        <a [attr.disabled]="details.application_status=='CMP'||details.application_status=='VER'||details.application_status=='CAN'||details.application_status=='REJ'"
+                         style="color: white;" target="_blank" href="http://localhost:3000/home/admin/{{details.application_id}}">Take Ownership</a>
+                         </button>
+                        </div>
+                        <div class="col-lg-2  col-md-3">
+                        <input class="btn btn-success " type="button" [disabled]="!(details.application_status=='VER')" (click)="pushToCore()" class="btn btn-success "
+                         value="Push to Core">
+                        
+                        </div>-->
+                     <br/>
+                     <div class="col-lg-6 col-md-8" style="margin-top:10px;margin-left:200px" [hidden]="pushtocore==false">
+                        <div class="alert alert-success col-lg-8"> <strong>Success!</strong> Pushed to core successfully.</div>
+                     </div>
+                     <div class="modal" id="modal_verify" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-sm">
+                           <div class="modal-content">
+                              <div class="modal-header">
+                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                 <h4 class="modal-title" id="largeModalHead">Change Status</h4>
+                              </div>
+                              <div class="modal-body modal_align_c">
+                                 <p>Do you want to change the Status to Verified<b></b></p>
+                                 <br/>
+                                 <button type="button" class="btn btn-primary ladda-button" style="width:auto;" data-style="expand-right"
+                                    data-spinner-color="white" (click)="changeStatusConfirm(details.application_status,details.application_id,1)"><span class="ladda-label">Confirm</span></button>
+                                 <button type="button" class="btn btn-primary ladda-button" style="width:auto;" data-dismiss="modal" data-spinner-color="white"><span class="ladda-label">Cancel</span></button>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="modal" id="modal_cancel" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-sm">
+                           <div class="modal-content">
+                              <div class="modal-header">
+                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                 <h4 class="modal-title" id="largeModalHead">Change Status</h4>
+                              </div>
+                              <div class="modal-body modal_align_c">
+                                 <p>Are you sure you want to cancel this Application <b></b></p>
+                                 <br/>
+                                 <button type="button" class="btn btn-primary ladda-button" style="width:auto;" data-style="expand-right"
+                                    data-spinner-color="white" (click)="changeStatusConfirm(details.application_status,details.application_id,2)"><span class="ladda-label">Confirm</span></button>
+                                 <button type="button" class="btn btn-primary ladda-button" style="width:auto;" data-dismiss="modal" data-spinner-color="white"><span class="ladda-label">Cancel</span></button>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="modal" id="modal_reject" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-sm">
+                           <div class="modal-content">
+                              <div class="modal-header">
+                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                 <h4 class="modal-title" id="largeModalHead">Change Status</h4>
+                              </div>
+                              <div class="modal-body modal_align_c">
+                                 <p>Are you sure you want to reject this application <b></b></p>
+                                 <br/>
+                                 <button type="button" class="btn btn-primary ladda-button" style="width:auto;" data-style="expand-right"
+                                    data-spinner-color="white" (click)="changeStatusConfirm(details.application_status,details.application_id,3)"><span class="ladda-label">Confirm</span></button>
+                                 <button type="button" class="btn btn-primary ladda-button" style="width:auto;" data-dismiss="modal" data-spinner-color="white"><span class="ladda-label">Cancel</span></button>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <!--<div class="col-lg-4">
+                        <div class="option-btns ">
+                        <div class="acoounts">
+                        
+                        		<div class="btn-group">
+                                       	 <button type="button" class="btn btn-primary btn-icon dropdown-toggle" data-toggle="dropdown">
+                                        	<i class="material-icons">menu</i>
+                                       	</button> 
+                                       		<button type="button" class="btn btn-account"> Actions</button>
+                                       	<button type="button" class="btn btn-account-toggle dropdown-toggle" data-toggle="dropdown"><b><i class="icon-menu7"></i></b> </button>
+                        
+                                       	<ul class="dropdown-menu dropdown-menu-right">
+                        		<li><a href="#"> Schedule appointment</a></li>
+                        		<li><a href="#"> Schedule call</a></li>
+                        		<li><a href="#"> Email</a></li>
+                        		<li><a href="#"> Print summary</a></li>
+                        		<li><a href="#"> Contact History</a></li>
+                        		<li><a href="#"> Assign Application</a></li>
+                        		
+                        	</ul>
+                        </div>
+                        </div>
+                        </div>
+                        </div>-->
+                  </div>
+                  <!-- / row-->
+                  <!--<div class="custom-tab ">-->
+				<!-- Tab Headings-->
+                  <div class="tabtable">
+                     <ul class="nav navbar-nav" style="float:right;margin-right:-50px;">
+                        <li class="dropdown">
+                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:#003479;"><i class="fa fa-ellipsis-v fa-lg icono-dropbdown"></i></a>
+                           <ul class="dropdown-menu dropdown-menu-left">
+                             <input type="hidden" id="prod_type_value" value={{details.product_type_code}} />
+                              <li  *ngIf="core_account_mode == 'TTL'"><button class="in_li" [disabled]="!(details.application_status==const.VERIFIED)" (click)="enableTextBox()">Talk with legacy</button></li>
+                              <li class="divider"></li>
+                              <li><button class="in_li" [disabled]="details.application_status==const.COMPLETED ||details.application_status==const.VERIFIED||details.application_status==const.CANCELLED||details.application_status==const.REJECTED||details.application_status==const.ONBOARDED" (click)="takeOwnership(details.application_id)">
+                                 Take Ownership</button>
+                              </li>
+                              <li class="divider"></li>
+                              <li *ngIf="core_account_mode == 'PTC'"><button class="in_li" [disabled]="!(details.application_status==const.VERIFIED)" (click)="pushToCore()">
+                                 Push to Core</button>
+                              </li>
+                           </ul>
+                        </li>
+                     </ul>
+                     <div class="container">
+                        <ul class="nav nav-tabs">
+                           <li class="active">
+                              <a href="#basic-tab1" data-toggle="tab">
+                                 <div >
+                                    <div class="item-span">
+                                       <span class="fa fa-user fa-lg circle-icon-details" aria-hidden="true"></span>
+                                       <!--<span class="glyphicon glyphicon-ok primary"></span>-->
+                                    </div>
+                                 </div>
+                                 <div *ngIf="details.section_HML[0]!=null">
+                                    <div *ngIf="details.section_HML[0].section_1==true" class="item-span tick" >
+                                       <span class="glyphicon glyphicon-ok primary"></span>
+                                    </div>
+                                 </div>
+                                 <div *ngIf="details.section_PRL[0]!=null">
+                                    <div *ngIf="details.section_PRL[0].section_1==true" class="item-span tick">
+                                       <span class="glyphicon glyphicon-ok primary"></span>
+                                    </div>
+                                 </div>
+                                 <div *ngIf="details.section_SAV[0]!=null">
+                                    <div *ngIf="details.section_SAV[0].section_1==true" class="item-span tick" >
+                                       <span class="glyphicon glyphicon-ok primary"></span>
+                                    </div>
+                                 </div>
+                                 <div>
+                                    <div *ngIf="details.product_type_code=='CRS'" class="item-span tick" >
+                                       <span class="glyphicon glyphicon-ok primary"></span>
+                                    </div>
+                                 </div>
+                                 PERSONAL DETAILS   
+                              </a>
+                           </li>
+                           <li *ngIf="details.product_type_code=='PRL'">
+                              <a href="#basic-tab2" data-toggle="tab">
+                                 <div >
+                                    <div class="item-span">
+                                       <span class="fa fa-money fa-lg circle-icon-details" aria-hidden="true"></span>
+                                    </div>
+                                 </div>
+                                 <!--<div *ngIf="details.section_HML[0]!=null">
+                                    <div *ngIf="details.section_HML[0].section_2==true" class="item-span tick">
+                                    	<span class="glyphicon glyphicon-ok primary"></span>
+                                    </div>
+                                    
+                                    
+                                    </div>-->
+                                 <div *ngIf="details.section_PRL[0]!=null">
+                                    <div *ngIf="details.section_PRL[0].section_2==true" class="item-span tick">
+                                       <span class="glyphicon glyphicon-ok primary"></span>
+                                    </div>
+                                 </div>
+                                 <!--<div *ngIf="details.section_SAV[0]!=null">
+                                    <div *ngIf="details.section_SAV[0].section_2==true" class="item-span tick">
+                                    	<span class="glyphicon glyphicon-ok primary"></span>
+                                    </div>
+                                    
+                                    </div>-->
+                                 LOAN DETAILS
+                              </a>
+                           </li>
+                           <li *ngIf="details.product_type_code =='HML'">
+                              <a href="#basic-tab3" data-toggle="tab">
+                                 <div >
+                                    <div class="item-span">
+                                       <span class="fa fa-home fa-lg primary circle-icon-details" aria-hidden="true"></span>
+                                    </div>
+                                 </div>
+                                 <div *ngIf="details.section_HML[0]!=null">
+                                    <div *ngIf="details.section_HML[0].section_2==true" class="item-span tick">
+                                       <span class="glyphicon glyphicon-ok primary"></span>
+                                    </div>
+                                 </div>
+                                 <!--<div *ngIf="details.section_PRL[0]!=null">
+                                    <div *ngIf="details.section_PRL[0].section_3==true" class="item-span tick">
+                                    	<span class="glyphicon glyphicon-ok primary"></span>
+                                    </div>
+                                    </div>
+                                    
+                                    <div *ngIf="details.section_SAV[0]!=null">
+                                    
+                                    <div *ngIf="details.section_SAV[0].section_3==true" class="item-span tick">
+                                    	<span class="glyphicon glyphicon-ok primary"></span>
+                                    </div>
+                                    </div>-->
+                                 PROPERTY DETAILS
+                              </a>
+                           </li>
+                           <li *ngIf="details.product_type_code =='HML' || details.product_type_code =='PRL'">
+                              <a href="#basic-tab9" data-toggle="tab">
+                                 <div >
+                                    <div class="item-span">
+                                       <span class="fa fa-usd fa-lg primary circle-icon-details" aria-hidden="true"></span>
+                                    </div>
+                                 </div>
+                                 <div *ngIf="details.section_HML[0]!=null">
+                                    <div *ngIf="details.section_HML[0].section_3==true" class="item-span tick">
+                                       <span class="glyphicon glyphicon-ok primary"></span>
+                                    </div>
+                                 </div>
+                                 <div *ngIf="details.section_PRL[0]!=null">
+                                    <div *ngIf="details.section_PRL[0].section_3==true" class="item-span tick">
+                                       <span class="glyphicon glyphicon-ok primary"></span>
+                                    </div>
+                                 </div>
+                                 <!--<div *ngIf="details.section_SAV[0]!=null">
+                                    <div *ngIf="details.section_SAV[0].section_3==true" class="item-span tick">
+                                    	<span class="glyphicon glyphicon-ok primary"></span>
+                                    </div>
+                                    </div>-->
+                                 INCOME DETAILS
+                              </a>
+                           </li>
+                           <li *ngIf="details.product_type_code =='SAV' || details.product_type_code =='HML' || details.product_type_code =='PRL' ">
+                              <a href="#basic-tab7" data-toggle="tab">
+                                 <div >
+                                    <div class="item-span">
+                                       <span class="fa fa-id-badge fa-lg primary circle-icon-details" aria-hidden="true"></span>
+                                    </div>
+                                 </div>
+                                 <div *ngIf="details.section_HML[0]!=null">
+                                    <div *ngIf="details.section_HML[0].section_4==true" class="item-span tick">
+                                       <span class="glyphicon glyphicon-ok primary"></span>
+                                    </div>
+                                 </div>
+                                 <div *ngIf="details.section_PRL[0]!=null">
+                                    <div *ngIf="details.section_PRL[0].section_4==true" class="item-span tick">
+                                       <span class="glyphicon glyphicon-ok primary"></span>
+                                    </div>
+                                 </div>
+                                 <div *ngIf="details.section_SAV[0]!=null">
+                                    <div *ngIf="details.section_SAV[0].section_3==true" class="item-span tick">
+                                       <span class="glyphicon glyphicon-ok primary"></span>
+                                    </div>
+                                 </div>
+                                 IDENTITY INFORMATION
+                              </a>
+                           </li>
+                           <li *ngIf="details.product_type_code =='SAV'">
+                              <a href="#basic-tab8" data-toggle="tab">
+                                 <div >
+                                    <div class="item-span">
+                                       <span class="fa fa-percent fa-lg primary circle-icon-details" aria-hidden="true"></span>
+                                    </div>
+                                 </div>
+                                 <div *ngIf="details.section_SAV[0]!=null">
+                                    <div *ngIf="details.section_SAV[0].section_2==true" class="item-span tick">
+                                       <span class="glyphicon glyphicon-ok primary"></span>
+                                    </div>
+                                 </div>
+                                 TAX INFORMATION
+                              </a>
+                           </li>
+                           <li >
+                              <a href="#basic-tab4" data-toggle="tab">
+                                 <div >
+                                    <div class="item-span" >
+                                       <span class="fa fa-paperclip fa-lg circle-icon-details" aria-hidden="true"></span>
+                                    </div>
+                                 </div>
+                                 ATTACHMENTS   
+                              </a>
+                           </li>
+                           <li >
+                              <a href="#basic-tab5" data-toggle="tab" (click)=showLogs()>
+                                 <div >
+                                    <div class="item-span">
+                                       <span class="fa fa-pencil-square-o fa-lg primary circle-icon-details" aria-hidden="true"></span>
+                                    </div>
+                                 </div>
+                                 WORKLOGS   
+                              </a>
+                           </li>
+                            <li>
+                              <a href="#basic-tab6" data-toggle="tab">
+                                <div>
+                                  <div class="item-span">
+                                    <span class="fa fa-pencil-square-o fa-lg primary circle-icon-details" aria-hidden="true"></span>
+                                  </div>
+                                </div>
+                                ACCOUNT DETAILS
+                              </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                           <div class="tab-pane active" id="basic-tab1">
+                              <div class="grid-style">
+                                 <div class="table-responsive">
+                                    <table class="table table-hover">
+                                       <tbody>
+                                          <tr>
+                                             <td class="width-40">First Name</td>
+                                             <td class="width-60">{{details.fname}}</td>
+                                          </tr>
+                                           <tr>
+                                             <td class="width-40">Middle Name</td>
+                                             <td class="width-60">{{details.mname}}</td>
+                                          </tr>
+                                          <tr>
+                                             <td class="width-40">Surname</td>
+                                             <td class="width-60">{{details.lname}}</td>
+                                          </tr>
+                                          <tr>
+                                             <td class="width-40">Date of Birth</td>
+                                             <td class="width-60">{{details.dob}}</td>
+                                          </tr>
+                                          <tr>
+                                             <td class="width-40">Mobile Number</td>
+                                             <td class="width-60">{{details.mobile}}</td>
+                                          </tr>
+                                          <tr>
+                                             <td class="width-40">Email Address</td>
+                                             <td class="width-60">{{details.email}}</td>
+                                          </tr>
+                                          <tr>
+                                             <td class="width-40">Address</td>
+                                             <td class="width-60">{{details.address}}</td>
+                                          </tr>
+                                          <tr *ngIf="details.campaign_id !='' ">
+                                              <td class="width-40">Campaign ID</td>
+                                             <td class="width-60">{{details.campaign_id}}</td>
+                                              
+                                          </tr>
+                                        
+                                       </tbody>
+                                    </table>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="tab-pane" id="basic-tab2">
+                              <div *ngIf="details.product_type!='Everyday Account'">
+                                 <div class="grid-style">
+                                    <div class="table-responsive">
+                                       <table class="table table-hover">
+                                          <tbody>
+                                               <!-- Borrow Details -->
+											<tr>
+												<td class="width-40">Amount Borrowed</td>
+												<td class="width-60">{{ details.amtborrow}}</td>
+											</tr>
+											<tr>
+												<td class="width-40">Loan Term</td>
+												<td class="width-60">{{ details.loanterm}}</td>
+											</tr>
+											<tr>
+												<td class="width-40">Frequency of repayment</td>
+												<td class="width-60">{{ details.frequencyType}}</td>
+											</tr>
+											<tr *ngIf="details.loanreason?.length > 0">
+												<td class="width-40">Purpose</td>
+												<td class="width-60" >
+													<span *ngFor="let key of keys()">{{key}},</span>
+												</td>
+											</tr>
+                                          </tbody>
+                                       </table>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <!--<div *ngIf="details.product_type!='Everyday Account'">-->
+							   <!-- Property Details-->
+                           <div class="tab-pane" id="basic-tab3">
+                              <div class="grid-style">
+                                 <div class="table-responsive">
+                                    <table class="table table-hover">
+                                       <tbody>
+                                          <tr>
+                                             <td class="width-40">Loan Type</td>
+                                             <td class="width-60">{{ details.loantype}}</td>
+                                          </tr>
+                                          <!--<tr *ngIf="details.loantype!='REFINANCE'">
+                                             <td class="width-40">Property found</td>
+                                             <td class="width-60">{{ details.property}}</td>
+                                          </tr>
+                                          <tr *ngIf="details.loantype!='REFINANCE'">
+                                             <td class="width-40">Purchase Price</td>
+                                             <td class="width-60">$ {{ details.purchaseprice }}</td>
+                                          </tr>-->
+											<tr>
+												<td class="width-40">Property Type</td>
+												<td class="width-60">{{ details.proptype}}</td>
+											</tr>
+											<tr>
+												<td class="width-40">Purchase Price</td>
+												<td class="width-60">{{ details.purchaseprice}}</td>
+											</tr>
+											<tr>
+												<td class="width-40">Payout Balance</td>
+												<td class="width-60">{{ details.payoutbal}}</td>
+											</tr>
+											<tr>
+												<td class="width-40">Property Address</td>
+												<td class="width-60">{{ details.prophousenum}},{{ details.propaddr}},{{details.propstreetnum}},{{details.propstate}},{{details.proppostcode}}</td>
+											</tr>
+											<tr>
+												<td class="width-40">Ownership Type</td>
+												<td class="width-60">{{ details.ownership}}</td>
+											</tr>
+											<!-- Borrow Details -->
+											<tr>
+												<td class="width-40">Amount Borrowed</td>
+												<td class="width-60">{{ details.amtborrow}}</td>
+											</tr>
+											<tr>
+												<td class="width-40">Loan Term</td>
+												<td class="width-60">{{ details.loanterm}}</td>
+											</tr>
+											<tr>
+												<td class="width-40">Frequency of repayment</td>
+												<td class="width-60">{{ details.frequencyType}}</td>
+											</tr>
+											<tr>
+												<td class="width-40">Interest type of loan</td>
+												<td class="width-60">{{ details.interesttype}}</td>
+											</tr>
+											<tr>
+												<td class="width-40">Repayment type of loan</td>
+												<td class="width-60">{{ details.repaymenttype}}</td>
+											</tr>
+                                       </tbody>
+                                    </table>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="tab-pane " id="basic-tab4">
+                              <div class="grid-style">
+                                 <div class="table-responsive">
+                                    <div class="width-20 no-attachments" *ngIf="fileNames == null">
+                                       *No Attachments Found
+                                    </div>
+                                    <ul class="attachments">
+                                       <li  *ngFor="let files of fileNames"><img id="myImg" src="/downloads/{{details.application_id}}/{{files}}" alt={{files}} style="height:300px;width:300px;">
+                                       </li>
+                                    </ul>
+                                    <hr/>
+                                    <div id="myModal1" class="modal1">
+                                       <span class="close2">&times;</span>
+                                       <img class="modal1-content" id="img01">
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="tab-pane margintop" id="basic-tab5">
+                              <div class="grid-style">
+                                 <div class="table-responsive height-set">
+                                    <ul class="media-list">
+                                       <li class="media" >
+                                          <div class="media-body">
+                                             <div class="media">
+                                                <a class="pull-left" href="#">
+                                                </a>
+                                                <div class="media-body" >
+                                                   <b>Applicant</b> initiated the Application.  
+                                                   <br />
+                                                   <small class="text-muted">at {{created_time | date:'medium'}}</small>
+                                                   <hr />
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </li>
+                                       
+                                       <li class="media" *ngFor="let details of work_logs">
+                                          <div class="media-body">
+                                             <div class="media">
+                                                <a class="pull-left" href="#">
+                                                </a>
+                                                <div class="media-body" *ngIf="details.change_type == 1 ">
+                                                   <span class="words">{{details.who}}</span> has changed the status from 
+                                                     <span class="words" >{{applicationStatusCodeNamePair.get(details.from)}}</span>
+                                                   <!--<span *ngIf="details.from =='CMP'"class="words">Complete</span>
+                                                   <span *ngIf="details.from =='INCMP'"class="words">InComplete</span>
+                                                   <span *ngIf="details.from =='SAV'"class="words">Active</span>
+                                                   <span *ngIf="details.from =='VER'"class="words">Verified</span>
+                                                   <span *ngIf="details.from =='CAN'"class="words">Cancelled</span>
+                                                   <span *ngIf="details.from =='REJ'"class="words">Rejected</span>
+                                                   <span *ngIf="details.from=='ONBOARD'"class="words">Onboarded</span>-->
+                                                   to   
+                                                    <span class="words" >{{applicationStatusCodeNamePair.get(details.to)}}</span>
+                                                   <!--<span *ngIf="details.to=='CMP'"class="words">Complete</span>
+                                                   <span *ngIf="details.to=='INCMP'"class="words">InComplete</span>
+                                                   <span *ngIf="details.to=='SAV'"class="words">Active</span>
+                                                   <span *ngIf="details.to=='VER'"class="words">Verified</span>
+                                                   <span *ngIf="details.to=='CAN'"class="words">Cancelled</span>
+                                                   <span *ngIf="details.to=='REJ'"class="words">Rejected</span>
+                                                   <span *ngIf="details.to=='ONBOARD'"class="words">Onboarded</span>-->
+                                                   <br />
+                                                   <small class="text-muted">at {{details.updated_time  | date:'medium' }}</small>
+                                                   <hr />
+                                                </div>
+                                                <div class="media-body" *ngIf="details.change_type == 2">
+                                                   <span class="words"> {{details.who}} </span> has changed the owner of the ticket from <span class="words">{{details.from}} </span> to <span class="words"> {{details.to}}</span> 
+                                                   <br />
+                                                   <small class="text-muted">at {{details.updated_time  | date:'medium' }}</small>
+                                                   <hr />
+                                                </div>
+                                                <div class="media-body" *ngIf="details.change_type == 5">
+                                                   <span class="words"> {{details.who}} </span> has resumed the Application  
+                                                   <br />
+                                                   <small class="text-muted">at {{details.updated_time  | date:'medium' }}</small>
+                                                   <hr />
+                                                </div>
+                                                <div class="media-body" *ngIf="details.change_type == 6">
+                                                   <span class="words"> {{details.who}} </span> has completed the Application  
+                                                   <br />
+                                                   <small class="text-muted">at {{details.updated_time  | date:'medium' }}</small>
+                                                   <hr />
+                                                </div>
+                                                <div class="media-body" *ngIf="details.comment != null">
+                                                   <span class="words"> {{details.who}} </span> has added a comment :  <span style="font-size:15px;">{{details.comment}}</span>
+                                                   <br />
+                                                   <small class="text-muted">at {{details.updated_time  | date:'medium' }}</small>
+                                                   <hr />
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 <div class="panel-footer  ">
+                                    <form (ngSubmit)="addComments()">
+                                       <div class="input-group" >
+                                          <input type="text" class="form-control txtbox" autocomplete="off" [(ngModel)] = "str_comment" placeholder="Type your comment here" style="background-color:#fff;" name="comments"  #comments="ngModel" required/>
+                                          <span class="input-group-btn">
+                                          <button type="submit" class="btn btn-info"  >SEND</button>
+                                          </span>
+                                       </div>
+                                    </form>
+                                 </div>
+                              </div>
+                           </div>
+						   <!-- Tax Information -->
+                           <div class="tab-pane" id="basic-tab8">
+                              <div class="grid-style">
+                                 <div class="table-responsive">
+                                    <table class="table table-hover">
+                                       <tbody>
+                                          <tr>
+                                             <td class="width-40">TFN</td>
+                                             <td class="width-60">{{details.tfn}}</td>
+                                          </tr>
+                                          <tr>
+                                             <td class="width-40">Exemption</td>
+                                             <td class="width-60">{{details.exemption}}</td>
+                                          </tr>
+                                       </tbody>
+                                    </table>
+                                 </div>
+                              </div>
+                           </div>
+                        
+						   <!-- Tab 9 Income details-->
+						     <div class="tab-pane " id="basic-tab9">
+								<div class="grid-style">
+									<div class="table-responsive">
+										<table class="table table-hover">
+											<tbody>
+												<tr>
+													<td class="width-40">Whether Employed ?</td>
+													<td class="width-60">{{ details.employed}}</td>
+												</tr>
+												<tr>
+													<td class="width-40">Employer</td>
+													<td class="width-60">{{ details.employer}}</td>
+												</tr>
+												<tr>
+													<td class="width-40">Years of service</td>
+													<td class="width-60">{{ details.service}} Years</td>
+												</tr>
+												<tr>
+													<td class="width-40">Monthly Living Expenses</td>
+													<td class="width-60">{{ details.monthlyLivingExpenses}}</td>
+												</tr>
+												<tr>
+													<td class="width-40">Earnings per month</td>
+													<td class="width-60">{{ details.earnPerMonth}}</td>
+												</tr>
+												<tr>
+													<td class="width-40">Relationship Status</td>
+													<td class="width-60">{{ details.relationshipStatus}}</td>
+												</tr>
+												<tr>
+													<td class="width-40">Living Type</td>
+													<td class="width-60">{{ details.livingType}}</td>
+												</tr>
+													<tr>
+													<td class="width-40">Amount of Rent share</td>
+													<td class="width-60">{{ details.rentShare}}</td>
+												</tr>
+												<tr>
+													<td class="width-40">Frequency of Rent share</td>
+													<td class="width-60">{{ details.frequencyOfRent}}</td>
+												</tr>
+												<tr>
+													<td class="width-40">Current living address duration</td>
+													<td class="width-60">{{ details.years}} years and {{ details.months}} months</td>
+												</tr>
+												<tr>
+													<td class="width-40">Contact Name</td>
+													<td class="width-60">{{ details.fullname}}</td>
+												</tr>
+												<tr>
+													<td class="width-40">Contact Phone</td>
+													<td class="width-60">{{ details.phone}}</td>
+												</tr>
+												<tr>
+													<td class="width-40">Previous living address duration</td>
+													<td class="width-60">{{ details.anotheryears}} Years and {{details.anothermonths}} months</td>
+												</tr>
+												<tr>
+													<td class="width-40">Address </td>
+													<td class="width-60" *ngIf="details.newaddress==''">{{ details.newhousenum}} {{details.newstreetnum}} {{ details.newstreetname}} {{details.newstreettype}} {{ details.newsuburb}} {{details.newstate}} {{ details.newpostcode}}</td>
+													<td class="width-60" *ngIf="details.newaddress!=''">{{ details.newaddress}}</td>
+												</tr>
+											</tbody>
+										</table>
+										<table>
+                                                    <tr>
+                                                        <td>
+                                                            <label class="form-label" for="fname">Assets Details</label>
+                                                            <table border="1" id="tblListViewassets">
+                                                                <tr>
+                                                                    <th>Asset Type</th>
+                                                                    <th>Asset value</th>
+                                                                    <th>Income</th>
+                                                                    <th>Income Frequency</th>
+                                                                </tr>
+                                                                <tr *ngFor="let assets of details.assets">
+                                                                    <td>{{assets.assettype}}</td>
+                                                                    <td>{{assets.assetvalue}}</td>
+                                                                    <td>{{assets.assetIncome}}</td>
+                                                                    <td>{{assets.assetIncomeFrequency}}</td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                        <td>
+                                                            <label class="form-label" for="fname">Liabilities Details</label>
+                                                            <table border="1" id="tblListViewLiabilities">
+                                                                <tr>
+                                                                    <th>Liabilities Type</th>
+                                                                    <th>Financial Institution</th>
+                                                                    <th>Balance Pending</th>
+                                                                    <th>Payable Amount</th>
+                                                                    <th>Payment Frequency</th>
+                                                                </tr>
+                                                                <tr *ngFor="let Liabilities of details.Liabilities">
+                                                                    <td>{{Liabilities.Liabilitiestype}}</td>
+                                                                    <td>{{Liabilities.Financial_Institution}}</td>
+                                                                    <td>{{Liabilities.Balance_Pending}}</td>
+                                                                    <td>{{Liabilities.Payable_Amount}}</td>
+                                                                    <td>{{Liabilities.Payment_Frequency}}</td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+									</div>
+								</div>
+						     </div>
+                 <!-- Tab 6 Account Details-->
+                 <div class="tab-pane " id="basic-tab6">
+                <div *ngIf="details.application_status!=const.ONBOARDED">
+                    <div class="grid-style col-md-4 col-sm-4">
+                        <form>
+                            <div class="form-group has-feedback">
+                                <div class=" material-form">
+                                    <input type="text" name="accno" #accno [disabled]="talktolegacy_v==false" />
+                                    <label for="input" class="control-label">Account Number</label><i class="bar"></i>
+                                </div>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <div class=" material-form">
+                                    <!--<input type="password" [ngModel]="pass" (blur)="onKey()"  formControlName="password"   required="required"/>-->
+                                    <input type="text" name="cfid" #cfid [disabled]="talktolegacy_v==false" />
+                                    <label for="input" class="control-label">Customer Id</label><i class="bar"></i>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="button" class="btn bg-submit btn-block" [disabled]="talktolegacy_v==false" value="ADD" (click)="talktolegacy(details.application_id,accno.value,cfid.value)" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div *ngIf="details.application_status==const.ONBOARDED">
+                    <div class="grid-style">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <tbody>
+                                    <tr>
+                                        <td class="width-40">Account Number</td>
+                                        <td class="width-60">{{details.core_account_number}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="width-40">Customer ID</td>
+                                        <td class="width-60">{{details.core_customer_id}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+						   <!-- Tab 7 Identity information details-->
+						     <div class="tab-pane " id="basic-tab7">
+                              <div class="grid-style">
+                                 <div class="table-responsive">
+                                   <table class="table table-hover">
+											<tbody>
+												<tr>
+													<td class="width-40">Passport Number</td>
+													<td class="width-60">{{ details.idnum}}</td>
+												</tr>
+												<tr>
+													<td class="width-40">Passport Issuing Country</td>
+													<td class="width-60">{{details.idstate}}</td>
+												</tr>
+												<tr>
+													<td class="width-40">Medicare Card number</td>
+													<td class="width-60">{{ details.meidicarenum}}</td>
+												</tr>
+												<tr>
+													<td class="width-40">Medicare Reference number</td>
+													<td class="width-60">{{ details.refnum}}</td>
+												</tr>
+												<tr>
+													<td class="width-40">Medicare Card Valid to</td>
+													<td class="width-60">{{ details.validTo }}</td>
+												</tr>
+												<tr>
+													<td class="width-40">Medicare Card Color</td>
+													<td class="width-60">{{ details.color}}</td>
+												</tr>
+												<tr>
+													<td class="width-40">State of driver license registration</td>
+													<td class="width-60">{{ details.DLidState}}</td>
+												</tr>
+												<tr>
+													<td class="width-40">Driving License Number</td>
+													<td class="width-60">{{ details.LNum}}</td>
+												</tr>
+											</tbody>
+                                   </table>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <!--</div>-->
+                  <!--</div>-->
+                  <!--<div class="attachment">
+                     <p>Documents Attached</p>
+                     <a href="#" class="attach-elmes"><span><i class="material-icons">attach_file</i></span> 1.<span class="doc-name">Document 1.pdf</span></a>
+                     </div>-->
+                  <!--
+                     <div class="notes">
+                     	<h6>NOTES</h6>
+                     	<div class="item">
+                     		<ol>
+                     			<li>{{details.comments}}</li>
+                     			<!--<li>Appointment requested with a specialist</li>-->
+                  <!--<li>Call scheduled wtieh client on 21 Sep 12 am</li>-->
+                  <!--	</ol>
+                     </div>
+                     </div>-->
+                  <div class="btn-group col-lg-2  col-md-3 custom-pos">
+                     <button type="button" class="btn btn-success dropdown-toggle custom-line" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Download as</button>
+                     <div class="dropdown-menu custom-padd">
+                        <button class="dropdown-item" (click)="download(details.application_id)">PDF</button>
+                        <button class="dropdown-item " (click)="exportAll('xls',details.application_id)">XLS</button>
+                        <button class="dropdown-item " (click)="exportAll('txt',details.application_id)">TXT</button>
+                        <button class="dropdown-item" (click)="exportAll('csv',details.application_id)">CSV</button>
+                     </div>
+                  </div>
+                  <div class="row  padd">
+                     <div class="col-lg-6 col-md-8">
+                         <button (mouseover)="onmousehover(1)"
+                        (mouseout)="onmouseout()" (click)="changeStatus(1)" *ngIf="details.application_status==const.COMPLETED"
+                        data-toggle="tooltip" title={{message}} style="color:white;background:green;" type="button" class="btn btn-labeledd btn-success">
+                        <span class="btn-labell">
+                        <i class="glyphicon glyphicon-ok" aria-hidden="true"  ></i></span>    Verify</button>
+                        <button (mouseover)="onmousehover(2)"
+                        (mouseout)="onmouseout()" (click)="changeStatus(2)" *ngIf=" details.application_status!=const.ONBOARDED &&details.application_status!=const.REJECTED && details.application_status!=const.CANCELLED"
+                        data-toggle="tooltip" title={{message}} style="color:white;background:darkred;" type="button" class="btn btn-labeledd btn-danger">
+                        <span class="btn-labell"><i class="glyphicon glyphicon-remove" aria-hidden="true" style="color:white;background:darkred;" ></i></span>Cancel</button>
+                        <button (mouseover)="onmousehover(3)"
+                        (mouseout)="onmouseout()" (click)="changeStatus(3)" *ngIf="details.application_status!=const.ONBOARDED && details.application_status!=const.REJECTED" tooltip="message" data-toggle="tooltip"
+                        title={{message}} style="color:white;background:red;" type="button" class="btn btn-labeledd btn-danger">
+                        <span class="btn-labell"><i class="glyphicon glyphicon-ban-circle" aria-hidden="true" style="color:white;" ></i></span> Reject</button>
+                     </div>
+                  </div>
+                  <div >
+                     <div hidden class="row" id="content1">
+                        <!--<img alt="Logo" src="/assets/images/logo.png">-->
+                        <div class="col-md-offset-8 row pull-right">
+                           <p>Application ID:{{details.application_id}}</p>
+                        </div>
+                        <div class="row pull-right">
+                           <p>Product type:{{details.product_type}}</p>
+                        </div>
+                        <div class="row pull-right">
+                           <p>Application Status:
+                                <span >{{applicationStatusCodeNamePair.get(details.application_status)}}</span>
+                             <!-- <span *ngIf="details.application_status=='SAV'" class="app-incomplete">ACTIVE</span>
+                              <span *ngIf="details.application_status=='INCMP'" class="app-complete">INCOMPLETED</span>
+                              <span *ngIf="details.application_status=='CMP'" class="app-complete">COMPLETED</span>-->
+                           </p>
+                        </div>
+						<!--Personal Loan Account Details-->
+                        <div >
+                           <table>
+                              <!--<h4>Personal Details</h4>-->
+                              <tbody>
+                                 <tr>
+                                    <th>Personal details</th>
+                                    <td></td>
+                                 </tr>
+                                 <tr>
+                                    <td >First Name</td>
+                                    <td >{{details.fname}}</td>
+                                 </tr>
+                                  <tr>
+                                    <td class="width-40">Middle Name</td>
+                                    <td class="width-60">{{details.mname}}</td>
+                                  </tr>
+                                 <tr>
+                                    <td >Surname</td>
+                                    <td >{{details.lname}}</td>
+                                 </tr>
+                                 <tr>
+                                    <td >Date of Birth</td>
+                                    <td >{{details.dob}}</td>
+                                 </tr>
+                                 <tr>
+                                    <td >Mobile Number</td>
+                                    <td>{{details.mobile}}</td>
+                                 </tr>
+                                 <tr>
+                                    <td >Email Address</td>
+                                    <td >{{details.email}}</td>
+                                 </tr>
+                                 <tr>
+                                    <td >Address</td>
+                                    <td >{{details.address}}</td>
+                                 </tr>
+                                
+                              </tbody>
+                           </table>
+                           <!--<h4>Loan details</h4>-->
+                           <table>
+                              	<tr>
+								<td class="width-40">Whether Employed ?</td>
+									<td class="width-60">{{ details.employed}}</td>
+								</tr>
+								<tr>
+									<td class="width-40">Employer</td>
+									<td class="width-60">{{ details.employer}}</td>
+								</tr>
+								<tr>
+									<td class="width-40">Years of service</td>
+									<td class="width-60">{{ details.service}} Years</td>
+								</tr>
+								<tr>
+									<td class="width-40">Monthly Living Expenses</td>
+									<td class="width-60">{{ details.monthlyLivingExpenses}}</td>
+								</tr>
+								<tr>
+									<td class="width-40">Earnings per month</td>
+									<td class="width-60">{{ details.earnPerMonth}}</td>
+								</tr>
+                           </table>
+                           <table>
+                              <tr>
+                                 <th>property details</th>
+                                 <td></td>
+                              </tr>
+                              <tr>
+                                 <td class="width-40">Changed Load Tykjhkjhk</td>
+                                 <td class="width-60">{{ details.loantype}}</td>
+                              </tr>
+                              <tr *ngIf="details.loantype!='REFINANCE'">
+                                 <td class="width-40">Property found</td>
+                                 <td class="width-60">{{ details.property}}</td>
+                              </tr>
+                              <tr *ngIf="details.loantype!='REFINANCE'">
+                                 <td class="width-40">Purchase Price</td>
+                                 <td class="width-60">$ {{ details.purchaseprice }}</td>
+                              </tr>
+                           </table>
+                        </div>
+                     </div>
+                     <div  hidden>
+                        <table class="table" id="excel" border="0">
+                           <tbody>
+                              <tr>
+                                 <td class="width-40">Application ID</td>
+                                 <td class="width-60">{{details.application_id}}</td>
+                              </tr>
+                              <tr>
+                                 <td class="width-40">Product Type</td>
+                                 <td class="width-60">{{details.product_type}}</td>
+                              </tr>
+                              <tr>
+                                 <td class="width-40">Application Status</td>
+                                 <td class="width-60">
+                                     <span >{{applicationStatusCodeNamePair.get(details.application_status)}}</span>
+                                   <!-- <span *ngIf="details.application_status=='SAV'" class="app-incomplete">ACTIVE</span>
+                                    <span *ngIf="details.application_status=='INCMP'" class="app-complete">INCOMPLETED</span>
+                                    <span *ngIf="details.application_status=='CMP'" class="app-complete">COMPLETED</span>-->
+                                 </td>
+                              </tr>
+                              <tr></tr>
+                              <tr>
+                                 <td>Personal Details</td>
+                              </tr>
+                              <tr></tr>
+                              <tr>
+                                 <td class="width-40">First Name</td>
+                                 <td class="width-60">{{details.fname}}</td>
+                              </tr>
+                              <tr>
+                                    <td class="width-40">Middle Name</td>
+                                    <td class="width-60">{{details.mname}}</td>
+                                </tr>
+                              <tr>
+                                 <td class="width-40">Surname</td>
+                                 <td class="width-60">{{details.lname}}</td>
+                              </tr>
+                              <tr>
+                                 <td class="width-40">Date of Birth</td>
+                                 <td class="width-60">{{details.dob}}</td>
+                              </tr>
+                              <tr>
+                                 <td class="width-40">Mobile Number</td>
+                                 <td class="width-60">{{details.mobile}}</td>
+                              </tr>
+                              <tr>
+                                 <td class="width-40">Email Address</td>
+                                 <td class="width-60">{{details.email}}</td>
+                              </tr>
+                              <tr>
+                                 <td class="width-40">Address</td>
+                                 <td class="width-60">{{details.address}}</td>
+                              </tr>
+                             
+                            
+                              <tr>
+                                 <td>Loan Details</td>
+                              </tr>
+                              <tr></tr>
+                              <tr>
+                                 <td class="width-40">Loan Amount</td>
+                                 <td class="width-60"> {{ details.amtborrow | currency:'USD':true:'4.2-2' }}</td>
+                              </tr>
+                              <tr>
+                                 <td class="width-40">Repayment Amount</td>
+                                 <td class="width-60"><label>$  -/<span class="small-text">month</span></label></td>
+                              </tr>
+                              <tr>
+                                 <td class="width-40">Repay Loan Over</td>
+                                 <td class="width-60">{{ details.loanterm }} Years</td>
+                              </tr>
+                              <tr>
+                                 <td class="width-40">Rate</td>
+                                 <td class="width-60">- % p.a</td>
+                              </tr>
+                              <tr></tr>
+                              <tr>
+                                 <td>Property Details</td>
+                              </tr>
+                              <tr></tr>
+                              <tr>
+                                 <td class="width-40">Loan Type</td>
+                                 <td class="width-60">{{ details.loantype}}</td>
+                              </tr>
+                              <tr *ngIf="details.loantype!='REFINANCE'">
+                                 <td class="width-40">Property found</td>
+                                 <td class="width-60">{{ details.property}}</td>
+                              </tr>
+                              <tr *ngIf="details.loantype!='REFINANCE'">
+                                 <td class="width-40">Purchase Price</td>
+                                 <td class="width-60">$ {{ details.purchaseprice }}</td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+               </div>
+
+<!-- secondary applicant-->
+
+             <div class="inner-content" *ngIf="secondaryAccountDetails!=null && secondaryAccountDetails!='' && secondaryAccountDetails!=undefined">
+                  <div class="row form-group">
+                     <div class="col-lg-2 col-md-3">
+                        <div class="user-details">
+                           <h3 >
+                              <a  class="btn bg-yellow btn-rounded btn-icon ">
+                              <i class="material-icons">person</i>
+                              </a>
+                              {{secondaryAccountDetails.fname}}
+                              <!--<span class="sub-text">{{secondaryAccountDetails.assigned_to}}</span>-->
+                           </h3>
+                           <div class="personal-app">
+                              <p>{{secondaryAccountDetails.application_id}}<span>
+                                    <!--<span  >{{applicationStatusCodeNamePair.get(secondaryAccountDetails.application_status)}}</span>-->
+                                  <span *ngIf="secondaryAccountDetails.application_status==const.ACTIVE" class="app-incomplete" >ACTIVE</span>
+                                 <span *ngIf="secondaryAccountDetails.application_status==const.INCOMPLETE" class="app-complete" >INCOMPLETE</span>
+                                 <span *ngIf="secondaryAccountDetails.application_status==const.COMPLETED" class="app-complete" >COMPLETED</span>
+                                 <span *ngIf="secondaryAccountDetails.application_status==const.VERIFIED" class="app-complete" >VERIFIED</span>
+                                 <span *ngIf="secondaryAccountDetails.application_status==const.CANCELLED" class="app-complete del"  >CANCELLED</span>
+                                 <span *ngIf="secondaryAccountDetails.application_status==const.REJECTED" class="app-complete del"  >REJECTED</span>
+                                 <span *ngIf="secondaryAccountDetails.application_status==const.ONBOARDED" class="app-complete">ONBOARDED</span>
+                                 </span>
+                              </p>
+                              <p class="top_margin">Applied on {{secondaryAccountDetails.cre_time | date}}</p>
+                           </div>
+                        </div>
+                        <div class="personal-app">
+                           <h6>{{secondaryAccountDetails.product_code_name}}</h6>
+                        </div>
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                     </div>
+                     <!--<div class="col-lg-2 col-md-3">
+                        <input type="button" [disabled]="!(secondaryAccountDetails.application_status=='VER')" class="btn btn-success " value="Talk with legacy">
+                        </div>
+                        <div class="col-lg-2 col-md-3">
+                        <button  class="btn btn-success "  [disabled]="secondaryAccountDetails.application_status=='CMP'||secondaryAccountDetails.application_status=='VER'||secondaryAccountDetails.application_status=='CAN'||secondaryAccountDetails.application_status=='REJ'||secondaryAccountDetails.application_status=='ONBOARD'">
+                        <a [attr.disabled]="secondaryAccountDetails.application_status=='CMP'||secondaryAccountDetails.application_status=='VER'||secondaryAccountDetails.application_status=='CAN'||secondaryAccountDetails.application_status=='REJ'"
+                         style="color: white;" target="_blank" href="http://localhost:3000/home/admin/{{secondaryAccountDetails.application_id}}">Take Ownership</a>
+                         </button>
+                        </div>
+                        <div class="col-lg-2  col-md-3">
+                        <input class="btn btn-success " type="button" [disabled]="!(secondaryAccountDetails.application_status=='VER')" (click)="pushToCore()" class="btn btn-success "
+                         value="Push to Core">
+                        
+                        </div>-->
+                     <br/>
+                     <div class="col-lg-6 col-md-8" style="margin-top:10px;margin-left:200px" [hidden]="pushtocore==false">
+                        <div class="alert alert-success col-lg-8"> <strong>Success!</strong> Pushed to core successfully.</div>
+                     </div>
+                     <div class="modal" id="modal_verify1" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-sm">
+                           <div class="modal-content">
+                              <div class="modal-header">
+                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                 <h4 class="modal-title" id="largeModalHead">Change Status</h4>
+                              </div>
+                              <div class="modal-body modal_align_c">
+                                 <p>Do you want to change the Status to Verified<b></b></p>
+                                 <br/>
+                                 <button type="button" class="btn btn-primary ladda-button" style="width:auto;" data-style="expand-right"
+                                    data-spinner-color="white" (click)="changeStatusConfirm(secondaryAccountDetails.application_status,secondaryAccountDetails.application_id,1)"><span class="ladda-label">Confirm</span></button>
+                                 <button type="button" class="btn btn-primary ladda-button" style="width:auto;" data-dismiss="modal" data-spinner-color="white"><span class="ladda-label">Cancel</span></button>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="modal" id="modal_cancel1" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-sm">
+                           <div class="modal-content">
+                              <div class="modal-header">
+                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                 <h4 class="modal-title" id="largeModalHead">Change Status</h4>
+                              </div>
+                              <div class="modal-body modal_align_c">
+                                 <p>Are you sure you want to cancel this Application <b></b></p>
+                                 <br/>
+                                 <button type="button" class="btn btn-primary ladda-button" style="width:auto;" data-style="expand-right"
+                                    data-spinner-color="white" (click)="changeStatusConfirm(secondaryAccountDetails.application_status,secondaryAccountDetails.application_id,2)"><span class="ladda-label">Confirm</span></button>
+                                 <button type="button" class="btn btn-primary ladda-button" style="width:auto;" data-dismiss="modal" data-spinner-color="white"><span class="ladda-label">Cancel</span></button>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="modal" id="modal_reject1" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-sm">
+                           <div class="modal-content">
+                              <div class="modal-header">
+                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                 <h4 class="modal-title" id="largeModalHead">Change Status</h4>
+                              </div>
+                              <div class="modal-body modal_align_c">
+                                 <p>Are you sure you want to reject this application <b></b></p>
+                                 <br/>{{secondaryAccountDetails.application_id}}
+                                 <button type="button" class="btn btn-primary ladda-button" style="width:auto;" data-style="expand-right"
+                                    data-spinner-color="white" (click)="changeStatusConfirm(secondaryAccountDetails.application_status,secondaryAccountDetails.application_id,3)"><span class="ladda-label">Confirm</span></button>
+                                 <button type="button" class="btn btn-primary ladda-button" style="width:auto;" data-dismiss="modal" data-spinner-color="white"><span class="ladda-label">Cancel</span></button>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <!--<div class="col-lg-4">
+                        <div class="option-btns ">
+                        <div class="acoounts">
+                        
+                        		<div class="btn-group">
+                                       	 <button type="button" class="btn btn-primary btn-icon dropdown-toggle" data-toggle="dropdown">
+                                        	<i class="material-icons">menu</i>
+                                       	</button> 
+                                       		<button type="button" class="btn btn-account"> Actions</button>
+                                       	<button type="button" class="btn btn-account-toggle dropdown-toggle" data-toggle="dropdown"><b><i class="icon-menu7"></i></b> </button>
+                        
+                                       	<ul class="dropdown-menu dropdown-menu-right">
+                        		<li><a href="#"> Schedule appointment</a></li>
+                        		<li><a href="#"> Schedule call</a></li>
+                        		<li><a href="#"> Email</a></li>
+                        		<li><a href="#"> Print summary</a></li>
+                        		<li><a href="#"> Contact History</a></li>
+                        		<li><a href="#"> Assign Application</a></li>
+                        		
+                        	</ul>
+                        </div>
+                        </div>
+                        </div>
+                        </div>-->
+                  </div>
+                  <!-- / row-->
+                  <!--<div class="custom-tab ">-->
+				<!-- Tab Headings-->
+                  <div class="tabtable">
+                     <ul class="nav navbar-nav" style="float:right;margin-right:-50px;">
+                        <li class="dropdown">
+                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:#003479;"><i class="fa fa-ellipsis-v fa-lg icono-dropbdown"></i></a>
+                           <ul class="dropdown-menu dropdown-menu-left">
+                             <input type="hidden" id="prod_type_value" value={{secondaryAccountDetails.product_type_code}} />
+                              <li  *ngIf="core_account_mode == 'TTL'"><button class="in_li" [disabled]="!(secondaryAccountDetails.application_status==const.VERIFIED)" (click)="enableTextBox()">Talk with legacy</button></li>
+                              <li class="divider"></li>
+                              <li><button class="in_li" [disabled]="secondaryAccountDetails.application_status==const.COMPLETED ||secondaryAccountDetails.application_status==const.VERIFIED||secondaryAccountDetails.application_status==const.CANCELLED||secondaryAccountDetails.application_status==const.REJECTED||secondaryAccountDetails.application_status==const.ONBOARDED" (click)="takeOwnership(secondaryAccountDetails.application_id)">
+                                 Take Ownership</button>
+                              </li>
+                              <li class="divider"></li>
+                              <li *ngIf="core_account_mode == 'PTC'"><button class="in_li" [disabled]="!(secondaryAccountDetails.application_status==const.VERIFIED)" (click)="pushToCore()">
+                                 Push to Core</button>
+                              </li>
+                           </ul>
+                        </li>
+                     </ul>
+                     <div class="container">
+                        <ul class="nav nav-tabs">
+                           <li class="active">
+                              <a href="#basic2-tab1" data-toggle="tab">
+                                 <div >
+                                    <div class="item-span">
+                                       <span class="fa fa-user fa-lg circle-icon-details" aria-hidden="true"></span>
+                                       <!--<span class="glyphicon glyphicon-ok primary"></span>-->
+                                    </div>
+                                 </div>
+                                 <div *ngIf="secondaryAccountDetails.section_HML[0]!=null">
+                                    <div *ngIf="secondaryAccountDetails.section_HML[0].section_1==true" class="item-span tick" >
+                                       <span class="glyphicon glyphicon-ok primary"></span>
+                                    </div>
+                                 </div>
+                                 <div *ngIf="secondaryAccountDetails.section_PRL[0]!=null">
+                                    <div *ngIf="secondaryAccountDetails.section_PRL[0].section_1==true" class="item-span tick">
+                                       <span class="glyphicon glyphicon-ok primary"></span>
+                                    </div>
+                                 </div>
+                                 <div *ngIf="secondaryAccountDetails.section_SAV[0]!=null">
+                                    <div *ngIf="secondaryAccountDetails.section_SAV[0].section_1==true" class="item-span tick" >
+                                       <span class="glyphicon glyphicon-ok primary"></span>
+                                    </div>
+                                 </div>
+                                 <div>
+                                    <div *ngIf="secondaryAccountDetails.product_type_code=='CRS'" class="item-span tick" >
+                                       <span class="glyphicon glyphicon-ok primary"></span>
+                                    </div>
+                                 </div>
+                                 PERSONAL DETAILS   
+                              </a>
+                           </li>
+                           <li *ngIf="secondaryAccountDetails.product_type_code=='PRL'">
+                              <a href="#basic2-tab2" data-toggle="tab">
+                                 <div >
+                                    <div class="item-span">
+                                       <span class="fa fa-money fa-lg circle-icon-details" aria-hidden="true"></span>
+                                    </div>
+                                 </div>
+                                 <!--<div *ngIf="secondaryAccountDetails.section_HML[0]!=null">
+                                    <div *ngIf="secondaryAccountDetails.section_HML[0].section_2==true" class="item-span tick">
+                                    	<span class="glyphicon glyphicon-ok primary"></span>
+                                    </div>
+                                    
+                                    
+                                    </div>-->
+                                 <div *ngIf="secondaryAccountDetails.section_PRL[0]!=null">
+                                    <div *ngIf="secondaryAccountDetails.section_PRL[0].section_2==true" class="item-span tick">
+                                       <span class="glyphicon glyphicon-ok primary"></span>
+                                    </div>
+                                 </div>
+                                 <!--<div *ngIf="secondaryAccountDetails.section_SAV[0]!=null">
+                                    <div *ngIf="secondaryAccountDetails.section_SAV[0].section_2==true" class="item-span tick">
+                                    	<span class="glyphicon glyphicon-ok primary"></span>
+                                    </div>
+                                    
+                                    </div>-->
+                                 LOAN DETAILS
+                              </a>
+                           </li>
+                           <li *ngIf="secondaryAccountDetails.product_type_code =='HML'">
+                              <a href="#basic-tab3" data-toggle="tab">
+                                 <div >
+                                    <div class="item-span">
+                                       <span class="fa fa-home fa-lg primary circle-icon-details" aria-hidden="true"></span>
+                                    </div>
+                                 </div>
+                                 <div *ngIf="secondaryAccountDetails.section_HML[0]!=null">
+                                    <div *ngIf="secondaryAccountDetails.section_HML[0].section_2==true" class="item-span tick">
+                                       <span class="glyphicon glyphicon-ok primary"></span>
+                                    </div>
+                                 </div>
+                                 <!--<div *ngIf="secondaryAccountDetails.section_PRL[0]!=null">
+                                    <div *ngIf="secondaryAccountDetails.section_PRL[0].section_3==true" class="item-span tick">
+                                    	<span class="glyphicon glyphicon-ok primary"></span>
+                                    </div>
+                                    </div>
+                                    
+                                    <div *ngIf="secondaryAccountDetails.section_SAV[0]!=null">
+                                    
+                                    <div *ngIf="secondaryAccountDetails.section_SAV[0].section_3==true" class="item-span tick">
+                                    	<span class="glyphicon glyphicon-ok primary"></span>
+                                    </div>
+                                    </div>-->
+                                 PROPERTY DETAILS
+                              </a>
+                           </li>
+                           <li *ngIf="secondaryAccountDetails.product_type_code =='HML' || secondaryAccountDetails.product_type_code =='PRL'">
+                              <a href="#basic-tab9" data-toggle="tab">
+                                 <div >
+                                    <div class="item-span">
+                                       <span class="fa fa-usd fa-lg primary circle-icon-details" aria-hidden="true"></span>
+                                    </div>
+                                 </div>
+                                 <div *ngIf="secondaryAccountDetails.section_HML[0]!=null">
+                                    <div *ngIf="secondaryAccountDetails.section_HML[0].section_3==true" class="item-span tick">
+                                       <span class="glyphicon glyphicon-ok primary"></span>
+                                    </div>
+                                 </div>
+                                 <div *ngIf="secondaryAccountDetails.section_PRL[0]!=null">
+                                    <div *ngIf="secondaryAccountDetails.section_PRL[0].section_3==true" class="item-span tick">
+                                       <span class="glyphicon glyphicon-ok primary"></span>
+                                    </div>
+                                 </div>
+                                 <!--<div *ngIf="secondaryAccountDetails.section_SAV[0]!=null">
+                                    <div *ngIf="secondaryAccountDetails.section_SAV[0].section_3==true" class="item-span tick">
+                                    	<span class="glyphicon glyphicon-ok primary"></span>
+                                    </div>
+                                    </div>-->
+                                 INCOME DETAILS
+                              </a>
+                           </li>
+                           <li *ngIf="secondaryAccountDetails.product_type_code =='SAV' || secondaryAccountDetails.product_type_code =='HML' || secondaryAccountDetails.product_type_code =='PRL' ">
+                              <a href="#basic2-tab7" data-toggle="tab">
+                                 <div >
+                                    <div class="item-span">
+                                       <span class="fa fa-id-card fa-lg primary circle-icon-details" aria-hidden="true"></span>
+                                    </div>
+                                 </div>
+                                 <div *ngIf="secondaryAccountDetails.section_HML[0]!=null">
+                                    <div *ngIf="secondaryAccountDetails.section_HML[0].section_4==true" class="item-span tick">
+                                       <span class="glyphicon glyphicon-ok primary"></span>
+                                    </div>
+                                 </div>
+                                 <div *ngIf="secondaryAccountDetails.section_PRL[0]!=null">
+                                    <div *ngIf="secondaryAccountDetails.section_PRL[0].section_4==true" class="item-span tick">
+                                       <span class="glyphicon glyphicon-ok primary"></span>
+                                    </div>
+                                 </div>
+                                 <div *ngIf="secondaryAccountDetails.section_SAV[0]!=null">
+                                    <div *ngIf="secondaryAccountDetails.section_SAV[0].section_3==true" class="item-span tick">
+                                       <span class="glyphicon glyphicon-ok primary"></span>
+                                    </div>
+                                 </div>
+                                 IDENTITY INFORMATION
+                              </a>
+                           </li>
+                           <li *ngIf="secondaryAccountDetails.product_type_code =='SAV'">
+                              <a href="#basic2-tab8" data-toggle="tab">
+                                 <div >
+                                    <div class="item-span">
+                                       <span class="fa fa-percent fa-lg primary circle-icon-details" aria-hidden="true"></span>
+                                    </div>
+                                 </div>
+                                 <div *ngIf="secondaryAccountDetails.section_SAV[0]!=null">
+                                    <div *ngIf="secondaryAccountDetails.section_SAV[0].section_2==true" class="item-span tick">
+                                       <span class="glyphicon glyphicon-ok primary"></span>
+                                    </div>
+                                 </div>
+                                 TAX INFORMATION
+                              </a>
+                           </li>
+                           <li >
+                              <a href="#basic2-tab4" data-toggle="tab">
+                                 <div >
+                                    <div class="item-span" >
+                                       <span class="fa fa-paperclip fa-lg circle-icon-details" aria-hidden="true"></span>
+                                    </div>
+                                 </div>
+                                 ATTACHMENTS   
+                              </a>
+                           </li>
+                           <li >
+                              <a href="#basic2-tab5" data-toggle="tab" (click)=showLogs()>
+                                 <div >
+                                    <div class="item-span">
+                                       <span class="fa fa-pencil-square-o fa-lg primary circle-icon-details" aria-hidden="true"></span>
+                                    </div>
+                                 </div>
+                                 WORKLOGS   
+                              </a>
+                           </li>
+                            <li>
+                              <a href="#basic2-tab6" data-toggle="tab">
+                                <div>
+                                  <div class="item-span">
+                                    <span class="fa fa-pencil-square-o fa-lg primary circle-icon-details" aria-hidden="true"></span>
+                                  </div>
+                                </div>
+                                ACCOUNT DETAILS
+                              </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                           <div class="tab-pane active" id="basic2-tab1">
+                              <div class="grid-style">
+                                 <div class="table-responsive">
+                                    <table class="table table-hover">
+                                       <tbody>
+                                          <tr>
+                                             <td class="width-40">First Name</td>
+                                             <td class="width-60">{{secondaryAccountDetails.fname}}</td>
+                                          </tr>
+                                           <tr>
+                                             <td class="width-40">Middle Name</td>
+                                             <td class="width-60">{{secondaryAccountDetails.mname}}</td>
+                                          </tr>
+                                          <tr>
+                                             <td class="width-40">Surname</td>
+                                             <td class="width-60">{{secondaryAccountDetails.lname}}</td>
+                                          </tr>
+                                          <tr>
+                                             <td class="width-40">Date of Birth</td>
+                                             <td class="width-60">{{secondaryAccountDetails.dob}}</td>
+                                          </tr>
+                                          <tr>
+                                             <td class="width-40">Mobile Number</td>
+                                             <td class="width-60">{{secondaryAccountDetails.mobile}}</td>
+                                          </tr>
+                                          <tr>
+                                             <td class="width-40">Email Address</td>
+                                             <td class="width-60">{{secondaryAccountDetails.email}}</td>
+                                          </tr>
+                                          <tr>
+                                             <td class="width-40">Address</td>
+                                             <td class="width-60">{{secondaryAccountDetails.address}}</td>
+                                          </tr>
+                                          <tr *ngIf="secondaryAccountDetails.campaign_id !='' ">
+                                              <td class="width-40">Campaign ID</td>
+                                             <td class="width-60">{{secondaryAccountDetails.campaign_id}}</td>
+                                              
+                                          </tr>
+                                        
+                                       </tbody>
+                                    </table>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="tab-pane" id="basic2-tab2">
+                              <div *ngIf="secondaryAccountDetails.product_type!='Everyday Account'">
+                                 <div class="grid-style">
+                                    <div class="table-responsive">
+                                       <table class="table table-hover">
+                                          <tbody>
+                                               <!-- Borrow Details -->
+											<tr>
+												<td class="width-40">Amount Borrowed</td>
+												<td class="width-60">{{ secondaryAccountDetails.amtborrow}}</td>
+											</tr>
+											<tr>
+												<td class="width-40">Loan Term</td>
+												<td class="width-60">{{ secondaryAccountDetails.loanterm}}</td>
+											</tr>
+											<tr>
+												<td class="width-40">Frequency of repayment</td>
+												<td class="width-60">{{ secondaryAccountDetails.frequencyType}}</td>
+											</tr>
+											<tr *ngIf="secondaryAccountDetails.loanreason?.length > 0">
+												<td class="width-40">Purpose</td>
+												<td class="width-60" >
+													<span *ngFor="let key of keys()">{{key}},</span>
+												</td>
+											</tr>
+                                          </tbody>
+                                       </table>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <!--<div *ngIf="secondaryAccountDetails.product_type!='Everyday Account'">-->
+							   <!-- Property Details-->
+                           <div class="tab-pane" id="basic-tab3">
+                              <div class="grid-style">
+                                 <div class="table-responsive">
+                                    <table class="table table-hover">
+                                       <tbody>
+                                          <tr>
+                                             <td class="width-40">Loan Type</td>
+                                             <td class="width-60">{{ secondaryAccountDetails.loantype}}</td>
+                                          </tr>
+                                          <!--<tr *ngIf="secondaryAccountDetails.loantype!='REFINANCE'">
+                                             <td class="width-40">Property found</td>
+                                             <td class="width-60">{{ secondaryAccountDetails.property}}</td>
+                                          </tr>
+                                          <tr *ngIf="secondaryAccountDetails.loantype!='REFINANCE'">
+                                             <td class="width-40">Purchase Price</td>
+                                             <td class="width-60">$ {{ secondaryAccountDetails.purchaseprice }}</td>
+                                          </tr>-->
+											<tr>
+												<td class="width-40">Property Type</td>
+												<td class="width-60">{{ secondaryAccountDetails.proptype}}</td>
+											</tr>
+											<tr>
+												<td class="width-40">Purchase Price</td>
+												<td class="width-60">{{ secondaryAccountDetails.purchaseprice}}</td>
+											</tr>
+											<tr>
+												<td class="width-40">Payout Balance</td>
+												<td class="width-60">{{ secondaryAccountDetails.payoutbal}}</td>
+											</tr>
+											<tr>
+												<td class="width-40">Property Address</td>
+												<td class="width-60">{{ secondaryAccountDetails.prophousenum}},{{ secondaryAccountDetails.propaddr}},{{secondaryAccountDetails.propstreetnum}},{{secondaryAccountDetails.propstate}},{{secondaryAccountDetails.proppostcode}}</td>
+											</tr>
+											<tr>
+												<td class="width-40">Ownership Type</td>
+												<td class="width-60">{{ secondaryAccountDetails.ownership}}</td>
+											</tr>
+											<!-- Borrow Details -->
+											<tr>
+												<td class="width-40">Amount Borrowed</td>
+												<td class="width-60">{{ secondaryAccountDetails.amtborrow}}</td>
+											</tr>
+											<tr>
+												<td class="width-40">Loan Term</td>
+												<td class="width-60">{{ secondaryAccountDetails.loanterm}}</td>
+											</tr>
+											<tr>
+												<td class="width-40">Frequency of repayment</td>
+												<td class="width-60">{{ secondaryAccountDetails.frequencyType}}</td>
+											</tr>
+											<tr>
+												<td class="width-40">Interest type of loan</td>
+												<td class="width-60">{{ secondaryAccountDetails.interesttype}}</td>
+											</tr>
+											<tr>
+												<td class="width-40">Repayment type of loan</td>
+												<td class="width-60">{{ secondaryAccountDetails.repaymenttype}}</td>
+											</tr>
+                                       </tbody>
+                                    </table>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="tab-pane " id="basic2-tab4">
+                              <div class="grid-style">
+                                 <div class="table-responsive">
+                                    <div class="width-20 no-attachments" *ngIf="fileNames == null">
+                                       *No Attachments Found
+                                    </div>
+                                    <ul class="attachments">
+                                       <li  *ngFor="let files of fileNames"><img id="myImg" src="/downloads/{{secondaryAccountDetails.application_id}}/{{files}}" alt={{files}} style="height:300px;width:300px;">
+                                       </li>
+                                    </ul>
+                                    <hr/>
+                                    <div id="myModal1" class="modal1">
+                                       <span class="close2">&times;</span>
+                                       <img class="modal1-content" id="img01">
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="tab-pane margintop" id="basic2-tab5">
+                              <div class="grid-style">
+                                 <div class="table-responsive height-set">
+                                    <ul class="media-list">
+                                       <li class="media" >
+                                          <div class="media-body">
+                                             <div class="media">
+                                                <a class="pull-left" href="#">
+                                                </a>
+                                                <div class="media-body" >
+                                                   <b>Applicant</b> initiated the Application.  
+                                                   <br />
+                                                   <small class="text-muted">at {{created_time | date:'medium'}}</small>
+                                                   <hr />
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </li>
+                                       
+                                       <li class="media" *ngFor="let details of work_logs">
+                                          <div class="media-body">
+                                             <div class="media">
+                                                <a class="pull-left" href="#">
+                                                </a>
+                                                <div class="media-body" *ngIf="secondaryAccountDetails.change_type == 1 ">
+                                                   <span class="words">{{secondaryAccountDetails.who}}</span> has changed the status from 
+                                                     <span class="words" >{{applicationStatusCodeNamePair.get(secondaryAccountDetails.from)}}</span>
+                                                   <!--<span *ngIf="secondaryAccountDetails.from =='CMP'"class="words">Complete</span>
+                                                   <span *ngIf="secondaryAccountDetails.from =='INCMP'"class="words">InComplete</span>
+                                                   <span *ngIf="secondaryAccountDetails.from =='SAV'"class="words">Active</span>
+                                                   <span *ngIf="secondaryAccountDetails.from =='VER'"class="words">Verified</span>
+                                                   <span *ngIf="secondaryAccountDetails.from =='CAN'"class="words">Cancelled</span>
+                                                   <span *ngIf="secondaryAccountDetails.from =='REJ'"class="words">Rejected</span>
+                                                   <span *ngIf="secondaryAccountDetails.from=='ONBOARD'"class="words">Onboarded</span>-->
+                                                   to   
+                                                    <span class="words" >{{applicationStatusCodeNamePair.get(secondaryAccountDetails.to)}}</span>
+                                                   <!--<span *ngIf="secondaryAccountDetails.to=='CMP'"class="words">Complete</span>
+                                                   <span *ngIf="secondaryAccountDetails.to=='INCMP'"class="words">InComplete</span>
+                                                   <span *ngIf="secondaryAccountDetails.to=='SAV'"class="words">Active</span>
+                                                   <span *ngIf="secondaryAccountDetails.to=='VER'"class="words">Verified</span>
+                                                   <span *ngIf="secondaryAccountDetails.to=='CAN'"class="words">Cancelled</span>
+                                                   <span *ngIf="secondaryAccountDetails.to=='REJ'"class="words">Rejected</span>
+                                                   <span *ngIf="secondaryAccountDetails.to=='ONBOARD'"class="words">Onboarded</span>-->
+                                                   <br />
+                                                   <small class="text-muted">at {{secondaryAccountDetails.updated_time  | date:'medium' }}</small>
+                                                   <hr />
+                                                </div>
+                                                <div class="media-body" *ngIf="secondaryAccountDetails.change_type == 2">
+                                                   <span class="words"> {{secondaryAccountDetails.who}} </span> has changed the owner of the ticket from <span class="words">{{secondaryAccountDetails.from}} </span> to <span class="words"> {{secondaryAccountDetails.to}}</span> 
+                                                   <br />
+                                                   <small class="text-muted">at {{secondaryAccountDetails.updated_time  | date:'medium' }}</small>
+                                                   <hr />
+                                                </div>
+                                                <div class="media-body" *ngIf="secondaryAccountDetails.change_type == 5">
+                                                   <span class="words"> {{secondaryAccountDetails.who}} </span> has resumed the Application  
+                                                   <br />
+                                                   <small class="text-muted">at {{secondaryAccountDetails.updated_time  | date:'medium' }}</small>
+                                                   <hr />
+                                                </div>
+                                                <div class="media-body" *ngIf="secondaryAccountDetails.change_type == 6">
+                                                   <span class="words"> {{secondaryAccountDetails.who}} </span> has completed the Application  
+                                                   <br />
+                                                   <small class="text-muted">at {{secondaryAccountDetails.updated_time  | date:'medium' }}</small>
+                                                   <hr />
+                                                </div>
+                                                <div class="media-body" *ngIf="secondaryAccountDetails.comment != null">
+                                                   <span class="words"> {{secondaryAccountDetails.who}} </span> has added a comment :  <span style="font-size:15px;">{{secondaryAccountDetails.comment}}</span>
+                                                   <br />
+                                                   <small class="text-muted">at {{secondaryAccountDetails.updated_time  | date:'medium' }}</small>
+                                                   <hr />
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 <div class="panel-footer  ">
+                                    <form (ngSubmit)="addComments()">
+                                       <div class="input-group" >
+                                          <input type="text" class="form-control txtbox" autocomplete="off" [(ngModel)] = "str_comment" placeholder="Type your comment here" style="background-color:#fff;" name="comments"  #comments="ngModel" required/>
+                                          <span class="input-group-btn">
+                                          <button type="submit" class="btn btn-info"  >SEND</button>
+                                          </span>
+                                       </div>
+                                    </form>
+                                 </div>
+                              </div>
+                           </div>
+						   <!-- Tax Information -->
+                           <div class="tab-pane" id="basic2-tab8">
+                              <div class="grid-style">
+                                 <div class="table-responsive">
+                                    <table class="table table-hover">
+                                       <tbody>
+                                          <tr>
+                                             <td class="width-40">TFN</td>
+                                             <td class="width-60">{{secondaryAccountDetails.tfn}}</td>
+                                          </tr>
+                                          <tr>
+                                             <td class="width-40">Exemption</td>
+                                             <td class="width-60">{{secondaryAccountDetails.exemption}}</td>
+                                          </tr>
+                                       </tbody>
+                                    </table>
+                                 </div>
+                              </div>
+                           </div>
+                        
+						   <!-- Tab 9 Income details-->
+						     <div class="tab-pane " id="basic-tab9">
+								<div class="grid-style">
+									<div class="table-responsive">
+										<table class="table table-hover">
+											<tbody>
+												<tr>
+													<td class="width-40">Whether Employed ?</td>
+													<td class="width-60">{{ secondaryAccountDetails.employed}}</td>
+												</tr>
+												<tr>
+													<td class="width-40">Employer</td>
+													<td class="width-60">{{ secondaryAccountDetails.employer}}</td>
+												</tr>
+												<tr>
+													<td class="width-40">Years of service</td>
+													<td class="width-60">{{ secondaryAccountDetails.service}} Years</td>
+												</tr>
+												<tr>
+													<td class="width-40">Monthly Living Expenses</td>
+													<td class="width-60">{{ secondaryAccountDetails.monthlyLivingExpenses}}</td>
+												</tr>
+												<tr>
+													<td class="width-40">Earnings per month</td>
+													<td class="width-60">{{ secondaryAccountDetails.earnPerMonth}}</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+						     </div>
+                 <!-- Tab 6 Account Details-->
+                 <div class="tab-pane " id="basic2-tab6">
+                <div *ngIf="secondaryAccountDetails.application_status!=const.ONBOARDED">
+                    <div class="grid-style col-md-4 col-sm-4">
+                        <form>
+                            <div class="form-group has-feedback">
+                                <div class=" material-form">
+                                    <input type="text" name="accno" #accno [disabled]="talktolegacy_v==false" />
+                                    <label for="input" class="control-label">Account Number</label><i class="bar"></i>
+                                </div>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <div class=" material-form">
+                                    <!--<input type="password" [ngModel]="pass" (blur)="onKey()"  formControlName="password"   required="required"/>-->
+                                    <input type="text" name="cfid" #cfid [disabled]="talktolegacy_v==false" />
+                                    <label for="input" class="control-label">Customer Id</label><i class="bar"></i>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="button" class="btn bg-submit btn-block" [disabled]="talktolegacy_v==false" value="ADD" (click)="talktolegacy(secondaryAccountDetails.application_id,accno.value,cfid.value)" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div *ngIf="secondaryAccountDetails.application_status==const.ONBOARDED">
+                    <div class="grid-style">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <tbody>
+                                    <tr>
+                                        <td class="width-40">Account Number</td>
+                                        <td class="width-60">{{secondaryAccountDetails.core_account_number}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="width-40">Customer ID</td>
+                                        <td class="width-60">{{secondaryAccountDetails.core_customer_id}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+						   <!-- Tab 7 Identity information details-->
+						     <div class="tab-pane " id="basic2-tab7">
+                              <div class="grid-style">
+                                 <div class="table-responsive">
+                                   <table class="table table-hover">
+											<tbody>
+												<tr>
+													<td class="width-40">Passport Number</td>
+													<td class="width-60">{{ secondaryAccountDetails.idnum}}</td>
+												</tr>
+												<tr>
+													<td class="width-40">Passport Issuing Country</td>
+													<td class="width-60">{{secondaryAccountDetails.idstate}}</td>
+												</tr>
+												<tr>
+													<td class="width-40">Medicare Card number</td>
+													<td class="width-60">{{ secondaryAccountDetails.meidicarenum}}</td>
+												</tr>
+												<tr>
+													<td class="width-40">Medicare Reference number</td>
+													<td class="width-60">{{ secondaryAccountDetails.refnum}}</td>
+												</tr>
+												<tr>
+													<td class="width-40">Medicare Card Valid to</td>
+													<td class="width-60">{{ secondaryAccountDetails.validTo }}</td>
+												</tr>
+												<tr>
+													<td class="width-40">Medicare Card Color</td>
+													<td class="width-60">{{ secondaryAccountDetails.color}}</td>
+												</tr>
+												<tr>
+													<td class="width-40">State of driver license registration</td>
+													<td class="width-60">{{ secondaryAccountDetails.DLidState}}</td>
+												</tr>
+												<tr>
+													<td class="width-40">Driving License Number</td>
+													<td class="width-60">{{ secondaryAccountDetails.LNum}}</td>
+												</tr>
+											</tbody>
+                                   </table>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <!--</div>-->
+                  <!--</div>-->
+                  <!--<div class="attachment">
+                     <p>Documents Attached</p>
+                     <a href="#" class="attach-elmes"><span><i class="material-icons">attach_file</i></span> 1.<span class="doc-name">Document 1.pdf</span></a>
+                     </div>-->
+                  <!--
+                     <div class="notes">
+                     	<h6>NOTES</h6>
+                     	<div class="item">
+                     		<ol>
+                     			<li>{{secondaryAccountDetails.comments}}</li>
+                     			<!--<li>Appointment requested with a specialist</li>-->
+                  <!--<li>Call scheduled wtieh client on 21 Sep 12 am</li>-->
+                  <!--	</ol>
+                     </div>
+                     </div>-->
+                  <div class="btn-group col-lg-2  col-md-3 custom-pos">
+                     <button type="button" class="btn btn-success dropdown-toggle custom-line" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Download as</button>
+                     <div class="dropdown-menu custom-padd">
+                        <button class="dropdown-item" (click)="download(secondaryAccountDetails.application_id)">PDF</button>
+                        <button class="dropdown-item " (click)="exportAll('xls',secondaryAccountDetails.application_id)">XLS</button>
+                        <button class="dropdown-item " (click)="exportAll('txt',secondaryAccountDetails.application_id)">TXT</button>
+                        <button class="dropdown-item" (click)="exportAll('csv',secondaryAccountDetails.application_id)">CSV</button>
+                     </div>
+                  </div>
+                  <div class="row  padd">
+                     <div class="col-lg-6 col-md-8">
+                         <button (mouseover)="onmousehover(1)"
+                        (mouseout)="onmouseout()" (click)="changeStatus(4)" *ngIf="secondaryAccountDetails.application_status==const.COMPLETED"
+                        data-toggle="tooltip" title={{message}} style="color:white;background:green;" type="button" class="btn btn-labeledd btn-success">
+                        <span class="btn-labell">
+                        <i class="glyphicon glyphicon-ok" aria-hidden="true"  ></i></span>    Verify</button>
+                        <button (mouseover)="onmousehover(2)"
+                        (mouseout)="onmouseout()" (click)="changeStatus(5)" *ngIf=" secondaryAccountDetails.application_status!=const.ONBOARDED &&secondaryAccountDetails.application_status!=const.REJECTED && secondaryAccountDetails.application_status!=const.CANCELLED"
+                        data-toggle="tooltip" title={{message}} style="color:white;background:darkred;" type="button" class="btn btn-labeledd btn-danger">
+                        <span class="btn-labell"><i class="glyphicon glyphicon-remove" aria-hidden="true" style="color:white;background:darkred;" ></i></span>Cancel</button>
+                        <button (mouseover)="onmousehover(3)"
+                        (mouseout)="onmouseout()" (click)="changeStatus(6)" *ngIf="secondaryAccountDetails.application_status!=const.ONBOARDED && secondaryAccountDetails.application_status!=const.REJECTED" tooltip="message" data-toggle="tooltip"
+                        title={{message}} style="color:white;background:red;" type="button" class="btn btn-labeledd btn-danger">
+                        <span class="btn-labell"><i class="glyphicon glyphicon-ban-circle" aria-hidden="true" style="color:white;" ></i></span> Reject</button>
+                     </div>
+                  </div>
+                  <div >
+                     <div hidden class="row" id="content1">
+                        <!--<img alt="Logo" src="/assets/images/logo.png">-->
+                        <div class="col-md-offset-8 row pull-right">
+                           <p>Application ID:{{secondaryAccountDetails.application_id}}</p>
+                        </div>
+                        <div class="row pull-right">
+                           <p>Product type:{{secondaryAccountDetails.product_type}}</p>
+                        </div>
+                        <div class="row pull-right">
+                           <p>Application Status:
+                                <span >{{applicationStatusCodeNamePair.get(secondaryAccountDetails.application_status)}}</span>
+                             <!-- <span *ngIf="secondaryAccountDetails.application_status=='SAV'" class="app-incomplete">ACTIVE</span>
+                              <span *ngIf="secondaryAccountDetails.application_status=='INCMP'" class="app-complete">INCOMPLETED</span>
+                              <span *ngIf="secondaryAccountDetails.application_status=='CMP'" class="app-complete">COMPLETED</span>-->
+                           </p>
+                        </div>
+						<!--Personal Loan Account Details-->
+                        <div >
+                           <table>
+                              <!--<h4>Personal Details</h4>-->
+                              <tbody>
+                                 <tr>
+                                    <th>Personal details</th>
+                                    <td></td>
+                                 </tr>
+                                 <tr>
+                                    <td >First Name</td>
+                                    <td >{{secondaryAccountDetails.fname}}</td>
+                                 </tr>
+                                  <tr>
+                                    <td class="width-40">Middle Name</td>
+                                    <td class="width-60">{{secondaryAccountDetails.mname}}</td>
+                                  </tr>
+                                 <tr>
+                                    <td >Surname</td>
+                                    <td >{{secondaryAccountDetails.lname}}</td>
+                                 </tr>
+                                 <tr>
+                                    <td >Date of Birth</td>
+                                    <td >{{secondaryAccountDetails.dob}}</td>
+                                 </tr>
+                                 <tr>
+                                    <td >Mobile Number</td>
+                                    <td>{{secondaryAccountDetails.mobile}}</td>
+                                 </tr>
+                                 <tr>
+                                    <td >Email Address</td>
+                                    <td >{{secondaryAccountDetails.email}}</td>
+                                 </tr>
+                                 <tr>
+                                    <td >Address</td>
+                                    <td >{{secondaryAccountDetails.address}}</td>
+                                 </tr>
+                                
+                              </tbody>
+                           </table>
+                           <!--<h4>Loan details</h4>-->
+                           <table>
+                              	<tr>
+								<td class="width-40">Whether Employed ?</td>
+									<td class="width-60">{{ secondaryAccountDetails.employed}}</td>
+								</tr>
+								<tr>
+									<td class="width-40">Employer</td>
+									<td class="width-60">{{ secondaryAccountDetails.employer}}</td>
+								</tr>
+								<tr>
+									<td class="width-40">Years of service</td>
+									<td class="width-60">{{ secondaryAccountDetails.service}} Years</td>
+								</tr>
+								<tr>
+									<td class="width-40">Monthly Living Expenses</td>
+									<td class="width-60">{{ secondaryAccountDetails.monthlyLivingExpenses}}</td>
+								</tr>
+								<tr>
+									<td class="width-40">Earnings per month</td>
+									<td class="width-60">{{ secondaryAccountDetails.earnPerMonth}}</td>
+								</tr>
+                           </table>
+                           <table>
+                              <tr>
+                                 <th>property details</th>
+                                 <td></td>
+                              </tr>
+                              <tr>
+                                 <td class="width-40">Changed Load Tykjhkjhk</td>
+                                 <td class="width-60">{{ secondaryAccountDetails.loantype}}</td>
+                              </tr>
+                              <tr *ngIf="secondaryAccountDetails.loantype!='REFINANCE'">
+                                 <td class="width-40">Property found</td>
+                                 <td class="width-60">{{ secondaryAccountDetails.property}}</td>
+                              </tr>
+                              <tr *ngIf="secondaryAccountDetails.loantype!='REFINANCE'">
+                                 <td class="width-40">Purchase Price</td>
+                                 <td class="width-60">$ {{ secondaryAccountDetails.purchaseprice }}</td>
+                              </tr>
+                           </table>
+                        </div>
+                     </div>
+                     <div  hidden>
+                        <table class="table" id="excel" border="0">
+                           <tbody>
+                              <tr>
+                                 <td class="width-40">Application ID</td>
+                                 <td class="width-60">{{secondaryAccountDetails.application_id}}</td>
+                              </tr>
+                              <tr>
+                                 <td class="width-40">Product Type</td>
+                                 <td class="width-60">{{secondaryAccountDetails.product_type}}</td>
+                              </tr>
+                              <tr>
+                                 <td class="width-40">Application Status</td>
+                                 <td class="width-60">
+                                     <span >{{applicationStatusCodeNamePair.get(secondaryAccountDetails.application_status)}}</span>
+                                   <!-- <span *ngIf="secondaryAccountDetails.application_status=='SAV'" class="app-incomplete">ACTIVE</span>
+                                    <span *ngIf="secondaryAccountDetails.application_status=='INCMP'" class="app-complete">INCOMPLETED</span>
+                                    <span *ngIf="secondaryAccountDetails.application_status=='CMP'" class="app-complete">COMPLETED</span>-->
+                                 </td>
+                              </tr>
+                              <tr></tr>
+                              <tr>
+                                 <td>Personal Details</td>
+                              </tr>
+                              <tr></tr>
+                              <tr>
+                                 <td class="width-40">First Name</td>
+                                 <td class="width-60">{{secondaryAccountDetails.fname}}</td>
+                              </tr>
+                              <tr>
+                                    <td class="width-40">Middle Name</td>
+                                    <td class="width-60">{{secondaryAccountDetails.mname}}</td>
+                                </tr>
+                              <tr>
+                                 <td class="width-40">Surname</td>
+                                 <td class="width-60">{{secondaryAccountDetails.lname}}</td>
+                              </tr>
+                              <tr>
+                                 <td class="width-40">Date of Birth</td>
+                                 <td class="width-60">{{secondaryAccountDetails.dob}}</td>
+                              </tr>
+                              <tr>
+                                 <td class="width-40">Mobile Number</td>
+                                 <td class="width-60">{{secondaryAccountDetails.mobile}}</td>
+                              </tr>
+                              <tr>
+                                 <td class="width-40">Email Address</td>
+                                 <td class="width-60">{{secondaryAccountDetails.email}}</td>
+                              </tr>
+                              <tr>
+                                 <td class="width-40">Address</td>
+                                 <td class="width-60">{{secondaryAccountDetails.address}}</td>
+                              </tr>
+                             
+                            
+                              <tr>
+                                 <td>Loan Details</td>
+                              </tr>
+                              <tr></tr>
+                              <tr>
+                                 <td class="width-40">Loan Amount</td>
+                                 <td class="width-60"> {{ secondaryAccountDetails.amtborrow | currency:'USD':true:'4.2-2' }}</td>
+                              </tr>
+                              <tr>
+                                 <td class="width-40">Repayment Amount</td>
+                                 <td class="width-60"><label>$  -/<span class="small-text">month</span></label></td>
+                              </tr>
+                              <tr>
+                                 <td class="width-40">Repay Loan Over</td>
+                                 <td class="width-60">{{ secondaryAccountDetails.loanterm }} Years</td>
+                              </tr>
+                              <tr>
+                                 <td class="width-40">Rate</td>
+                                 <td class="width-60">- % p.a</td>
+                              </tr>
+                              <tr></tr>
+                              <tr>
+                                 <td>Property Details</td>
+                              </tr>
+                              <tr></tr>
+                              <tr>
+                                 <td class="width-40">Loan Type</td>
+                                 <td class="width-60">{{ secondaryAccountDetails.loantype}}</td>
+                              </tr>
+                              <tr *ngIf="secondaryAccountDetails.loantype!='REFINANCE'">
+                                 <td class="width-40">Property found</td>
+                                 <td class="width-60">{{ secondaryAccountDetails.property}}</td>
+                              </tr>
+                              <tr *ngIf="secondaryAccountDetails.loantype!='REFINANCE'">
+                                 <td class="width-40">Purchase Price</td>
+                                 <td class="width-60">$ {{ secondaryAccountDetails.purchaseprice }}</td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+               </div>
+
+
+
+            </div>
+         </div>
+         <!-- /content area -->
+      </div>
+      <!-- /main content -->
+   </div>
+   <!-- /page content -->
+   <!-- Footer -->
+   <div class="footer text-muted">
+      Copyright 2016. All rights Reserved.
+   </div>
+   <!-- /footer -->
+</div>
+<!-- /page container -->

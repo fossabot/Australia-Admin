@@ -1,0 +1,12 @@
+<div class="custom-upload-border">
+
+    <div class="col-md-12 col-sm-12 ">
+        <div *ngFor="let info of uploadInfoID">
+            <dropzone (success)="successUpload1($event) " [config]="config " [message]=" 'Click or drag image here to upload ID proof' "></dropzone>
+        </div>
+    </div>
+    <div id="addAnotherDoc1" class="col-md-12 col-sm-12 add-another-doc ">
+        <a (click)="addRow1() " href="JavaScript:void(0); " class="pull-right custom-add-row "><span class="glyphicon glyphicon-plus-sign "></span> Add more document</a>
+    </div>
+
+</div>

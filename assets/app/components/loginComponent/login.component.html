@@ -1,0 +1,50 @@
+<section class="login-banner">
+			
+			<div class="login-content">
+				<div class="login-wrapper">
+					<!--{{u_name }}-->
+					
+<div *ngIf="status=='Invalid'">
+		<div class="alert alert-warning"> <strong>Warning!</strong> Invalid login Credentials.</div>
+</div>
+					
+				<div class="panel  login-form">
+					<div id="header_login" class="login-header">
+							<img id="image" >
+							<div class="panel-heading panel-adjust" style="width:inherit;padding-right:150px;">Admin Login</div>
+							<div class="panel-subheading" style="margin-top: 50px;margin-left: -293px;">( Online Applications )</div>
+					</div>		
+							<div class="panel-body">
+                                  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+								<div class="form-group has-feedback">
+			                     	<div class=" material-form">
+								      <input type="text"  formControlName="username" required="required"/>
+								      <label for="input" class="control-label">Username</label><i class="bar"></i>
+								    </div>
+								  </div>
+								  <div class="form-group has-feedback">
+			                     	<div class=" material-form">
+								      <!--<input type="password" [ngModel]="pass" (blur)="onKey()"  formControlName="password"   required="required"/>-->
+									  <input type="password" [ngModel]="pass" formControlName="password"   required="required"/>
+								      <label for="input" class="control-label">Password</label><i class="bar"></i>
+								    </div>
+								  </div>
+
+							<div class="form-group">
+                          
+								<input type="submit" class="btn bg-submit btn-block" value="LOGIN">
+							</div>
+
+							<div class="forget-pass">
+								<a href="#">Forgot password?</a>
+							</div>
+                            </form>
+								
+							</div>
+						
+						</div>
+						<div class="clearfix"></div>
+						</div>
+				</div>
+	</section>
+	

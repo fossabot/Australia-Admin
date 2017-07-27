@@ -1,0 +1,106 @@
+<!--<div class="row">
+    <div *ngFor="let item of ThemeArray">
+        <span *ngIf="item!='donotdelete.txt'">
+    <div class="col-md-3">
+        <a  href="https://adminthemeapp.herokuapp.com/push_to_server/switchToTheme/{{item}}" class="btn bg-submit btn-block">{{item}}</a>
+    </div>
+    </span>
+    </div>-->
+
+
+<!--</div>-->
+<!--<div class="row">
+    <div *ngFor="let item of ThemeArray">
+        <span *ngIf="item!='donotdelete.txt'">
+    <div class="col-md-3">
+        <a  [ngClass]="{'active activeclass':(item==current_theme)}" (click)="switchTheme(item[0])"  class="btn bg-submit btn-block">Apply now</a>
+    </div>
+    </span>
+    </div>
+</div>-->
+<div class="row">
+    <div class="col-md-12">
+        <div class="width-20 no-attachments" *ngIf="ThemeArraylength==0">
+            *No Themes Found
+        </div>
+        <span *ngFor="let item of ThemeArray">
+            <span *ngIf="item!='donotdelete.txt'">
+        <div class="card col-md-4" [ngClass]="{'fadeCard':(item==current_theme)}">
+            <img id="myImg" class="card-img-top" src="/assets/images/{{item}}.jpg" alt="template" style="height:196px;width:311px;">
+
+            <div [hidden]="(item==current_theme)" class="card-block">
+                <a (click)="switchTheme(item)" class="btn btn-primary">Apply now</a>
+            </div>
+            <div [hidden]="!(item==current_theme)" class="card-block">
+                <button type="button"  class="btn btn-primary" disabled>Current Theme</button>
+            </div>
+        </div>
+            </span>
+        </span>
+        <div id="myModal1" class="modal1">
+            <span class="close3">&times;</span>
+            <img class="modal2-content" id="img01">
+        </div>
+    </div>
+</div>
+<div class="modal" id="processData_modal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div>
+            <div class="modal-header ">
+                <!--<button  data-dismiss="modal" (click)="reset()" class="btn btn-danger pull-right">close</button>-->
+                <h4 class="modal-title" id="largeModalHead">Switching Theme</h4>
+            </div>
+            <div class="modal-body">
+                <!--<img src="https://media.giphy.com/media/7F2cuTDGn9pmw/giphy.gif" width="500" height="500">-->
+                <div class="">
+                    <br>
+                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol hidden class="carousel-indicators">
+                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#myCarousel" data-slide-to="1"></li>
+                            <li data-target="#myCarousel" data-slide-to="2"></li>
+                            <!--<li data-target="#myCarousel" data-slide-to="3"></li>-->
+                        </ol>
+
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner" role="listbox">
+                            <div class="item active">
+                                <div style="font-size: 25px;padding-left:20% ;color:white;font-family:'Good Times Regular';width:500px; height:400px;padding-top:30%;background:#385996">
+                                    Switching Themes..
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div style=" font-size: 25px;padding-left:30% ;color:white;font-family:'Good Times Regular';width:500px; height:400px;padding-top:30%;background:#eb974e">
+                                    Building..
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div style="font-size: 25px; padding-left:20% ;color:white; font-family:'Good Times Regular';width:500px; height:400px;padding-top:30%;background:#1bbc9b">
+                                    Good to go..
+                                </div>
+                            </div>
+
+                            <!--<div class="item">
+                                <div style=" font-size: 25px; padding-left:20% ;color:white;font-family:'Good Times Regular'; width:500px; height:400px;padding-top:30%;background:#385996">
+                                    Connected to Database...
+                                </div>
+                            </div>-->
+
+                        </div>
+
+                        <!-- Left and right controls -->
+                        <!--<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+                        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

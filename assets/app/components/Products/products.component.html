@@ -1,0 +1,123 @@
+<div *ngIf="status=='Authenticated'">
+
+	<aside class="collapse-sidebar" id="sidebar-wrapper">
+		<div class="header-collapse">
+			<div class="close-collapse">
+				<a class="" id="sidebar-close"><i class="material-icons">keyboard_arrow_left</i></a>
+			</div>
+			<div class="collapse-sidebar-body">
+				<ul>
+
+					<li *ngIf="menu==1 || menu==3"><a id="closeOnclick" [routerLink]="['/dashboard']"><i class="material-icons">trending_up</i> Overview</a></li>
+								<li *ngIf="menu==1 || menu==2"><a id="closeOnclick"  [routerLink]="['/application']"><i class="material-icons">visibility</i> Applications</a></li>
+								<!--<li><a  [routerLink]="['/dashboard']"><i class="material-icons">schedule</i> Appointments</a></li> -->
+						<li *ngIf="menu==1 || menu==3"><a  id="closeOnclick" [routerLink]="['/Products']"><i class="material-icons">loyalty</i> Products</a></li>
+						<li *ngIf="menu==1 || menu==4"><a  id="closeOnclick" [routerLink]="['/users']"><i class="material-icons">person</i> Users</a></li>
+					<!-- <li>
+									<h6>PROFILE</h6>
+							</li> -->
+					<!--<li><a  [routerLink]="['/dashboard']"><i class="material-icons">mail</i> Mail</a></li>
+								<li><a  [routerLink]="['/dashboard']"><i class="material-icons">chat_bubble_outline</i> Requests</a></li>
+								<li><a  [routerLink]="['/dashboard']"><i class="material-icons">today</i> Calendar</a></li>
+								<li><a  [routerLink]="['/dashboard']"><i class="material-icons">power_settings_new</i> Logout</a></li>-->
+
+				</ul>
+			</div>
+		</div>
+
+	</aside>
+
+
+
+	<!-- Main navbar -->
+	<div id="load" class="loading">
+   <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+   <span class="sr-only">Loading...</span>
+    </div>
+	<div class="navbar navbar-inverse bg-direct navbar-fixed-top">
+		<div class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				<li><a class="sidebar-control  hidden-xs" id="menu-toggle"><i class="material-icons">menu</i></a></li>
+			</ul>
+		</div>
+		<div class="navbar-header">
+			<a class="navbar-brand" [routerLink]="['/dashboard']"><img src="/assets/images/logo.png" alt=""></a>
+
+		</div>
+		<div class="navbar-right">
+			<ul class="nav navbar-nav">
+				<!-- <li><a href="dashboard.html"  class="home"><i class="material-icons">home</i></a></li>		 -->
+				<li class="">
+					<a class="avatar">
+						<img src="/assets/images/avatar.png" class="img-circle img-xs" alt="">
+						<i class="material-icons">more_vert</i>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<!-- <div class="nav-title">
+				<h6>APPLICATIONS</h6>
+			</div> -->
+	</div>
+	<!-- /main navbar -->
+
+	<!-- Page container -->
+	<div class="page-container">
+		<div class="overlay"></div>
+		<!-- Page content -->
+		<div class="page-content">
+
+
+			<!-- Main content -->
+			<div class="content-wrapper">
+				<!-- Content area -->
+				<div class="content">
+					<div class="container">
+						<div class="pull-right">
+							<a (click)="refresh()" class="glyphicon glyphicon-refresh"></a>
+						</div>
+						<div class="inner-content">
+							<div class="custom-pills">
+								<div class="tabbable">
+									<ul class="nav nav-pills">
+										<li routerLinkActive="active"><a [routerLink]="['products']">Subcriptions</a></li>
+										<li routerLinkActive="active"><a [routerLink]="['SubProducts']">Product </a></li>
+										<li routerLinkActive="active"><a [routerLink]="['ProductFeatures']">Product Features </a></li>
+										<li routerLinkActive="active"><a [routerLink]="['SwitchTheme']">Switch Themes</a></li>
+										<li routerLinkActive="active"><a [routerLink]="['jsonEditor']">Describe Products</a></li>
+										<li routerLinkActive="active"><a [routerLink]="['Integration']">Integration</a></li>
+										 <li routerLinkActive="active"><a [routerLink]="['templatess']">Fonts & Colours</a></li>
+										  <li routerLinkActive="active"><a [routerLink]="['AddNewField']">Add New Field</a></li>
+										<!--<li routerLinkActive="active"><a [routerLink]="['CrossSellingProducts']">Cross Selling Product</a></li>-->
+									</ul>
+
+									<router-outlet></router-outlet>
+								</div>
+							</div>
+
+
+						</div>
+					</div>
+
+
+				</div>
+				<!-- /content area -->
+
+			</div>
+			<!-- /main content -->
+
+		</div>
+		<!-- /page content -->
+
+		<!-- Footer -->
+		<div class="footer text-muted">
+			Copyright 2016. All rights Reserved.
+		</div>
+		<!-- /footer -->
+
+	</div>
+	<!-- /page container -->
+
+
+
+</div>

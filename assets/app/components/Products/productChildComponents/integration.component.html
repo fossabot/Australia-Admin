@@ -1,0 +1,27 @@
+<div class="row fontweight">
+    <div class="col-lg-6 col-md-8" style="margin-top:10px;margin-left:200px" [hidden]="pushflag==false">
+        <div class="alert alert-success col-lg-8"> <strong>Successfully!</strong>Applied.</div>
+    </div>
+    <div class="col-md-6 ">
+
+
+        <form>
+            <label class="radio-inline fontweight">
+      <input type="radio" class="styled" [(ngModel)]="openingMode" [checked] name="openingMode" id="NoIntegration" value="NOI">No Integration
+    </label>
+            <div [ngClass]="{'displaynone':!RPAflag}"> <label class="radio-inline fontweight">
+      <input type="radio" class="styled" [(ngModel)]="openingMode" name="openingMode" id="TTL" value="TTL">Robotic Process Automation
+    </label></div>
+            <div [ngClass]="{'displaynone':!APIflag}"> <label class="radio-inline fontweight">
+      <input type="radio" class="styled" [(ngModel)]="openingMode" name="openingMode" id="PTC" value="PTC">Application Programming Interface
+    </label></div>
+
+        </form><br/>
+        <div class="col-md-4">
+            <button type="submit" (click)="ChangeAccMode()" class="btn bg-submit btn-block">Apply</button>
+        </div>
+
+
+    </div>
+
+</div>

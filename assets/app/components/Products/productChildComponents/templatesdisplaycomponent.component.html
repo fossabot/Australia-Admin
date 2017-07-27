@@ -1,0 +1,100 @@
+<!--<form class="form-horizontal"  [formGroup]="myForm">-->
+<div class="modal-body">
+	<!--<div class="overlay-loading"></div>-->
+	<div class="overlay-loading">
+  <div class="">
+  
+<span class="sr-only">Loading...</span>
+  </div>
+</div>
+ <div class="spin-above"><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></div>
+ <div class="row">
+	 <div class="col-md-3"></div>
+	<div class="col-md-6">
+		<div class="alert alert-danger" id="errorMessage">
+			
+		</div>
+		<div class="alert alert-success" id="successMessage">
+		</div>
+		<div class="alert alert-success" [hidden]="msgFlag==false">
+                                        <strong>Your template has been pushed, please visit empoer onboarding after some time.</strong>
+                                </div>
+								<div class="alert alert-success" [hidden]="delFlag==false">
+                                        <strong>Your template is sucessfully deleted.</strong>
+                                </div>
+		<div class="panel panel-default" *ngIf='isfileExist==true && ispushFileExist==true'>
+			<!--<div class="panel-heading" style='background:#003479;color:white;font-weight: 100;font-size: 22px;text-align:center'>Upload template</div>
+			<div class="panel-body">
+				<a class="pull-right" [hidden]='showUpload' (click)='deleteFile()'><i class="glyphicon glyphicon-trash"></i></a>
+			
+				<div class="center-content modal-upload scrollcls">
+					<div class="custom-upload-border">
+						
+						<div id='uploadBox' *ngIf="showUpload==true" class="col-md-12 col-sm-12 ">
+							<div *ngFor="let info of uploadInfoID">
+								<dropzone #dz (success)="successUpload1($event)" (error)="showError($event);dz.reset()" [config]="config " [message]=" 'Click or drag image here to upload ID proof' "></dropzone>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>-->
+			hide
+		</div>
+
+				<div class="panel panel-default" id='uploadDocument' *ngIf='isfileExist==false && ispushFileExist==false'>
+			<div class="panel-heading" style='background:#003479;color:white;font-weight: 100;font-size: 22px;text-align:center'>Upload template</div>
+			<div class="panel-body">
+				
+				<!--<a class="pull-right"><i class="glyphicon glyphicon-pencil"></i></a>&nbsp;&nbsp;&nbsp;-->
+				<div class="center-content modal-upload scrollcls">
+					<div class="custom-upload-border">
+						
+						<div id='uploadBox'  class="col-md-12 col-sm-12 ">
+							<div *ngFor="let info of uploadInfoID">
+								<dropzone #dz (success)="successUpload1($event);isfileExist=true;ispushFileExist=false;" (error)="showError($event);dz.reset()" [config]="config " [message]=" 'Click or drag theme file here to change look and feel of Consumer application' "></dropzone>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default" *ngIf='isfileExist==false && ispushFileExist==false' >
+			<!--<div class="panel-heading" style='background:#003479;color:white;font-weight: 100;font-size: 22px;text-align:center'>Uploaded template</div>
+			<div class="panel-body">
+				template.zip
+			</div>-->
+		</div>
+
+			<div class="panel panel-default" id='uploadedDocument' *ngIf='isfileExist==true || ispushFileExist==true' >
+			<div class="panel-heading" style='background:#003479;color:white;font-weight: 100;font-size: 22px;text-align:center'>Uploaded template</div>
+			<div class="panel-body">
+				template.zip
+			</div>
+		</div>
+
+		
+	</div>
+ </div>
+ <div class="row">
+	 <div class="col-md-3"></div>
+		<div  class="col-md-2" *ngIf='isfileExist==false && ispushFileExist==false' >
+			<!--<input type="submit" class="btn bg-submit btn-block" (click)="push()" value="Push">-->
+		</div>
+		<div  class="col-md-3" *ngIf='isfileExist==true && ispushFileExist==false' >
+			<button type="submit" tabindex="0" class="btn bg-submit btn-block" [ladda]="isLoading" data-style="expand-right" data-spinner-color="brown" (click)="push()"  value="Push"><span class="ladda-label">PUBLISH</span></button>
+			  <!--<button type="submit" tabindex="0" class="btn btn-form-primary" [ladda]="isLoading" data-style="expand-right" data-spinner-color="white" [disabled]="!fname.valid || model.dob=='' || !lname.valid || model.title=='0'||model.dob==null ||!email.valid||!mobile.valid"><span class="ladda-label">SAVE & CONTINUE</span></button>-->
+		</div>
+		<div  class="col-md-3" *ngIf='isfileExist==false && ispushFileExist==false'>
+			<!--<input type="submit" class="btn bg-submit btn-block" (click)="deleteFile()" value="Delete">-->
+		</div>
+			<div  class="col-md-3" *ngIf='isfileExist==true || ispushFileExist==true'>
+			<input type="submit" class="btn bg-submit btn-block" (click)="deleteFile()"  value="Delete" [disabled]='isLoading'>
+		</div>
+ </div>
+	
+</div>
+
+
+
+
+<!--</form>-->

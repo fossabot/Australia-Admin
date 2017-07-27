@@ -1,0 +1,73 @@
+{
+    "SAV": [{
+        "section_1": {
+            "name": "Personal Information",
+            "route_v": "personalContactInfo",
+            "value": 1
+        },
+        "section_2": {
+            "name": "Tax Information",
+            "route_v": "taxInformation",
+            "value": 2
+        },
+        "section_3": {
+            "name": "Identity Information",
+            "route_v": "onlineIdCheck",
+            "value": 3
+        },
+        "section_4": {
+            "name": "Register for Internet Banking",
+            "route_v": "passwordSetup",
+            "value": 4
+        }
+    }],
+    "HML": [{
+        "section_1": {
+            "name": "Personal Information",
+            "route_v": "personalContactInfo",
+            "value": 1
+        },
+        "section_2": {
+            "name": "Property Details",
+            "route_v": "propertyDetails",
+            "value": 2
+        },
+        "section_3": {
+            "name": "Income Expense",
+            "route_v": "incomeExpense",
+            "value": 3
+        },
+        "section_4": {
+            "name": "Identity Information",
+            "route_v": "onlineIdCheck",
+            "value": 4
+        }
+    }],
+    "PRL": [{
+        "section_1": {
+            "name": "Personal Information",
+            "route_v": "personalContactInfo",
+            "value": 1
+        },
+        "section_2": {
+            "name": "Loan Details",
+            "route_v": "personalLoanDetails",
+            "value": 2
+        },
+        "section_3": {
+            "name": "Income Expense",
+            "route_v": "incomeExpense",
+            "value": 3
+        },
+        "section_4": {
+            "name": "Identity Information",
+            "route_v": "onlineIdCheck",
+            "value": 4
+        }
+    }],
+    "number_of_sections": {
+        "SAV": "3",
+        "HML": "4",
+        "PRL": "4"
+    }
+}

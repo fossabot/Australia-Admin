@@ -1,0 +1,260 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="sidebar-nav-fixed">
+                <div class="well">
+                    <ul class="nav">
+                        <li class="nav-header" [ngClass]="{'active-cls':(logoContainer==true)}"><a (click)="logo()">Upload Logo</a></li>
+                        <li class="nav-header" [ngClass]="{'active-cls':(designContainer==true)}"><a (click)="Design()">Design Theme</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!--/span-->
+        <div class="col-md-9">
+            <!--<div class="well">-->
+            <div class="panel panel-default" id='uploadDocument'>
+                <!--<div class="panel panel-default" id='uploadDocument' *ngIf='isfileExist==false && ispushFileExist==false'>-->
+                <div class="panel-heading" style='background:#003479;color:white;font-weight: 100;font-size: 22px;text-align:center'>Customize fonts and colors</div>
+                <div class="panel-body">
+                    <!--<a class="pull-right"><i class="glyphicon glyphicon-pencil"></i></a>&nbsp;&nbsp;&nbsp;-->
+                    <div class="center-content modal-upload scrollcls">
+                        <div class="custom-upload-border">
+                            <div class="center-content modal-upload scrollcls" [hidden]="logoContainer==false">
+                                <div class="custom-upload-border">
+                                    <div class="alert alert-success col-lg-12" [hidden]="imgflag==false"> <strong>Successfully! </strong> Customize fonts and colors Reset successfully.</div>
+                                    <div id='uploadBox' class="col-md-12 col-sm-12 ">
+                                        <div *ngFor="let info of uploadInfoID">
+                                            <dropzone #dz (success)="successUpload1($event)" (error)="showError($event);dz.reset()" [config]="config " [message]=" 'Click or drag Image here to upload' "></dropzone>
+                                            <!--<dropzone #dz (success)="successUpload1($event);isfileExist=true;ispushFileExist=false;" (error)="showError($event);dz.reset()" [config]="config " [message]=" 'Click or drag zip file here to upload' "></dropzone>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--<div class="col-lg-6 col-md-8" [hidden]="pushflag==false">-->
+                            <div class="alert alert-success col-lg-12" [hidden]="pushflag==false"> <strong>Successfully! </strong> Customize fonts and colors Applied successfully.</div>
+                            <div class="alert alert-success col-lg-12" [hidden]="resetflag==false"> <strong>Successfully! </strong> Customize fonts and colors Reset successfully.</div>
+                            <!--</div>-->
+                            <!--<br/><br/><br/>-->
+                            <div [hidden]="designContainer==false" [ngStyle]="style">
+                                <!--<form (ngSubmit)="onSubmit(heroForm.value)" #heroForm="ngForm">-->
+                                <form #heroForm="ngForm">
+                                    <!--FIRST COLOR BOX -->
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="row">
+                                                <div class="col-lg-8">
+                                                    <p>Background color</p>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <!--<img id="myImg" class="card-img-top" src="/assets/images/Preview-icon.png" alt="template" style="height:50px;width:50px;">-->
+                                                    <p id="myImg" class="glyphicon glyphicon-eye-open"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <input [(colorPicker)]="color1" [(ngModel)]="color1" name="color1" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <!--END OF FIRST COLOR BOX-->
+                                    <!--SECOND COLOR BOX -->
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="row">
+                                                <div class="col-lg-8">
+                                                    <p>Text color</p>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <!--<img id="myImg1" class="card-img-top" src="/assets/images/Preview-icon.png" alt="template" style="height:50px;width:50px;">-->
+                                                    <p id="myImg1" class="glyphicon glyphicon-eye-open"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <input [(colorPicker)]="color2" [(ngModel)]="color2" name="color2" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <!--END OF SECOND COLOR BOX-->
+                                    <!--THIRD COLOR BOX -->
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="row">
+                                                <div class="col-lg-8">
+                                                    <p>Font Style</p>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <!--<img id="myImg2" class="card-img-top" src="/assets/images/Preview-icon.png" alt="template" style="height:50px;width:50px;">-->
+                                                    <p id="myImg2" class="glyphicon glyphicon-eye-open"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <!--<input [(colorPicker)]="color3" [(ngModel)]="color3" name="color3" class="form-control" />-->
+                                            <select class="form-control txtbox" id="title" [(ngModel)]="font_style" name="font_style">
+                                                <option>Georgia</option>
+                                                <option>serif</option>
+                                                <option>Palatino Linotype</option>
+                                                <option>Book Antiqua</option>
+                                                <option>Lucida Sans Unicode</option>
+                                                <option>Tahoma</option>
+                                                <option>Helvetica</option>
+                                                <option>monospace</option>
+                                                <option>Courier New</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!--END OF THIRD COLOR BOX-->
+                                    <!--FOUR COLOR BOX -->
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="row">
+                                                <div class="col-lg-8">
+                                                    <p>Buttons Background color</p>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <!--<img id="myImg3" class="card-img-top" src="/assets/images/Preview-icon.png" alt="template" style="height:50px;width:50px;">-->
+                                                    <p id="myImg3" class="glyphicon glyphicon-eye-open"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <input [(colorPicker)]="color3" [(ngModel)]="color3" name="color3" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <!--END OF FOUR COLOR BOX-->
+                                    <!--FIVE COLOR BOX -->
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="row">
+                                                <div class="col-lg-8">
+                                                    <p>Completed Progress Bar Color</p>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <!--<img id="myImg3" class="card-img-top" src="/assets/images/Preview-icon.png" alt="template" style="height:50px;width:50px;">-->
+                                                    <p id="myImg4" class="glyphicon glyphicon-eye-open"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <input [(colorPicker)]="color4" [(ngModel)]="color4" name="color4" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <!--END OF FIVE COLOR BOX-->
+                                    <!--SIX COLOR BOX -->
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="row">
+                                                <div class="col-lg-8">
+                                                    <p>Incompleted Progress Bar Color</p>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <!--<img id="myImg3" class="card-img-top" src="/assets/images/Preview-icon.png" alt="template" style="height:50px;width:50px;">-->
+                                                    <p id="myImg5" class="glyphicon glyphicon-eye-open"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <input [(colorPicker)]="color5" [(ngModel)]="color5" name="color5" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <!--END OF SIX COLOR BOX-->
+                                    <!--BUTTOn-->
+                                    <div class="row">
+                                        <div class="col-lg-6"></div>
+                                        <div class="col-lg-3">
+                                            <!--<input class="btn bg-submit btn-block" type="submit" value="Apply">-->
+                                            <button class="btn bg-submit btn-block" type="button" (click)="applybtn()">Apply</button>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <button class="btn bg-submit btn-block" type="button" (click)="resetbtn()">Reset</button>
+                                        </div>
+                                    </div>
+                                    <!--END BUTTon-->
+                                </form>
+                                <div id="myModal1" class="modal1">
+                                    <span class="close3">&times;</span>
+                                    <img class="modal2-content" id="img01" style="height: 157px; width: 700; border-left-width: 20px; margin-left: 365px;  margin-top: 150px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!---->
+                </div>
+            </div>
+            <!--</div>-->
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="apply_style" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm" style="margin: 150px auto">
+        <div class="modal-content">
+            <div class="modal-header modal-title1">
+                <div class="row">
+                    <div class="col-md-10 text-center">
+                        <h4 class="modal-title" id="largeModalHead">Customize fonts and colors</h4>
+                    </div>
+                    <div class="col-md-2">
+                        <button style='color:white' type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    </div>
+                </div>
+                <div class="row">
+                    &nbsp;
+                </div>
+            </div>
+            <div class="modal-body modal_align_c">
+                <p>Are you sure you want to Apply Customize fonts and colors ?</p>
+                <br/>
+                <div class="text-center">
+                    <div class="pull-left">
+                        <button type="button" class="btn bg-submit btn-block" style="width: 86px;height: 44px;margin-right: 10px;margin-left: 80px;" [ladda]="isLoading" data-style="expand-right" data-spinner-color="white" (click)="onSubmit(heroForm.value)"><span class="ladda-label">Confirm</span></button>
+                    </div>
+                    <button type="button" class="btn bg-submit btn-block" style="width: 86px;height: 44px" data-dismiss="modal" data-spinner-color="white"><span class="ladda-label">Close</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="reset_style" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm" style="margin: 150px auto">
+        <div class="modal-content">
+            <div class="modal-header modal-title1">
+                <div class="row">
+                    <div class="col-md-10 text-center">
+                        <h4 class="modal-title" id="largeModalHead">Customize fonts and colors</h4>
+                    </div>
+                    <div class="col-md-2">
+                        <button style='color:white' type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    </div>
+                </div>
+                <div class="row">
+                    &nbsp;
+                </div>
+            </div>
+            <div class="modal-body modal_align_c">
+                <p>Are you sure you want to Reset Customize fonts and colors ?</p>
+                <br/>
+                <div class="text-center">
+                    <div class="pull-left">
+                        <button type="button" class="btn bg-submit btn-block" style="width: 86px;height: 44px;margin-right: 10px;margin-left: 80px;" [ladda]="isLoading" data-style="expand-right" data-spinner-color="white" (click)="reset()"><span class="ladda-label">Confirm</span></button>
+                    </div>
+                    <button type="button" class="btn bg-submit btn-block" style="width: 86px;height: 44px" data-dismiss="modal" data-spinner-color="white"><span class="ladda-label">Close</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
